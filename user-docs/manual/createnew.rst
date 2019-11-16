@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .. _createnew:
 
 Creating a New gLabels Project
@@ -28,3 +29,7 @@ can be viewed later in the **Properties** panel (see :ref:`changingproperties`).
 Just click on a template to create the new project. It will be opened in a new
 window, to prevent you from losing unsaved changes in the previously opened
 window.
+=======
+Creating a New gLabels Project
+******************************
+>>>>>>> 6db85bc (Create framework for the user manual)

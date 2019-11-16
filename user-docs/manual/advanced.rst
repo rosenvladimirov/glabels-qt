@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 .. _advanced:
 
+=======
+>>>>>>> 6db85bc (Create framework for the user manual)
 Advanced Usage
 **************
 

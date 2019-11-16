@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .. _subst_spec:
 
 DRAFT gLabels Substitution Field Specification
@@ -199,3 +200,7 @@ For example, this modifier is primarily intended to handle the following use cas
 
 `${ADDR2}` would be printed on its own line, only if it is set and non-empty.
 
+=======
+gLabels Substitution Field Specification
+****************************************
+>>>>>>> 6db85bc (Create framework for the user manual)

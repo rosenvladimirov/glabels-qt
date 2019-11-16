@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .. _simple_project:
 
 Editing a Label or Card Design
@@ -56,3 +57,7 @@ Using just a few basic functions of gLabels, we created a rather attractive
 business card:
 
 .. figure:: ./figures/simple_project_2.png
+=======
+Editing a Label or Card Design
+******************************
+>>>>>>> 6db85bc (Create framework for the user manual)

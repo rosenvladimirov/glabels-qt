@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .. _template_designer:
 
 Product Template Designer
@@ -84,3 +85,7 @@ found any similar templates in the collection.
     `Open an issue at <https://github.com/j-evins/glabels-qt/issues/new>`__ and
     attach your completed product template file(s).
 
+=======
+Product Template Designer
+*************************
+>>>>>>> 6db85bc (Create framework for the user manual)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .. _user_defined_variables:
 
 Creating User-Defined Variables
@@ -19,3 +20,7 @@ adding the desired name and value, click on the drop-down menu in the left
 bottom corner of the window to configure the incrementation. After clicking on
 **OK**, the new variable appears in the list, and you can edit or delete it (or
 even add another one) by clicking on the buttons at the bottom of the window.
+=======
+Creating User-Defined Variables
+*******************************
+>>>>>>> 6db85bc (Create framework for the user manual)

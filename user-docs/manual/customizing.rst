@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .. _customizing:
 
 Customizing gLabels
@@ -108,3 +109,7 @@ Select one of the following options:
    * Color
 
    This control selects the default fill color.
+=======
+Customizing gLabels
+*******************
+>>>>>>> 6db85bc (Create framework for the user manual)

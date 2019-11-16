@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .. _editing_object_properties:
 
 Editing Object Properties
@@ -158,3 +159,7 @@ en-masse. These properties include font family, font size, font weight, text
 alignment, text color, fill color, line or outline color, and line width.
 The property bar also controls the defaults for these properties for any newly
 created objects.
+=======
+Editing Object Properties
+*************************
+>>>>>>> 6db85bc (Create framework for the user manual)

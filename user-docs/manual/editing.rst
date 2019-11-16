@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 .. _editing:
 
+=======
+>>>>>>> 6db85bc (Create framework for the user manual)
 Editing a Label or Card Design
 ******************************
 

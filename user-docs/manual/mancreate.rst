@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .. _mancreate:
 
 Manually Creating Product Templates
@@ -420,3 +421,7 @@ top left corner of that label.
 +-----------+--------------------------------------------------------+
 
 .. figure:: ./figures/glabels-template-layout.png
+=======
+Manually Creating Product Templates
+***********************************
+>>>>>>> 6db85bc (Create framework for the user manual)

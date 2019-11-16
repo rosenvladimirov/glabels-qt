@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .. _changingproperties:
 
 Changing Basic Project Properties
@@ -25,3 +26,7 @@ new direction.
 .. note::
    By changing the orientation, you might lose some of your work because the
    objects you've already placed no longer fit.
+=======
+Changing Basic Project Properties
+*********************************
+>>>>>>> 6db85bc (Create framework for the user manual)

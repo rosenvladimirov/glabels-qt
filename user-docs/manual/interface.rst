@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .. _interface:
 
 User Interface Overview
@@ -160,3 +161,7 @@ mode. For example, while a text object is focused:
 .. figure:: ./figures/text_editing.png
 
 Use the buttons and input fields to change the properties.
+=======
+User Interface Overview
+***********************
+>>>>>>> 6db85bc (Create framework for the user manual)

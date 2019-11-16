@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .. _printing:
 
 Printing Your gLabels Project
@@ -62,3 +63,7 @@ window).
 Prints crop marks along the edge of the sheet. This option is useful for
 printing on blank stock, to be cut after printing.  This option does not work
 well with all templates.
+=======
+Printing Your gLabels Project
+*****************************
+>>>>>>> 6db85bc (Create framework for the user manual)

@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 .. _basicusage:
 
+=======
+>>>>>>> 6db85bc (Create framework for the user manual)
 Basic Usage
 ***********
 
