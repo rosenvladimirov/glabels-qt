@@ -49,13 +49,17 @@
     <color type="primary" scheme_preference="dark">#4e9a06</color>
   </branding>
   <translation type="qt">glabels-qt/translations/glabels</translation>
-  <!--
   <screenshots>
     <screenshot type="default">
-      <image>https://glabels.org/screenshots/400-screenshot-main.png</image>
-      <caption>...</caption>
+      <image width="1155" height="752">https://glabels.org/screenshots/glabels-qt-4.0/edit.png</image>
+      <caption>qLabels-qt Edit View</caption>
+    </screenshot>
+    <screenshot>
+      <image width="1155" height="752">https://glabels.org/screenshots/glabels-qt-4.0/print.png</image>
+      <caption>gLabels-qt Print View</caption>
     </screenshot>
   </screenshots>
+  <!--
   <releases>
     <release version="4.0.0" date="2025-12-01">
       <url type="details">https://example.org/changelog.html#version_4.0.0</url>
