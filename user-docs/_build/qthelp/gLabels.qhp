@@ -12,31 +12,125 @@
         <toc>
             <section title="gLabels  documentation" ref="index.html">
                 <section title="Basic Usage" ref="manual/basicusage.html">
-                    <section title="Starting gLabels" ref="manual/starting.html"/>
-                    <section title="User Interface Overview" ref="manual/interface.html"/>
+                    <section title="Starting gLabels" ref="manual/starting.html">
+                        <section title="From the Application Menu" ref="manual/starting.html#from-the-application-menu">
+                            <section title="KDE Plasma" ref="manual/starting.html#kde-plasma"/>
+                            <section title="GNOME" ref="manual/starting.html#gnome"/>
+                        </section>
+                        <section title="From the Command Line" ref="manual/starting.html#from-the-command-line"/>
+                    </section>
+                    <section title="User Interface Overview" ref="manual/interface.html">
+                        <section title="Menu bar" ref="manual/interface.html#menu-bar">
+                            <section title="File menu" ref="manual/interface.html#file-menu"/>
+                            <section title="Edit menu" ref="manual/interface.html#edit-menu"/>
+                            <section title="View menu" ref="manual/interface.html#view-menu"/>
+                            <section title="Objects menu" ref="manual/interface.html#objects-menu"/>
+                            <section title="Help menu" ref="manual/interface.html#help-menu"/>
+                        </section>
+                        <section title="Sidebar" ref="manual/interface.html#sidebar"/>
+                    </section>
                     <section title="Creating a New gLabels Project" ref="manual/createnew.html"/>
                     <section title="Saving Your gLabels Project" ref="manual/saving.html"/>
                     <section title="Opening an Existing gLabels Project" ref="manual/opening.html"/>
                     <section title="Editing a Label or Card Design" ref="manual/editing.html">
-                        <section title="Creating Objects" ref="manual/creating_objects.html"/>
-                        <section title="Selecting Objects" ref="manual/selecting_objects.html"/>
-                        <section title="Editing Object Properties" ref="manual/editing_object_properties.html"/>
+                        <section title="Creating Objects" ref="manual/creating_objects.html">
+                            <section title="Text" ref="manual/creating_objects.html#text"/>
+                            <section title="Box" ref="manual/creating_objects.html#box"/>
+                            <section title="Line" ref="manual/creating_objects.html#line"/>
+                            <section title="Ellipse" ref="manual/creating_objects.html#ellipse"/>
+                            <section title="Image" ref="manual/creating_objects.html#image"/>
+                            <section title="Barcode" ref="manual/creating_objects.html#barcode"/>
+                        </section>
+                        <section title="Selecting Objects" ref="manual/selecting_objects.html">
+                            <section title="Selecting a single object" ref="manual/selecting_objects.html#selecting-a-single-object"/>
+                            <section title="Aggregate object selections" ref="manual/selecting_objects.html#aggregate-object-selections"/>
+                            <section title="Area selections" ref="manual/selecting_objects.html#area-selections"/>
+                            <section title="Unselecting objects" ref="manual/selecting_objects.html#unselecting-objects"/>
+                            <section title="Clipboard Commands" ref="manual/selecting_objects.html#clipboard-commands">
+                                <section title="Cut" ref="manual/selecting_objects.html#cut"/>
+                                <section title="Copy" ref="manual/selecting_objects.html#copy"/>
+                                <section title="Paste" ref="manual/selecting_objects.html#paste"/>
+                                <section title="Delete" ref="manual/selecting_objects.html#delete"/>
+                            </section>
+                        </section>
+                        <section title="Editing Object Properties" ref="manual/editing_object_properties.html">
+                            <section title="Text Tabbed Section (Text objects)" ref="manual/editing_object_properties.html#text-tabbed-section-text-objects"/>
+                            <section title="Image Tabbed Section (Image objects)" ref="manual/editing_object_properties.html#image-tabbed-section-image-objects"/>
+                            <section title="Data Tabbed Section (Barcode objects)" ref="manual/editing_object_properties.html#data-tabbed-section-barcode-objects"/>
+                            <section title="Style Tabbed Section (Text objects)" ref="manual/editing_object_properties.html#style-tabbed-section-text-objects"/>
+                            <section title="Style Tabbed Section (Barcode objects)" ref="manual/editing_object_properties.html#style-tabbed-section-barcode-objects"/>
+                            <section title="Line Tabbed Section" ref="manual/editing_object_properties.html#line-tabbed-section"/>
+                            <section title="Fill Tabbed Section" ref="manual/editing_object_properties.html#fill-tabbed-section"/>
+                            <section title="Size Tabbed Section (All except line objects)" ref="manual/editing_object_properties.html#size-tabbed-section-all-except-line-objects"/>
+                            <section title="Size Tabbed Section (Line objects)" ref="manual/editing_object_properties.html#size-tabbed-section-line-objects"/>
+                            <section title="Position Tabbed Section" ref="manual/editing_object_properties.html#position-tabbed-section"/>
+                            <section title="Shadow Tabbed Section (All except barcode objects)" ref="manual/editing_object_properties.html#shadow-tabbed-section-all-except-barcode-objects">
+                                <section title="Other Manipulations of Objects" ref="manual/editing_object_properties.html#other-manipulations-of-objects"/>
+                            </section>
+                            <section title="Moving and Resizing Objects" ref="manual/editing_object_properties.html#moving-and-resizing-objects"/>
+                            <section title="Changing Stacking Order" ref="manual/editing_object_properties.html#changing-stacking-order"/>
+                            <section title="Rotating and Flipping Objects" ref="manual/editing_object_properties.html#rotating-and-flipping-objects"/>
+                            <section title="Aligning Objects" ref="manual/editing_object_properties.html#aligning-objects"/>
+                            <section title="Using the Property Bar" ref="manual/editing_object_properties.html#using-the-property-bar"/>
+                        </section>
                         <section title="Manipulating Objects" ref="manual/manipulating_objects.html"/>
                         <section title="Using Substitution Fields" ref="manual/using_substitution_fields.html"/>
                     </section>
                     <section title="Changing Basic Project Properties" ref="manual/changingproperties.html"/>
                     <section title="Performing a Document Merge" ref="manual/documentmerge.html"/>
                     <section title="Creating User-Defined Variables" ref="manual/user_defined_variables.html"/>
-                    <section title="Printing Your gLabels Project" ref="manual/printing.html"/>
+                    <section title="Skipping blank address lines" ref="manual/skipfields.html"/>
+                    <section title="Printing Your gLabels Project" ref="manual/printing.html">
+                        <section title="Options" ref="manual/printing.html#options"/>
+                    </section>
                 </section>
                 <section title="Tutorials" ref="manual/tutorials.html">
                     <section title="Editing a Label or Card Design" ref="manual/simple_project.html"/>
+                    <section title="Manipulating Objects" ref="manual/manipulating_objects.html"/>
+                    <section title="Example projects" ref="manual/merge_examples.html">
+                        <section title="Example 1: Name Tags" ref="manual/merge_examples.html#example-1-name-tags"/>
+                        <section title="Example 2: Address labels" ref="manual/merge_examples.html#example-2-address-labels"/>
+                    </section>
                     <section title="Mailing List Project" ref="manual/mailing_list_project.html"/>
                 </section>
                 <section title="Advanced Usage" ref="manual/advanced.html">
-                    <section title="Product Template Designer" ref="manual/template_designer.html"/>
-                    <section title="Manually Creating Product Templates" ref="manual/mancreate.html"/>
-                    <section title="Customizing gLabels" ref="manual/customizing.html"/>
+                    <section title="Product Template Designer" ref="manual/template_designer.html">
+                        <section title="To create a custom template" ref="manual/template_designer.html#to-create-a-custom-template">
+                            <section title="Use an existing product" ref="manual/template_designer.html#use-an-existing-product"/>
+                            <section title="Create a new product template from scratch" ref="manual/template_designer.html#create-a-new-product-template-from-scratch"/>
+                        </section>
+                    </section>
+                    <section title="Manually Creating Product Templates" ref="manual/mancreate.html">
+                        <section title="Assumptions/caveats" ref="manual/mancreate.html#assumptions-caveats"/>
+                        <section title="Template Files" ref="manual/mancreate.html#template-files"/>
+                        <section title="Example Template" ref="manual/mancreate.html#example-template"/>
+                        <section title="Template Node" ref="manual/mancreate.html#template-node"/>
+                        <section title="Meta Node" ref="manual/mancreate.html#meta-node"/>
+                        <section title="Label-rectangle Node" ref="manual/mancreate.html#label-rectangle-node"/>
+                        <section title="Label-ellipse` Node" ref="manual/mancreate.html#label-ellipse-node"/>
+                        <section title="Label-round Node" ref="manual/mancreate.html#label-round-node"/>
+                        <section title="Label-cd Node" ref="manual/mancreate.html#label-cd-node"/>
+                        <section title="Markup Nodes" ref="manual/mancreate.html#markup-nodes">
+                            <section title="Markup-margin Node" ref="manual/mancreate.html#markup-margin-node"/>
+                            <section title="Markup-line Node" ref="manual/mancreate.html#markup-line-node"/>
+                            <section title="Markup-circle Node" ref="manual/mancreate.html#markup-circle-node"/>
+                            <section title="Markup-rect Node" ref="manual/mancreate.html#markup-rect-node"/>
+                            <section title="Markup-ellipse Node" ref="manual/mancreate.html#markup-ellipse-node"/>
+                            <section title="Layout Node" ref="manual/mancreate.html#layout-node"/>
+                        </section>
+                    </section>
+                    <section title="Customizing gLabels" ref="manual/customizing.html">
+                        <section title="Locale" ref="manual/customizing.html#locale">
+                            <section title="Units" ref="manual/customizing.html#units"/>
+                        </section>
+                        <section title="Grid" ref="manual/customizing.html#grid"/>
+                    </section>
+                    <section title="Export CSV files from various spreadsheet applications" ref="manual/spreadsheet_export.html">
+                        <section title="LibreOffice Calc" ref="manual/spreadsheet_export.html#libreoffice-calc"/>
+                        <section title="Calligra Sheets" ref="manual/spreadsheet_export.html#calligra-sheets"/>
+                        <section title="Google Sheets" ref="manual/spreadsheet_export.html#google-sheets"/>
+                        <section title="Gnumeric" ref="manual/spreadsheet_export.html#gnumeric"/>
+                    </section>
                 </section>
                 <section title="Reference" ref="manual/reference.html">
                     <section title="gLabels Manpages" ref="man/index.html">
@@ -45,7 +139,7 @@
                             <section title="DESCRIPTION" ref="man/glabels-qt.html#description"/>
                             <section title="OPTIONS" ref="man/glabels-qt.html#options"/>
                             <section title="FILES" ref="man/glabels-qt.html#files"/>
-                            <section title="BUGS" ref="man/glabels-qt.html#bugs"/>
+                            <section title="REPORTING BUGS" ref="man/glabels-qt.html#reporting-bugs"/>
                             <section title="SEE ALSO" ref="man/glabels-qt.html#see-also"/>
                         </section>
                         <section title="glabels-batch-qt" ref="man/glabels-batch-qt.html">
@@ -53,71 +147,101 @@
                             <section title="DESCRIPTION" ref="man/glabels-batch-qt.html#description"/>
                             <section title="OPTIONS" ref="man/glabels-batch-qt.html#options"/>
                             <section title="FILES" ref="man/glabels-batch-qt.html#files"/>
-                            <section title="BUGS" ref="man/glabels-batch-qt.html#bugs"/>
+                            <section title="KNOWN ISSUES" ref="man/glabels-batch-qt.html#known-issues"/>
+                            <section title="REPORTING BUGS" ref="man/glabels-batch-qt.html#reporting-bugs"/>
                             <section title="SEE ALSO" ref="man/glabels-batch-qt.html#see-also"/>
                         </section>
                     </section>
-                    <section title="gLabels Substitution Field Specification" ref="manual/subst_spec.html"/>
+                    <section title="DRAFT gLabels Substitution Field Specification" ref="manual/subst_spec.html">
+                        <section title="Syntax" ref="manual/subst_spec.html#syntax"/>
+                        <section title="Field Names" ref="manual/subst_spec.html#field-names">
+                            <section title="Document Merge Fields" ref="manual/subst_spec.html#document-merge-fields">
+                                <section title="### User Variables" ref="manual/subst_spec.html#user-variables"/>
+                            </section>
+                        </section>
+                        <section title="Modifiers" ref="manual/subst_spec.html#modifiers"/>
+                    </section>
                     <section title="License" ref="manual/license.html"/>
                 </section>
             </section>
         </toc>
         <keywords>
+            <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-a"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-c"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-m"/>
+            <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-D"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-f"/>
+            <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-g"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-h"/>
             <keyword name="glabels-qt command line option" ref="man/glabels-qt.html#cmdoption-glabels-qt-h"/>
+            <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-i"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-l"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-o"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-p"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-r"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-s"/>
+            <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-V"/>
+            <keyword name="glabels-qt command line option" ref="man/glabels-qt.html#cmdoption-glabels-qt-V"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-v"/>
             <keyword name="glabels-qt command line option" ref="man/glabels-qt.html#cmdoption-glabels-qt-v"/>
+            <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-a"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-c"/>
+            <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-D"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-f"/>
+            <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-g"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-h"/>
             <keyword name="glabels-qt command line option" ref="man/glabels-qt.html#cmdoption-glabels-qt-h"/>
+            <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-i"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-l"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-m"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-o"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-p"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-r"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-s"/>
+            <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-V"/>
+            <keyword name="glabels-qt command line option" ref="man/glabels-qt.html#cmdoption-glabels-qt-V"/>
             <keyword name="glabels-batch-qt command line option" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-v"/>
             <keyword name="glabels-qt command line option" ref="man/glabels-qt.html#cmdoption-glabels-qt-v"/>
+            <keyword name="--collate" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-a"/>
             <keyword name="--copies &lt;n&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-c"/>
             <keyword name="--crop-marks" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-m"/>
+            <keyword name="--define &lt;var&gt;=&lt;value&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-D"/>
             <keyword name="--first &lt;n&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-f"/>
+            <keyword name="--group" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-g"/>
             <keyword name="--help" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-h"/>
+            <keyword name="--input &lt;source&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-i"/>
             <keyword name="--outlines" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-l"/>
-            <keyword name="--output &lt;filename&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-o"/>
+            <keyword name="--output [&lt;filename&gt;]" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-o"/>
             <keyword name="--printer &lt;printer&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-p"/>
             <keyword name="--reverse" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-r"/>
             <keyword name="--sheets &lt;n&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-s"/>
             <keyword name="--version" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-v"/>
+            <keyword name="--Version" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-V"/>
+            <keyword name="-a" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-a"/>
             <keyword name="-c &lt;n&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-c"/>
+            <keyword name="-D &lt;var&gt;=&lt;value&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-D"/>
             <keyword name="-f &lt;n&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-f"/>
+            <keyword name="-g" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-g"/>
             <keyword name="-h" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-h"/>
+            <keyword name="-i &lt;source&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-i"/>
             <keyword name="-l" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-l"/>
             <keyword name="-m" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-m"/>
-            <keyword name="-o &lt;filename&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-o"/>
+            <keyword name="-o [&lt;filename&gt;]" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-o"/>
             <keyword name="-p &lt;printer&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-p"/>
             <keyword name="-r" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-r"/>
             <keyword name="-s &lt;n&gt;" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-s"/>
             <keyword name="-v" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-v"/>
+            <keyword name="-V" ref="man/glabels-batch-qt.html#cmdoption-glabels-batch-qt-V"/>
             <keyword name="--help" ref="man/glabels-qt.html#cmdoption-glabels-qt-h"/>
             <keyword name="--version" ref="man/glabels-qt.html#cmdoption-glabels-qt-v"/>
+            <keyword name="--Version" ref="man/glabels-qt.html#cmdoption-glabels-qt-V"/>
             <keyword name="-h" ref="man/glabels-qt.html#cmdoption-glabels-qt-h"/>
             <keyword name="-v" ref="man/glabels-qt.html#cmdoption-glabels-qt-v"/>
+            <keyword name="-V" ref="man/glabels-qt.html#cmdoption-glabels-qt-V"/>
         </keywords>
         <files>
             <file>genindex.html</file>
             <file>index.html</file>
-            <file>man/glabels-batch-qt.html</file>
-            <file>man/glabels-qt.html</file>
-            <file>man/index.html</file>
             <file>manual/advanced.html</file>
             <file>manual/basicusage.html</file>
             <file>manual/changingproperties.html</file>
@@ -132,25 +256,61 @@
             <file>manual/mailing_list_project.html</file>
             <file>manual/mancreate.html</file>
             <file>manual/manipulating_objects.html</file>
+            <file>manual/merge_examples.html</file>
             <file>manual/opening.html</file>
             <file>manual/printing.html</file>
             <file>manual/reference.html</file>
             <file>manual/saving.html</file>
             <file>manual/selecting_objects.html</file>
             <file>manual/simple_project.html</file>
+            <file>manual/skipfields.html</file>
+            <file>manual/spreadsheet_export.html</file>
             <file>manual/starting.html</file>
             <file>manual/subst_spec.html</file>
             <file>manual/template_designer.html</file>
             <file>manual/tutorials.html</file>
             <file>manual/user_defined_variables.html</file>
             <file>manual/using_substitution_fields.html</file>
-            <file>_images/introduction-glabels-main-window.png</file>
             <file>_static/basic.css</file>
             <file>_static/file.png</file>
             <file>_static/minus.png</file>
             <file>_static/nonav.css</file>
             <file>_static/plus.png</file>
             <file>_static/pygments.css</file>
+            <file>_images/add_variable.png</file>
+            <file>_images/glabels-template-cd-label.png</file>
+            <file>_images/glabels-template-circle-label.png</file>
+            <file>_images/glabels-template-ellipse-label.png</file>
+            <file>_images/glabels-template-layout.png</file>
+            <file>_images/glabels-template-rect-label.png</file>
+            <file>_images/interface-main-window.png</file>
+            <file>_images/interface-menu-bar.png</file>
+            <file>_images/introduction-glabels-main-window.png</file>
+            <file>_images/layouts-cdlabel.png</file>
+            <file>_images/merge-ex1-2.png</file>
+            <file>_images/merge-ex1-3.png</file>
+            <file>_images/merge-ex2-1.png</file>
+            <file>_images/merge-ex2-2.png</file>
+            <file>_images/merge-ex2-3.png</file>
+            <file>_images/merge_properties.png</file>
+            <file>_images/numbered_business_card.png</file>
+            <file>_images/object-editor-sidebar.png</file>
+            <file>_images/preferences.png</file>
+            <file>_images/print-copy-controls.png</file>
+            <file>_images/print_document_merge_controls.png</file>
+            <file>_images/select_product.png</file>
+            <file>_images/simple_project_1.png</file>
+            <file>_images/simple_project_2.png</file>
+            <file>_images/skip-fields-output.png</file>
+            <file>_images/skip-fields-screenshot.png</file>
+            <file>_images/template-designer-choose.png</file>
+            <file>_images/template-designer-product-layout.png</file>
+            <file>_images/template-designer-two-layouts.png</file>
+            <file>_images/text_editing.png</file>
+            <file>_images/use_variable.png</file>
+            <file>man/glabels-batch-qt.html</file>
+            <file>man/glabels-qt.html</file>
+            <file>man/index.html</file>
         </files>
     </filterSection>
 </QtHelpProject>

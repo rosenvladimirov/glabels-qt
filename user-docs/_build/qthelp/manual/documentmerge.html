@@ -1,23 +1,73 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Performing a Document Merge</title>
-    <link rel="stylesheet" href="../_static/nonav.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> 
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nonav.css" /> 
   </head><body>
 
     <div class="document">
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="performing-a-document-merge">
-<h1>Performing a Document Merge</h1>
+  <section id="performing-a-document-merge">
+<span id="documentmerge"></span><h1>Performing a Document Merge</h1>
+<p>Document Merge (sometimes called “Mail Merge”) is a powerful feature that
+allows a unique label or card to be printed for each record in an external
+data source.</p>
+<p>The first step to performing a document merge is to prepare a source document
+that contains your merge data.  This data could be mailing addresses or any
+other data that you wish to create unique labels or cards for.  Currently
+back-ends only exist for text files and the evolution data server – others
+are planned.  The currently supported text-file format is very simple:  each
+line is a record; fields are delimited by commas (CSV), tabs, or colons; and
+newlines can be embedded into fields by using the “n” entity.  This file
+could be created using any text editor or could be created by another program
+or script.  A common way of creating CSV files is to export them from a
+spreadsheet program or from address book applications.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To export a CSV file from <strong>kaddressbook</strong>, first select the
+contacts you wish to export. Click on the first contact, then press and
+hold <strong>Ctrl</strong> and click on the other desired contacts to select them.
+Then choose <strong>File</strong> ➡ <strong>Export</strong> ➡ <strong>Export CSV File</strong>.</p>
+<p>In the <strong>Select Contacts</strong> window, enable the button <strong>Selected contacts</strong>
+(which should be enabled by default anyway). Then click on <strong>OK</strong>.
+In the <strong>Save As</strong> dialog, choose the desired folder and a name
+for the file and click on <strong>Save</strong>.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To export a <em>CSV</em> file from <strong>Thunderbird</strong>, click on the <strong>Address Book</strong>
+toolbar button or choose <strong>Tools</strong> ➡ <strong>Address Book</strong> from the menu.
+Then select the contacts you wish to export. Click on the first contact,
+then press and hold <strong>Ctrl</strong> and click on the other desired contacts
+to select them. Then choose <strong>Tools</strong> ➡ <strong>Export</strong>.</p>
+<p>In the file chooser window, choose the desired folder and a name for the
+file and change the value of the drop-down button in the right bottom
+corner to <strong>Comma Separated</strong>. Finally, click on <strong>Save</strong>.</p>
+</div>
+<p>A label must then be configured to “point at” this data file. To configure the
+merge properties of a document, choose <strong>Objects</strong> ➡ <strong>Merge Properties</strong> menu
+item to display the <strong>Merge Properties</strong> dialog.  This dialog is used to
+select the exact data file format and file name (location) of the merge data.</p>
+<p>Finally, once the label has been configured for a data file, field keys can be
+inserted into text objects and used as source or data for barcode objects and
+image filenames for image objects. See <span class="xref std std-ref">editprop</span> for more information
+on using merge data for these object types.</p>
+<p>Now that your label is configured, <strong>gLabels</strong> will print a unique label for
+each record in your source document – substituting fields from each record
+for field keys in the all text, barcode, and image objects.</p>
+<p>See <a class="reference internal" href="merge_examples.html#merge-examples"><span class="std std-ref">Example projects</span></a> for a detailed tutorial on the document merge feature.</p>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>

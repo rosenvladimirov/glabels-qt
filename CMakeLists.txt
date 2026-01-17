@@ -131,8 +131,7 @@ find_package (ZLIB 1.2 QUIET)
 find_package (GnuBarcode 0.98 QUIET)
 find_package (LibQrencode 3.4 QUIET)
 find_package (LibZint 2.15 QUIET)
-# Unit testing support
-find_package (Qt5Test 5.6 QUIET)
+find_package (Sphinx QUIET) # Only for rebuilding user documentation
 
 
 #=======================================

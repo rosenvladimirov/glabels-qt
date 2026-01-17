@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Editing Object Properties &#8212; gLabels  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Manipulating Objects" href="manipulating_objects.html" />
+    <link rel="prev" title="Selecting Objects" href="selecting_objects.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="editing-object-properties">
+<span id="id1"></span><h1>Editing Object Properties<a class="headerlink" href="#editing-object-properties" title="Permalink to this headline">¶</a></h1>
+<p>Most object properties can be modified through the object editor sidebar,
+illustrated below. To use the object editor, a single object must first be
+selected. See <a class="reference internal" href="selecting_objects.html#selecting-objects"><span class="std std-ref">Selecting Objects</span></a>.</p>
+<figure class="align-default">
+<img alt="../_images/object-editor-sidebar.png" src="../_images/object-editor-sidebar.png" />
+</figure>
+<p>The object editor will contain a subset of the following tabbed sections,
+depending on object type:</p>
+<section id="text-tabbed-section-text-objects">
+<h2>Text Tabbed Section (Text objects)<a class="headerlink" href="#text-tabbed-section-text-objects" title="Permalink to this headline">¶</a></h2>
+<p>This section contains a small editor for changing the content of a text object.
+It also contains a dropdown menu of available document merge keys, that can be
+inserted into text.</p>
+</section>
+<section id="image-tabbed-section-image-objects">
+<h2>Image Tabbed Section (Image objects)<a class="headerlink" href="#image-tabbed-section-image-objects" title="Permalink to this headline">¶</a></h2>
+<p>This section contains a file entry with preview to select image files. The
+browse button can be used to easily locate image files. Alternatively, a
+document merge key can be used instead to provide a filename at print time.</p>
+</section>
+<section id="data-tabbed-section-barcode-objects">
+<h2>Data Tabbed Section (Barcode objects)<a class="headerlink" href="#data-tabbed-section-barcode-objects" title="Permalink to this headline">¶</a></h2>
+<p>This section contains a text entry to enter literal barcode data.
+Alternatively, a document merge key can be used to provide this data at
+print time.</p>
+</section>
+<section id="style-tabbed-section-text-objects">
+<h2>Style Tabbed Section (Text objects)<a class="headerlink" href="#style-tabbed-section-text-objects" title="Permalink to this headline">¶</a></h2>
+<p>This section contains controls to select text properties, including font
+family, font size, font weight, color, and text justification.</p>
+</section>
+<section id="style-tabbed-section-barcode-objects">
+<h2>Style Tabbed Section (Barcode objects)<a class="headerlink" href="#style-tabbed-section-barcode-objects" title="Permalink to this headline">¶</a></h2>
+<p>This section contains controls to select barcode properties, including barcode
+style, color, whether to print text, and whether to include a checksum digit.</p>
+</section>
+<section id="line-tabbed-section">
+<h2>Line Tabbed Section<a class="headerlink" href="#line-tabbed-section" title="Permalink to this headline">¶</a></h2>
+<p>This section contains controls to select properties of lines and outlines.
+These properties include line width and color.</p>
+</section>
+<section id="fill-tabbed-section">
+<h2>Fill Tabbed Section<a class="headerlink" href="#fill-tabbed-section" title="Permalink to this headline">¶</a></h2>
+<p>This section contains controls to select fill properties of box and ellipse
+objects. Currently the only fill property is fill color.</p>
+</section>
+<section id="size-tabbed-section-all-except-line-objects">
+<h2>Size Tabbed Section (All except line objects)<a class="headerlink" href="#size-tabbed-section-all-except-line-objects" title="Permalink to this headline">¶</a></h2>
+<p>This section contains controls to select the width and height of an object.
+A checkbox is provided, so that the current aspect ratio can be locked while
+manipulating the width and height controls. Image objects also provide a button
+to reset the size to the image’s natural size (Assumes 72DPI).</p>
+</section>
+<section id="size-tabbed-section-line-objects">
+<h2>Size Tabbed Section (Line objects)<a class="headerlink" href="#size-tabbed-section-line-objects" title="Permalink to this headline">¶</a></h2>
+<p>This section contains controls to select the length and angle of a line object.</p>
+</section>
+<section id="position-tabbed-section">
+<h2>Position Tabbed Section<a class="headerlink" href="#position-tabbed-section" title="Permalink to this headline">¶</a></h2>
+<p>This section contains controls to change the position of an object.</p>
+</section>
+<section id="shadow-tabbed-section-all-except-barcode-objects">
+<h2>Shadow Tabbed Section (All except barcode objects)<a class="headerlink" href="#shadow-tabbed-section-all-except-barcode-objects" title="Permalink to this headline">¶</a></h2>
+<p>This section contains controls to add a shadow to an object.</p>
+<section id="other-manipulations-of-objects">
+<h3>Other Manipulations of Objects<a class="headerlink" href="#other-manipulations-of-objects" title="Permalink to this headline">¶</a></h3>
+<p>Objects can also be manipulated in the following ways.</p>
+</section>
+</section>
+<section id="moving-and-resizing-objects">
+<h2>Moving and Resizing Objects<a class="headerlink" href="#moving-and-resizing-objects" title="Permalink to this headline">¶</a></h2>
+<p>Objects can be moved by simply clicking on a selected object and dragging the
+object to its new location. If the object is part of an aggregate selection,
+all objects in the selection will move with the object being dragged,
+maintaining their relative positions to one another. If no object is selected,
+clicking on an object will create a new selection containing that object. See
+<a class="reference internal" href="selecting_objects.html#selecting-objects"><span class="std std-ref">Selecting Objects</span></a>.</p>
+<p>A selected object can be resized by clicking one of its resize handle and
+dragging it to obtain the new size.</p>
+</section>
+<section id="changing-stacking-order">
+<h2>Changing Stacking Order<a class="headerlink" href="#changing-stacking-order" title="Permalink to this headline">¶</a></h2>
+<p>Stacking order refers to relative position in the z-axis of objects. That is
+when objects overlap, which object will appear on top of the other. By default,
+newer objects will appear above older objects. To change this order, select one
+or more objects and choose <strong>Objects</strong> ➡ <strong>Order</strong> ➡ <strong>Bring to Front</strong> to
+raise the selection to the top of the stacking order, or choose
+<strong>Objects</strong> ➡ <strong>Order</strong> ➡ <strong>Send to Back</strong> to lower the selection to the bottom
+of the stacking order. These menuitems are also available by right-clicking the
+display area when there is a non-empty selection.</p>
+</section>
+<section id="rotating-and-flipping-objects">
+<h2>Rotating and Flipping Objects<a class="headerlink" href="#rotating-and-flipping-objects" title="Permalink to this headline">¶</a></h2>
+<p>Objects can be rotated 90 degrees in either direction, or flipped horizontally
+or vertically, by choosing the appropriate menuitem in the
+<strong>Objects</strong> ➡ <strong>Rotate/Flip</strong> sub-menu. These menuitems are also available by
+right-clicking the display area when there is a non-empty selection.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature could be useful when you are designing CD box inlays. For the
+spine caption, you need vertical aligned text. After you have created a
+basic text box, choose <strong>Objects</strong> ➡ <strong>Rotate/Flip</strong> to rotate the text box
+according to your needs.</p>
+</div>
+</section>
+<section id="aligning-objects">
+<h2>Aligning Objects<a class="headerlink" href="#aligning-objects" title="Permalink to this headline">¶</a></h2>
+<p>Objects can be aligned horizontally or vertically, relative to one another, or
+relative to the center line of the label, by choosing the appropriate menuitem
+from the <strong>Objects</strong> ➡ <strong>Align Horizontal</strong> or <strong>Objects</strong> ➡ <strong>Align Vertical</strong>
+sub-menus. These menuitems are also available by right-clicking the display
+area when there is a non-empty selection.</p>
+</section>
+<section id="using-the-property-bar">
+<h2>Using the Property Bar<a class="headerlink" href="#using-the-property-bar" title="Permalink to this headline">¶</a></h2>
+<p>The property bar can be used to change some common properties of objects
+en-masse. These properties include font family, font size, font weight, text
+alignment, text color, fill color, line or outline color, and line width.
+The property bar also controls the defaults for these properties for any newly
+created objects.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="basicusage.html">Basic Usage</a><ul>
+  <li><a href="editing.html">Editing a Label or Card Design</a><ul>
+      <li>Previous: <a href="selecting_objects.html" title="previous chapter">Selecting Objects</a></li>
+      <li>Next: <a href="manipulating_objects.html" title="next chapter">Manipulating Objects</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Jaye Evins <evins@snaught.com>.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/manual/editing_object_properties.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

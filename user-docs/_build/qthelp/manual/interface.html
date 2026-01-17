@@ -1,23 +1,152 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>User Interface Overview</title>
-    <link rel="stylesheet" href="../_static/nonav.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> 
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nonav.css" /> 
   </head><body>
 
     <div class="document">
       <div class="documentwrapper">
           <div class="body" role="main">
             
-  <div class="section" id="user-interface-overview">
-<h1>User Interface Overview</h1>
-</div>
+  <section id="user-interface-overview">
+<span id="interface"></span><h1>User Interface Overview</h1>
+<p>After opening <strong>gLabels</strong> as described in <a class="reference internal" href="starting.html#starting"><span class="std std-ref">Starting gLabels</span></a> and open a project,
+(see also <a class="reference internal" href="opening.html#opening"><span class="std std-ref">Opening an Existing gLabels Project</span></a>) the main window looks as follows:</p>
+<figure class="align-default">
+<img alt="../_images/interface-main-window.png" src="../_images/interface-main-window.png" />
+</figure>
+<section id="menu-bar">
+<h2>Menu bar</h2>
+<p>On top of the window, you see a menubar where you can choose from all actions
+<strong>gLabels</strong> offers. Depending on the desktop configuration, the menubar can be
+outside the main window (especially on macOS, or when you use the <em>global menu</em>
+feature in some desktop environments).</p>
+<p>Currently, the menubar looks as follows:</p>
+<figure class="align-default">
+<img alt="../_images/interface-menu-bar.png" src="../_images/interface-menu-bar.png" />
+</figure>
+<p>The menu bar has the following entries:</p>
+<section id="file-menu">
+<h3><em>File</em> menu</h3>
+<ul class="simple">
+<li><p><em>New</em> – Opens a new project.</p></li>
+<li><p><em>Open</em> – Opens a file chooser dialog to open an existing <em>.glabels</em> project
+file.</p></li>
+<li><p><em>Open Recent</em> – When hovering the mouse pointer on it, a choice of recently
+saved projects will be presented.</p></li>
+<li><p><em>Save</em> and <em>Save As…</em> – Save a file or save it under a new name,
+respectively.</p></li>
+<li><p><em>Properties</em> – Switches to the <strong>Properties</strong> panel.</p></li>
+<li><p><em>Merge</em> – Switches to the <strong>Merge</strong> panel.</p></li>
+<li><p><em>Variables</em> – Switches to the <strong>Variables</strong> panel.</p></li>
+<li><p><em>Print</em> – Switches to the <strong>Print</strong> panel.</p></li>
+<li><p><em>Product Template Designer</em> – Opens the <strong>Product Template Designer</strong>
+assistant.</p></li>
+<li><p><em>Close</em> – Closes the current window.</p></li>
+<li><p><em>Exit</em> – Exits from <strong>gLabels</strong>, closes all open projects.</p></li>
+</ul>
+</section>
+<section id="edit-menu">
+<h3><em>Edit</em> menu</h3>
+<ul class="simple">
+<li><p><em>Undo</em> and <em>Redo</em> – Undoes the last edit or repeats a reversed operation.</p></li>
+<li><p><em>Cut</em>, <em>Copy</em>, <em>Paste</em>, <em>Delete</em> – In case of an object is focused in the
+drawing area, you can do the named actions.</p></li>
+<li><p><em>Select All</em> – Selects all objects.</p></li>
+<li><p><em>Un-select all</em> – Un-selects all objects.</p></li>
+</ul>
+</section>
+<section id="view-menu">
+<h3><em>View</em> menu</h3>
+<ul class="simple">
+<li><p><em>Toolbars</em> – Changes the visibility of the <strong>Quick Access</strong> and <strong>Editor</strong>
+toolbars.</p></li>
+<li><p><em>Grid</em> – Shows a grid on the template which helps when aligning objects.</p></li>
+<li><p><em>Markup</em> – Shows a red markup line around the template. The area outside this
+line shouldn’t be treated as printable. However, for example, to get a
+“borderless” label or card, you can try to draw here. Just test the result
+in a print preview.</p></li>
+<li><p><em>Zoom In</em>, <em>Zoom Out</em>, <em>Zoom 1:1</em>, <em>Zoom to Fit</em> – Resizes the view as said.</p></li>
+</ul>
+</section>
+<section id="objects-menu">
+<h3><em>Objects</em> menu</h3>
+<ul class="simple">
+<li><p><em>Select Mode</em> – Activates the <strong>Select Mode</strong>.</p></li>
+<li><p><em>Create</em> – When hovering the mouse pointer on it, you can open the
+respective drawing tools from the submenu.</p></li>
+<li><p><em>Order</em> – With the submenu entries <strong>Bring To Front</strong> and <strong>Send To Back</strong>
+you can move the focused object into the respective layer. Helpful when
+objects overlap each other, but in a wrong way (for example, when the
+background color has unintentionally come to the foreground and is obscuring
+all other objects.</p></li>
+<li><p><em>Rotate/Flip</em> – With the respective submenu entries, you can rotate an object
+in 90 degree steps left or right, or flipping (mirroring) horizontally or
+vertically.</p></li>
+</ul>
+<ul class="simple">
+<li><p><em>Alignment</em> – TBD.</p></li>
+<li><p><em>Center</em> – Centers an object horizontally or vertically. Centering always
+means in relation to the template, not to any of the other (underlying)
+objects.</p></li>
+</ul>
+</section>
+<section id="help-menu">
+<h3><em>Help</em> menu</h3>
+<ul class="simple">
+<li><p><em>User Manual</em> – Opens this user manual.</p></li>
+<li><p><em>Report Bug</em> – Shows some instructions about how to report a bug, including
+a button to open the issue tracker at Github directly in your browser, and
+a template what you can use for the bug report (with a button for copying
+the template contents conveniently).</p></li>
+<li><p><em>About</em> – Shows some information about the <strong>gLabels</strong> project itself.</p></li>
+</ul>
+<p>For all menu items that can also be accessed via a keyboard shortcut, this
+shortcut is displayed next to the respective menu item.</p>
+</section>
+</section>
+<section id="sidebar">
+<h2>Sidebar</h2>
+<p>At the left, there is a sidebar which lets you switch between modes. The
+initially active <strong>Edit</strong> mode is the <em>normal</em> one, where you see the template
+and can add or edit objects. In the <strong>Properties</strong> mode, you can view and
+change the properties of the template you are using. In the <strong>Merge</strong> mode, you
+can perform a document merge (see <a class="reference internal" href="documentmerge.html#documentmerge"><span class="std std-ref">Performing a Document Merge</span></a>). In the <strong>Variables</strong>
+mode, you can add, edit or delete user defined variables (see
+<a class="reference internal" href="user_defined_variables.html#user-defined-variables"><span class="std std-ref">Creating User-Defined Variables</span></a>). And last but not least, the <strong>Print</strong> mode
+shows some special settings for preparing to print the project (see <a class="reference internal" href="printing.html#printing"><span class="std std-ref">Printing Your gLabels Project</span></a>).
+The sidebar is always visible; it cannot be hidden.</p>
+<p>On top of the window, under the menubar, you see a toolbar with three buttons.
+You can here create a new project, open an existing one or save it. By clicking
+on the toolbar using the right mouse button, a small context menu named
+<strong>Quick Access Toolbar</strong> appears. To hide the toolbar, disable the checkbox.
+Alternatively, choose <strong>View</strong> ➡ <strong>Toolbars</strong> ➡ <strong>Quick Access</strong> and enable or
+disable the checkbox.</p>
+<p>On top of the editor viewport, you have another toolbar with entries for
+editing the layout. To hide the editor toolbar, choose
+<strong>View</strong> ➡ <strong>Toolbars</strong> ➡ <strong>Editor</strong> and enable or disable the checkbox.</p>
+<p>If you are not happy with the placement of the toolbar: Click on the rasterized
+area left of the icons in the toolbar. Hold the mouse button pressed, and you
+can move the whole toolbar to another place in the window, for example, to the
+bottom.</p>
+<p>At the right side, you find some settings which are only visible in <strong>Edit</strong>
+mode. For example, while a text object is focused:</p>
+<figure class="align-default">
+<img alt="../_images/text_editing.png" src="../_images/text_editing.png" />
+</figure>
+<p>Use the buttons and input fields to change the properties.</p>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
       </div>
       <div class="clearer"></div>

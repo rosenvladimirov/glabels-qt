@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Skipping blank address lines</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nonav.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="skipping-blank-address-lines">
+<span id="skipfields"></span><h1>Skipping blank address lines</h1>
+<p>This feature can be best described by a simple example.  In the
+following CSV file, column 5 (ADDR2) contains the second address line
+for each record.  This field is empty in records 1 and 2, but not in
+record 3. (For this feature to work, the field must be completely
+empty – any text, including spaces will defeat this feature.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LAST</span><span class="p">,</span><span class="n">FIRST</span><span class="p">,</span><span class="n">MI</span><span class="p">,</span><span class="n">ADDR1</span><span class="p">,</span><span class="n">ADDR2</span><span class="p">,</span><span class="n">CITY</span><span class="p">,</span><span class="n">STATE</span><span class="p">,</span><span class="n">ZIP</span>
+<span class="n">Summers</span><span class="p">,</span><span class="n">Joyce</span><span class="p">,,</span><span class="s2">&quot;1630 Revello Dr&quot;</span><span class="p">,,</span><span class="n">Sunnydale</span><span class="p">,</span><span class="n">CA</span><span class="p">,</span><span class="mi">95037</span>
+<span class="n">McGarret</span><span class="p">,</span><span class="n">Steve</span><span class="p">,</span><span class="n">O</span><span class="p">,</span><span class="s2">&quot;404 Piikoi Street&quot;</span><span class="p">,,</span><span class="n">Honolulu</span><span class="p">,</span><span class="n">HI</span><span class="p">,</span><span class="mi">96813</span>
+<span class="n">Kramer</span><span class="p">,</span><span class="n">Cosmo</span><span class="p">,,</span><span class="s2">&quot;Apt 5B&quot;</span><span class="p">,</span><span class="s2">&quot;129 W. 81 St.&quot;</span><span class="p">,</span><span class="s2">&quot;New York&quot;</span><span class="p">,</span><span class="n">NY</span><span class="p">,</span><span class="mi">10024</span><span class="o">-</span><span class="mi">7207</span>
+</pre></div>
+</div>
+<p>In the following screenshot, a single multiline text object has been
+created to format these addresses.  Notice that ${ADDR2} representing
+the second address line is on a line by itself.  (Any additional text
+on this line, including spaces would defeat this feature.)</p>
+<figure class="align-default">
+<img alt="Multi-line address" src="../_images/skip-fields-screenshot.png" />
+</figure>
+<p>Printing this label results in the following output.  Notice that the
+line containing the ${ADDR2} field is completely skipped for the first
+two records, without printing a blank line.</p>
+<figure class="align-default">
+<img alt="Output" src="../_images/skip-fields-output.png" />
+</figure>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

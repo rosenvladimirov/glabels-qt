@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>DRAFT gLabels Substitution Field Specification &#8212; gLabels  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="glabels-batch-qt" href="../man/glabels-batch-qt.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="draft-glabels-substitution-field-specification">
+<span id="subst-spec"></span><h1>DRAFT gLabels Substitution Field Specification<a class="headerlink" href="#draft-glabels-substitution-field-specification" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a very early draft specification.  There is no guarantee that any
+of the capabilities will be implemented as described in gLabels 4.0.
+Prior to 4.0, this specification is subject to change.</p>
+</div>
+<p>This specification describes gLabels substitution fields.  Substitution fields
+can be embedded in the data of gLabels text and barcode objects.  When printing,
+these fields are replaced with their respective values.  Fields can represent
+document merge fields or user defined variables.</p>
+<p>In its simplest and most common form, the format is simply <cite>${ field-name }</cite>.
+For example <cite>${FIRST_NAME}</cite>.  However, modifiers can be added to the field to
+control how values are printed.</p>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<p>The general syntax of a substitution field is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">substitution</span><span class="o">-</span><span class="n">field</span> <span class="o">=</span> <span class="s2">&quot;${&quot;</span> <span class="n">field</span><span class="o">-</span><span class="n">name</span> <span class="p">[</span> <span class="s2">&quot;:&quot;</span> <span class="n">modifiers</span> <span class="p">]</span> <span class="s2">&quot;}&quot;</span> <span class="p">;</span>
+<span class="n">modifiers</span>          <span class="o">=</span> <span class="n">modifier</span> <span class="p">[</span> <span class="s2">&quot;:&quot;</span> <span class="n">modifiers</span> <span class="p">]</span> <span class="p">;</span>
+<span class="n">modifier</span>           <span class="o">=</span> <span class="nb">format</span><span class="o">-</span><span class="n">modifier</span> <span class="o">|</span> <span class="n">default</span><span class="o">-</span><span class="n">value</span><span class="o">-</span><span class="n">modifier</span> <span class="o">|</span> <span class="n">new</span><span class="o">-</span><span class="n">line</span><span class="o">-</span><span class="n">modifier</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="field-names">
+<h2>Field Names<a class="headerlink" href="#field-names" title="Permalink to this headline">¶</a></h2>
+<p>Field names can refer to either [Document Merge Fields] <a class="reference internal" href="#document-merge-fields"><span class="std std-ref">Document Merge Fields</span></a>
+or <a class="reference internal" href="#user-variables"><span class="std std-ref">### User Variables</span></a>.  If a document merge field and a user variable share
+the same name, the document merge field takes precidence.  Its syntax is simply:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">field</span><span class="o">-</span><span class="n">name</span> <span class="o">=</span> <span class="n">merge</span><span class="o">-</span><span class="n">field</span><span class="o">-</span><span class="n">name</span> <span class="o">|</span> <span class="n">user</span><span class="o">-</span><span class="n">variable</span><span class="o">-</span><span class="n">name</span> <span class="p">;</span>
+</pre></div>
+</div>
+<section id="document-merge-fields">
+<span id="id1"></span><h3>Document Merge Fields<a class="headerlink" href="#document-merge-fields" title="Permalink to this headline">¶</a></h3>
+<p>Document merge fields are the primary source of substitution fields.  A document
+merge field represents a field from an external data source, such as a CSV file.
+The valid syntax for a document merge field name is determined by the merge
+source, with the following exception.  Merge field names cannot contain either
+a colon (“:”) or closing curly bracket (“}”).</p>
+<section id="user-variables">
+<span id="id2"></span><h4>### User Variables<a class="headerlink" href="#user-variables" title="Permalink to this headline">¶</a></h4>
+<p>Substitution fields can also refer to user variables.  The syntax for valid
+user variable names is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">letter</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span> <span class="o">|</span> <span class="s2">&quot;b&quot;</span> <span class="o">|</span> <span class="o">...</span> <span class="o">|</span> <span class="s2">&quot;z&quot;</span> <span class="o">|</span> <span class="s2">&quot;A&quot;</span> <span class="o">|</span> <span class="o">...</span> <span class="o">|</span> <span class="s2">&quot;Z&quot;</span><span class="p">;</span>
+<span class="n">digit</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="o">|</span> <span class="s2">&quot;1&quot;</span> <span class="o">|</span> <span class="s2">&quot;2&quot;</span> <span class="o">|</span> <span class="o">...</span> <span class="o">|</span> <span class="s2">&quot;9&quot;</span><span class="p">;</span>
+<span class="n">user</span><span class="o">-</span><span class="n">variable</span><span class="o">-</span><span class="n">name</span> <span class="o">=</span> <span class="p">(</span> <span class="n">letter</span> <span class="o">|</span> <span class="s2">&quot;_&quot;</span> <span class="p">)</span> <span class="p">,</span> <span class="p">{</span> <span class="n">letter</span> <span class="o">|</span> <span class="n">digit</span> <span class="o">|</span> <span class="s2">&quot;_&quot;</span> <span class="p">}</span> <span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="modifiers">
+<h2>Modifiers<a class="headerlink" href="#modifiers" title="Permalink to this headline">¶</a></h2>
+<p>### Format-Modifier (<cite>%</cite>)</p>
+<p>A format modifier is used to control the format of numerical and string values.
+It is a subset of a single printf format placeholder.  Its syntax is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">format</span><span class="o">-</span><span class="n">modifier</span> <span class="o">=</span> <span class="s2">&quot;%&quot;</span> <span class="p">[</span> <span class="n">flags</span> <span class="p">]</span> <span class="p">[</span> <span class="n">width</span> <span class="p">]</span> <span class="p">[</span> <span class="s2">&quot;.&quot;</span> <span class="n">precision</span> <span class="p">]</span> <span class="nb">type</span> <span class="p">;</span>
+</pre></div>
+</div>
+<p>### Flags</p>
+<p>The Flags field can be zero or more (in any order) of:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Character</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>-</cite> (minus)</p></td>
+<td><p>Left-align the output of this placeholder. (the default is to right-align the output).</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>+</cite> (plus)</p></td>
+<td><p>Prepends a plus for positive signed-numeric types. positive = <cite>+</cite>, negative = <cite>-</cite>.
+(the default doesn’t prepend anything in front of positive numbers).</p></td>
+</tr>
+<tr class="row-even"><td><p>` ` (space)</p></td>
+<td><p>Prepends a space for positive signed-numeric types. positive = ` <cite>, negative = `-</cite>.
+This flag is ignored if the + flag exists. (the default doesn’t prepend anything in front of positive numbers).</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>0</cite> (zero)</p></td>
+<td><p>When the <cite>width</cite> option is specified, prepends zeros for numeric types. (the default prepends spaces).
+For example, <cite>${a:=3:%2X}</cite> produces <cite>3</cite>, while <cite>${a:=3:%02X}</cite> produces <cite>03</cite>.</p></td>
+</tr>
+</tbody>
+</table>
+<p>### Width</p>
+<p>The Width field specifies a minimum number of characters to output, and is
+typically used to pad fixed-width fields in tabulated output, where the fields
+would otherwise be smaller, although it does not cause truncation of oversized
+fields.</p>
+<p>### Precision</p>
+<p>The Precision field usually specifies a maximum limit on the output, depending
+on the particular formatting type. For floating point numeric types, it
+specifies the number of digits to the right of the decimal point that the
+output should be rounded. For the string type, it limits the number of
+characters that should be output, after which the string is truncated.</p>
+<p>### Type</p>
+<p>The Type field can be any of:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 93%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Character</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>d</cite>, <cite>i</cite></p></td>
+<td><p>integer value as a signed decimal number. %d and %i are synonymous.</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>u</cite></p></td>
+<td><p>integer value as an unsigned decimal number.</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>f</cite>, <cite>F</cite></p></td>
+<td><p>floating point value in normal (fixed-point) notation. f and F only differs in how the strings for an infinite number or NaN are printed
+(inf, infinity and nan for f, INF, INFINITY and NAN for F).</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>e</cite>, <cite>E</cite></p></td>
+<td><p>floating point value in standard form ([-]d.ddd e[+/-]ddd). An E c letter E (rather than e) to introduce the exponent.
+The exponent always contains at least two digits; if the value is zero, the exponent is 00.</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>g</cite>, <cite>G</cite></p></td>
+<td><p>floating point value in either normal or exponential notation, whichever is more appropriate for its magnitude.
+g uses lower-case letters, G uses upper-case letters.
+This type differs slightly from fixed-point notation in that insignificant zeroes to the right of the decimal point are not included.
+Also, the decimal point is not included on whole numbers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>x</cite>, <cite>X</cite></p></td>
+<td><p>integer value as an unsigned hexadecimal number. x uses lower-case letters and X uses upper-case.</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>o</cite></p></td>
+<td><p>integer value as an unsigned octal number.</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>s</cite></p></td>
+<td><p>string value.</p></td>
+</tr>
+</tbody>
+</table>
+<p>### Default-Value-Modifier (<cite>=</cite>)</p>
+<p>The default value modifier is used to set a default value for the field if its
+value is undefined or empty. Its syntax is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">default</span><span class="o">-</span><span class="n">value</span><span class="o">-</span><span class="n">modifier</span> <span class="o">=</span> <span class="s2">&quot;=&quot;</span> <span class="n">value</span> <span class="p">;</span>
+</pre></div>
+</div>
+<p>Several characters must be backslash-escaped if they are included in value.
+These are <cite>:</cite>, <cite>}</cite>, and <a href="#id3"><span class="problematic" id="id4">`</span></a>`.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Escape sequence</p></th>
+<th class="head"><p>actual character</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>:</cite></p></td>
+<td><p>colon <cite>:</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>}</cite></p></td>
+<td><p>right bracket <cite>}</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><cite>\</cite></p></td>
+<td><p>backslash <a href="#id5"><span class="problematic" id="id6">`</span></a>`</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This modifier does not modify the value of a variable, it only uses this
+value if the variable is not defined.  For example, if the variable <cite>${x}</cite>
+is undefined, the string “<cite>${x:=1} ${x:=2}</cite>” would be printed as “<cite>1 2</cite>”.
+Otherwise, if <cite>${x}</cite> was defined as “<cite>3</cite>”, it would be printed as “<cite>3 3</cite>”.</p>
+</div>
+<p>### New-Line-Modifier (‘n’)</p>
+<p>This modifier is used to prepend a newline to the printed value, if the value
+is defined and non-empty.  Its syntax is simply:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new</span><span class="o">-</span><span class="n">line</span><span class="o">-</span><span class="n">modifier</span> <span class="o">=</span> <span class="s2">&quot;n&quot;</span> <span class="p">;</span>
+</pre></div>
+</div>
+<p>For example, this modifier is primarily intended to handle the following use case:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>${NAME}
+${ADDR1}${ADDR2:n}
+${CITY} ${STATE} ${ZIP}
+</pre></div>
+</div>
+<p><cite>${ADDR2}</cite> would be printed on its own line, only if it is set and non-empty.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="reference.html">Reference</a><ul>
+      <li>Previous: <a href="../man/glabels-batch-qt.html" title="previous chapter">glabels-batch-qt</a></li>
+      <li>Next: <a href="license.html" title="next chapter">License</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Jaye Evins <evins@snaught.com>.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/manual/subst_spec.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
