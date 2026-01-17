@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 .. _basicusage:
 
-=======
->>>>>>> 6db85bc (Create framework for the user manual)
 Basic Usage
 ***********
 
@@ -18,4 +15,5 @@ Basic Usage
    changingproperties
    documentmerge
    user_defined_variables
+   skipfields
    printing

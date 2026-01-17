@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .. _documentmerge:
 
 Performing a Document Merge
@@ -57,7 +56,3 @@ each record in your source document -- substituting fields from each record
 for field keys in the all text, barcode, and image objects.
 
 See :ref:`merge_examples` for a detailed tutorial on the document merge feature.
-=======
-Performing a Document Merge
-***************************
->>>>>>> 6db85bc (Create framework for the user manual)

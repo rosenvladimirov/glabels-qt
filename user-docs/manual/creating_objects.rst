@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .. _creating_objects:
 
 Creating Objects
@@ -67,7 +66,3 @@ Click the desired location of the upper left corner of the barcode object. New
 barcode objects are initialized to a POSTNET barcode with representative data.
 To change data and properties of the barcode object, see
 :ref:`editing_object_properties`.
-=======
-Creating Objects
-****************
->>>>>>> 6db85bc (Create framework for the user manual)

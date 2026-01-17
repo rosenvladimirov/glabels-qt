@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 .. _advanced:
 
-=======
->>>>>>> 6db85bc (Create framework for the user manual)
 Advanced Usage
 **************
 
@@ -12,3 +9,4 @@ Advanced Usage
    template_designer
    mancreate
    customizing
+   spreadsheet_export

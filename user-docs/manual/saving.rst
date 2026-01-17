@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .. _saving:
 
 Saving Your gLabels Project
@@ -19,7 +18,3 @@ and submitting a filename.
 In both cases, the extension *.glabels* will be added automatically to the
 chosen filename. Although it is possible to choose a different extension, we
 don't recommend this.
-=======
-Saving Your gLabels Project
-***************************
->>>>>>> 6db85bc (Create framework for the user manual)

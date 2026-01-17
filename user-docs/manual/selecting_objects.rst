@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .. _selecting_objects:
 
 Selecting Objects
@@ -88,7 +87,3 @@ Delete
 (**Del**)
 
 Deletes selected objects without placing them on the clipboard.
-=======
-Selecting Objects
-*****************
->>>>>>> 6db85bc (Create framework for the user manual)

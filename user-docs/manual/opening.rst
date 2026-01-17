@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .. _opening:
 
 Opening an Existing gLabels Project
@@ -18,7 +17,3 @@ following command, then press **Return**:
 
 When the application starts, the files that you specify are displayed in
 separate **gLabels** windows.
-=======
-Opening an Existing gLabels Project
-***********************************
->>>>>>> 6db85bc (Create framework for the user manual)

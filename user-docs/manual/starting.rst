@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .. _starting:
 
 Starting gLabels
@@ -38,7 +37,3 @@ From the Command Line
 
 Open a terminal window and type *glabels-qt*. For command line options,
 refer to the man page (to open with `man glabels-qt`)
-=======
-Starting gLabels
-****************
->>>>>>> 6db85bc (Create framework for the user manual)

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .. _subst_spec:
 
 DRAFT gLabels Substitution Field Specification
@@ -86,22 +85,20 @@ It is a subset of a single printf format placeholder.  Its syntax is
 
 The Flags field can be zero or more (in any order) of:
 
-+--------------+----------------------------------------------------------------------------------------+
-| Character    | Description                                                                            |
-+==============+========================================================================================+
-| `-` (minus)  | Left-align the output of this placeholder. (the default is to right-align the output). |
-+--------------+----------------------------------------------------------------------------------------+
-| `+` (plus)   | Prepends a plus for positive signed-numeric types. positive = `+`, negative = `-`.     |
-|              | (the default doesn't prepend anything in front of positive numbers).                   |
-+--------------+----------------------------------------------------------------------------------------+
-| ` ` (space)  | Prepends a space for positive signed-numeric types. positive = ` `, negative = `-`.    |
-|              | This flag is ignored if the + flag exists. (the default doesn't prepend anything in    |
-|              | front of positive numbers).                                                            |
-+--------------+----------------------------------------------------------------------------------------+
-| `0` (zero)   | When the `width` option is specified, prepends zeros for numeric types. (the default   |
-|              | prepends spaces). For example, `${a:=3:%2X}` produces `3`, while `${a:=3:%02X}`        |
-|              | produces `03`.                                                                         |
-+--------------+----------------------------------------------------------------------------------------+
++-------------+-----------------------------------------------------------------------------------------------------------------+
+| Character   | Description                                                                                                     |
++=============+=================================================================================================================+
+| `-` (minus) | Left-align the output of this placeholder. (the default is to right-align the output).                          |
++-------------+-----------------------------------------------------------------------------------------------------------------+
+| `+` (plus)  | Prepends a plus for positive signed-numeric types. positive = `+`, negative = `-`.                              |
+|             | (the default doesn't prepend anything in front of positive numbers).                                            |
++-------------+-----------------------------------------------------------------------------------------------------------------+
+| ` ` (space) | Prepends a space for positive signed-numeric types. positive = ` `, negative = `-`.                             |
+|             | This flag is ignored if the + flag exists. (the default doesn't prepend anything in front of positive numbers). |
++-------------+-----------------------------------------------------------------------------------------------------------------+
+| `0` (zero)  | When the `width` option is specified, prepends zeros for numeric types. (the default prepends spaces).          |
+|             | For example, `${a:=3:%2X}` produces `3`, while `${a:=3:%02X}` produces `03`.                                    |
++-------------+-----------------------------------------------------------------------------------------------------------------+
 
 ### Width
 
@@ -123,32 +120,30 @@ characters that should be output, after which the string is truncated.
 
 The Type field can be any of:
 
-+-----------+--------------------------------------------------------------------------------------------------+
-| Character | Description                                                                                      |
-+===========+==================================================================================================+
-| `d`, `i`  | integer value as a signed decimal number. %d and %i are synonymous.                              |
-+-----------+--------------------------------------------------------------------------------------------------+
-| `u`       | integer value as an unsigned decimal number.                                                     |
-+-----------+--------------------------------------------------------------------------------------------------+
-| `f`, `F`  | floating point value in normal (fixed-point) notation. f and F only differs in how the           |
-|           | strings for an infinite number or NaN are printed (inf, infinity and nan for f, INF,             |
-|           | INFINITY and NAN for F).                                                                         |
-+-----------+--------------------------------------------------------------------------------------------------+
-| `e`, `E`  | floating point value in standard form ([-]d.ddd e[+/-]ddd). An E c letter E (rather than e)      |
-|           | to introduce the exponent. The exponent always contains at least two digits; if the value        |
-|           | is zero, the exponent is 00.                                                                     |
-+-----------+--------------------------------------------------------------------------------------------------+
-| `g`, `G`  | floating point value in either normal or exponential notation, whichever is more                 |
-|           | appropriate for its magnitude. g uses lower-case letters, G uses upper-case letters. This        |
-|           | type differs slightly from fixed-point notation in that insignificant zeroes to the right        |
-|           | of the decimal point are not included. Also, the decimal point is not included on whole numbers. |
-+-----------+--------------------------------------------------------------------------------------------------+
-| `x`, `X`  | integer value as an unsigned hexadecimal number. x uses lower-case letters and X uses upper-case.|
-+-----------+--------------------------------------------------------------------------------------------------+
-| `o`       | integer value as an unsigned octal number.                                                       |
-+-----------+--------------------------------------------------------------------------------------------------+
-| `s`       | string value.                                                                                    |
-+-----------+--------------------------------------------------------------------------------------------------+
++-----------+------------------------------------------------------------------------------------------------------------------------------------------+
+| Character | Description                                                                                                                              |
++===========+==========================================================================================================================================+
+| `d`, `i`  | integer value as a signed decimal number. %d and %i are synonymous.                                                                      |
++-----------+------------------------------------------------------------------------------------------------------------------------------------------+
+| `u`       | integer value as an unsigned decimal number.                                                                                             |
++-----------+------------------------------------------------------------------------------------------------------------------------------------------+
+| `f`, `F`  | floating point value in normal (fixed-point) notation. f and F only differs in how the strings for an infinite number or NaN are printed |
+|           | (inf, infinity and nan for f, INF, INFINITY and NAN for F).                                                                              |
++-----------+------------------------------------------------------------------------------------------------------------------------------------------+
+| `e`, `E`  | floating point value in standard form ([-]d.ddd e[+/-]ddd). An E c letter E (rather than e) to introduce the exponent.                   |
+|           | The exponent always contains at least two digits; if the value is zero, the exponent is 00.                                              |
++-----------+------------------------------------------------------------------------------------------------------------------------------------------+
+| `g`, `G`  | floating point value in either normal or exponential notation, whichever is more appropriate for its magnitude.                          |
+|           | g uses lower-case letters, G uses upper-case letters.                                                                                    |
+|           | This type differs slightly from fixed-point notation in that insignificant zeroes to the right of the decimal point are not included.    |
+|           | Also, the decimal point is not included on whole numbers.                                                                                |
++-----------+------------------------------------------------------------------------------------------------------------------------------------------+
+| `x`, `X`  | integer value as an unsigned hexadecimal number. x uses lower-case letters and X uses upper-case.                                        |
++-----------+------------------------------------------------------------------------------------------------------------------------------------------+
+| `o`       | integer value as an unsigned octal number.                                                                                               |
++-----------+------------------------------------------------------------------------------------------------------------------------------------------+
+| `s`       | string value.                                                                                                                            |
++-----------+------------------------------------------------------------------------------------------------------------------------------------------+
 
 ### Default-Value-Modifier (`=`)
 
@@ -200,7 +195,3 @@ For example, this modifier is primarily intended to handle the following use cas
 
 `${ADDR2}` would be printed on its own line, only if it is set and non-empty.
 
-=======
-gLabels Substitution Field Specification
-****************************************
->>>>>>> 6db85bc (Create framework for the user manual)

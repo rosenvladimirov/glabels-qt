@@ -1,24 +1,20 @@
-<<<<<<< HEAD
 .. _customizing:
 
 Customizing gLabels
 *******************
 
---------
-Settings
---------
-
-To configure **gLabels**, choose **Settings** ➡ **Preferences**. The
-**Preferences** dialog contains one tabbed section:
+To configure **gLabels**, choose **Edit** ➡ **Preferences**. The
+**Preferences** dialog contains two tabbed sections:
 
 .. figure:: ./figures/preferences.png
    :alt: Preferences window
 
+------
 Locale
 ------
 
 Units
-^^^^^
+-----
 
 Use this radio button group to specify your preferred units.
 Select one of the following options:
@@ -45,11 +41,22 @@ Select one of the following options:
 
   Default: *Inches*.
 
+----
+Grid
+----
+
+Here you can configure the appearance of the grid, which can be toggled with
+**View** ➡ **Grid**. You can configure whether the origin of the grid is in
+the **Top left corner** or in the **Center** of the template. Besides that,
+the **Spacing** can be increased or decreased as desired. Click on **Reset**
+to reset the spacing to the default value.
+
 .. Not yet available from the Preferences window. Once we have the missing
-   settings, needs to be uncommented and re-indented.
+   settings (or have them anywhere else?), needs to be uncommented and
+   re-indented.
 
    Default page size
-   ^^^^^^^^^^^^^^^^^
+   -----------------
 
    Use this radio button group to specify your preferred page size.
    This will make it quicker for you to locate media types when creating a new
@@ -66,10 +73,10 @@ Select one of the following options:
    Default: US Letter.
 
    Object Defaults
-   ^^^^^^^^^^^^^^^
+   ---------------
 
    Text
-   """"
+   ^^^^
 
    Use these controls to set the default properties of new text objects. These properties are:
 
@@ -87,7 +94,7 @@ Select one of the following options:
    These controls are used to select the default text alignment (left, center or right).
 
    Line
-   """"
+   ^^^^
 
    Use these controls to set the default properties of lines and outlines of
    new objects.  These properties are:
@@ -102,14 +109,10 @@ Select one of the following options:
 
 
    Fill
-   """"
+   ^^^^
 
    Use this control to set the default fill property of new objects.  This property is:
 
    * Color
 
    This control selects the default fill color.
-=======
-Customizing gLabels
-*******************
->>>>>>> 6db85bc (Create framework for the user manual)

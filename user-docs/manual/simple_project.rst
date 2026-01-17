@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .. _simple_project:
 
 Editing a Label or Card Design
@@ -20,8 +19,6 @@ click on it, to paste the square. For the time being, the dropped square has a
 standard color and standard heigth and width. In the panel on the right, you
 can now change the width and color of the surrounding line and the fill color.
 Just click on the colors to open a drop-down menu where you can change them.
-
-.. I remember an option in gLabels-3 to rotate text in 90 degree steps...?
 
 Now you can start with adding your name and address. Click on the **T** icon
 in the toolbar and click on the label. A text field appears, which you can
@@ -57,7 +54,3 @@ Using just a few basic functions of gLabels, we created a rather attractive
 business card:
 
 .. figure:: ./figures/simple_project_2.png
-=======
-Editing a Label or Card Design
-******************************
->>>>>>> 6db85bc (Create framework for the user manual)

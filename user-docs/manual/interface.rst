@@ -1,11 +1,10 @@
-<<<<<<< HEAD
 .. _interface:
 
 User Interface Overview
 ***********************
 
 After opening **gLabels** as described in :ref:`starting` and open a project,
-(see :ref:``) the main window looks as follows:
+(see also :ref:`opening`) the main window looks as follows:
 
 .. figure:: ./figures/interface-main-window.png
 
@@ -86,6 +85,8 @@ The menu bar has the following entries:
 *Objects* menu
 --------------
 
+.. Maybe the function of the *Selct Mode* needs to be more explained.
+
 * *Select Mode* – Activates the **Select Mode**.
 
 * *Create* – When hovering the mouse pointer on it, you can open the
@@ -100,6 +101,8 @@ The menu bar has the following entries:
 * *Rotate/Flip* – With the respective submenu entries, you can rotate an object
   in 90 degree steps left or right, or flipping (mirroring) horizontally or
   vertically.
+
+.. *Alignment* is always greyed out; what's the reason?
 
 * *Alignment* – TBD.
 
@@ -136,7 +139,7 @@ change the properties of the template you are using. In the **Merge** mode, you
 can perform a document merge (see :ref:`documentmerge`). In the **Variables**
 mode, you can add, edit or delete user defined variables (see
 :ref:`user_defined_variables`). And last but not least, the **Print** mode
-shows some special settings for preparing to print the project (see :ref:``).
+shows some special settings for preparing to print the project (see :ref:`printing`).
 The sidebar is always visible; it cannot be hidden.
 
 On top of the window, under the menubar, you see a toolbar with three buttons.
@@ -161,7 +164,3 @@ mode. For example, while a text object is focused:
 .. figure:: ./figures/text_editing.png
 
 Use the buttons and input fields to change the properties.
-=======
-User Interface Overview
-***********************
->>>>>>> 6db85bc (Create framework for the user manual)
