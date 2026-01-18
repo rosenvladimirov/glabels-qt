@@ -48,7 +48,7 @@ select the exact data file format and file name (location) of the merge data.
 
 Finally, once the label has been configured for a data file, field keys can be
 inserted into text objects and used as source or data for barcode objects and
-image filenames for image objects. See :ref:`editprop` for more information
+image filenames for image objects. See :ref:`editing_object_properties` for more information
 on using merge data for these object types.
 
 Now that your label is configured, **gLabels** will print a unique label for
