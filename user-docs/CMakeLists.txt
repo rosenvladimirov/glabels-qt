@@ -1,6 +1,6 @@
 
 # Optional user-docs target, requires Sphinx
-add_custom_target (user-docs DEPENDS manpages qthelp-manual html-manual)
+add_custom_target (user-docs DEPENDS manpages qthelp-manual)
 
 #=======================================
 # Rebuild man pages
