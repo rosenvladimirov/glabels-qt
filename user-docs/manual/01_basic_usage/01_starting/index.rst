@@ -3,7 +3,7 @@
 Starting gLabels
 ----------------
 
-You can start gLabels Label Designer from the command line or from a window manager.
+You can start the **gLabels Label Designer** from the command line or from a window manager.
 
 
 From the Command Line
@@ -15,7 +15,7 @@ To start gLabels from the command line, simply type:
   
   $ glabels-qt
 
-To start gLabels with an existing gLabels project file, simply type the filename after ``glabels-qt`` as in this example:
+To start gLabels with an existing gLabels project file, simply type the filename after :program:`glabels-qt` as in this example:
 
 .. code-block:: console
   
@@ -53,7 +53,7 @@ When started without a project file, gLabels will present the following simplifi
 
    gLabels startup screen
 
-Once a project is created or opened, this window will be reconfigured to include the full :ref:`gLabels interface <interface>`.
+Once a project is created or opened, this window will display the full :ref:`gLabels interface <interface>`.
 
 
 

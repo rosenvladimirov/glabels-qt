@@ -30,103 +30,90 @@ File Menu
 ---------
 This menu contains commands to create, open and save gLabels projects.  It also includes commands switch activities on a project and to create new product templates.
 
-* *New...* – Create a new gLabels project.  See :ref:`createnew`.
+* :menuselection:`&New...` – Create a new gLabels project.  See :ref:`createnew`.
 
-* *Open...* – Open an existing gLabels project.  See :ref:`opening`.
+* :menuselection:`&Open...` – Open an existing gLabels project.  See :ref:`opening`.
   file.
 
-* *Open Recent* – Opens a sub-menu for quickly opening recently accessed gLabels projects with a single click.
+* :menuselection:`Open Recent` – Opens a sub-menu for quickly opening recently accessed gLabels projects with a single click.
 
-* *Save* and *Save As...* – Save a gLabels project or save it under a new name, respectively.  See :ref:`saving`.
+* :menuselection:`&Save` and :menuselection:`Save &As...` – Save a gLabels project or save it under a new name, respectively.  See :ref:`saving`.
 
-* *Edit* – Selects the **Edit** activity.  See :ref:`editing`.
+* :menuselection:`&Edit` – Selects the **Edit** activity.  See :ref:`editing`.
 
-* *Properties* – Selects the **Properties** activity.  See :ref:`changingproperties`
+* :menuselection:`P&roperties` – Selects the **Properties** activity.  See :ref:`changingproperties`
 
-* *Merge* – Selects the **Merge** activity.  See :ref:`documentmerge`.
+* :menuselection:`&Merge` – Selects the **Merge** activity.  See :ref:`documentmerge`.
 
-* *Variables* – Selects the **Variables** activity.  See :ref:`user_defined_variables`.
+* :menuselection:`&Variables` – Selects the **Variables** activity.  See :ref:`user_defined_variables`.
 
-* *Print* – Selects the **Print** activity.  See :ref:`printing`.
+* :menuselection:`&Print` – Selects the **Print** activity.  See :ref:`printing`.
 
-* *Product Template Designer...* – Opens the **Product Template Designer** dialog.  See :ref:`template_designer`.
+* :menuselection:`Product Template &Designer...` – Opens the **Product Template Designer** dialog.  See :ref:`template_designer`.
 
-* *Close* – Closes the current window.
+* :menuselection:`&Close` – Closes the current window.
 
-* *Exit* – Exits from **gLabels**, closes all open projects.
+* :menuselection:`E&xit` – Exits from gLabels, closes all open projects.
 
 
 Edit Menu
 ---------
-This menu contains standard selection and edit commands.  These are primarily used in the Editing activity.
+This menu contains standard selection and edit commands.  These are primarily used in the **Edit** activity.
 
-* *Undo* and *Redo* – Undoes the last edit or repeats a reversed operation.
+* :menuselection:`Undo` and :menuselection:`Redo` – Undo or redo recent modifications to the gLabels project.
 
-* *Cut*, *Copy*, *Paste*, *Delete* – In case of an object is focused in the
-  drawing area, you can do the named actions.
+* :menuselection:`Cut`, :menuselection:`&Copy`, :menuselection:`&Paste`, :menuselection:`&Delete` – Standard clipboard operations.
+  See :ref:`selecting_objects` and :ref:`manipulating_objecs`.
 
-* *Select All* – Selects all objects.
+* :menuselection:`Select &All` – Selects all objects.  See :ref:`selecting_objects`.
 
-* *Un-select all* – Un-selects all objects.
+* :menuselection:`Un-select all` – Un-selects all objects.  See :ref:`selecting_objects`.
+
+* :menuselection:`Preferences` – Edit program preferences.  See :ref:`customizing`.
 
 
 View Menu
 ---------
 This menu contains commands to control the appearance of gLabels.
 
-* *Toolbars* – Changes the visibility of the **Quick Access** and **Editor**
-  toolbars.
+* :menuselection:`Toolbars` – Controls visibility of the **Quick-Access** and **Editor** toolbars.
 
-* *Grid* – Shows a grid on the template which helps when aligning objects.
+* :menuselection:`Grid` – Controls visibility of the alignment in the label editor in the **Edit** activity.
 
-* *Markup* – Shows a red markup line around the template. The area outside this
-  line shouldn't be treated as printable. However, for example, to get a
-  "borderless" label or card, you can try to draw here. Just test the result
-  in a print preview.
+* :menuselection:`Markup` – Controls visibility of helpful markup lines in the label editor in the **Edit** activity.
+  For example, most templates provide markup lines defining a safety margin near the edges of the label or card.
 
-* *Zoom In*, *Zoom Out*, *Zoom 1:1*, *Zoom to Fit* – Resizes the view as said.
+* :menuselection:`Zoom &In`, :menuselection:`Zoom &Out`, :menuselection:`Zoom &1:1`, :menuselection:`Zoom to &Fit` – Standard zoom
+  controls for the label editor in the **Edit** activity.
 
 
 Objects Menu
 ------------
-This menu contains most commands needed in the Editing activity.
+This menu contains most commands for creating and manipulating objects in the **Edit** activity.
 
-* *Select Mode* – Activates the **Select Mode**.
+* :menuselection:`Select Mode` – Returns the label editor to the default object selection mode.
 
-* *Create* – When hovering the mouse pointer on it, you can open the
-  respective drawing tools from the submenu.
+* :menuselection:`&Create` – Opens a sub-menu for selecting an object-creation mode.  See :ref:`creating_objects`
 
-* *Order* – With the submenu entries **Bring To Front** and **Send To Back**
-  you can move the focused object into the respective layer. Helpful when
-  objects overlap each other, but in a wrong way (for example, when the
-  background color has unintentionally come to the foreground and is obscuring
-  all other objects.
+* :menuselection:`&Order` – Opens a sub-menu for controlling the stacking order of objects.  See :ref:`editing_object_properties`.
 
-* *Rotate/Flip* – With the respective submenu entries, you can rotate an object
-  in 90 degree steps left or right, or flipping (mirroring) horizontally or
-  vertically.
+* :menuselection:`&Rotate/Flip` – Opens a sub-menu for controlling rotation and flipping of objects.  See :ref:`editing_object_properties`.
 
-.. *Alignment* is always greyed out; what's the reason?
+* :menuselection:`&Alignment` – Opens a sub-menu for aligning multiple object to one another.  See :ref:`editing_object_properties`.
 
-* *Alignment* – TBD.
-
-* *Center* – Centers an object horizontally or vertically. Centering always
-  means in relation to the template, not to any of the other (underlying)
-  objects.
+* :menuselection:`Center` – Opens a sub-menu for centering (horizontally, vertically, or both) objects on the label or card.  
+  See :ref:`editing_object_properties`.
 
 
 Help Menu
 ---------
-This menu contains commands to bring up online help and other information about gLabels.
+This menu contains commands to display online help and other information about gLabels.
 
-* *User Manual* – Opens this user manual.
+* :menuselection:`&User Manual...` – Opens this user manual.
 
-* *Report Bug* – Shows some instructions about how to report a bug, including
-  a button to open the issue tracker at Github directly in your browser, and
-  a template what you can use for the bug report (with a button for copying
-  the template contents conveniently).
+* :menuselection:`&Report Bug...` – Opens a dialog with instructions on how to report a bug in gLabels.
 
-* *About* – Shows some information about the **gLabels** project itself.
+* :menuselection:`&About...` – Displays version and license information about gLabels.
 
 
 ---------------------
@@ -136,7 +123,17 @@ Quick-Access Tool Bar
 .. figure:: figures/interface-quick-access-tool-bar.png
    :align: center
 
+The Quick-Access tool bar, pictured above, allows acces to several of the most common :menuslection:`&File` commands with a single click.
+These commands are
 
+* :menuselection:`&New...` – Create a new gLabels project.  See :ref:`createnew`.
+
+* :menuselection:`&Open...` – Open an existing gLabels project.  See :ref:`opening`.
+  file.
+
+* :menuselection:`&Save` – Save the current gLabels project.  See :ref:`saving`.
+
+  
 ----------------------
 Activity Selection Bar
 ----------------------
@@ -146,28 +143,35 @@ Activity Selection Bar
 
 The Activity Selection Bar, pictured above, is used to quickly switch between activities on the current project, with a single click.
 
-* *Edit* – Selects the **Edit** activity.  See :ref:`editing`.
+* :guilabel:`Edit` – Selects the **Edit** activity.  See :ref:`editing`.
 
-* *Properties* – Selects the **Properties** activity.  See :ref:`changingproperties`
+* :guilabel:`Properties` – Selects the **Properties** activity.  See :ref:`changingproperties`
 
-* *Merge* – Selects the **Merge** activity.  See :ref:`documentmerge`.
+* :guilabel:`Merge` – Selects the **Merge** activity.  See :ref:`documentmerge`.
 
-* *Variables* – Selects the **Variables** activity.  See :ref:`user_defined_variables`.
+* :guilabel:`Variables` – Selects the **Variables** activity.  See :ref:`user_defined_variables`.
 
-* *Print* – Selects the **Print** activity.  See :ref:`printing`.
+* :guilabel:`Print` – Selects the **Print** activity.  See :ref:`printing`.
 
 
 --------------
 Activity Panel
 --------------
 
+.. figure:: figures/interface-activity-panel.png
+   :align: center
 
+The appearance of the activity panel, identified by the red box above, depends on the current activity selected.  Pictured above is
+the label editor, which is displayed when the **Edit** activity is selected.  The possible activities are
 
+* **Edit** – The panel displays the label editor.  See :ref:`editing`.
 
+* **Properties** – The panel displays the project properties editor.  See :ref:`changingproperties`
 
+* **Merge** – The panel displays the merge editor.  See :ref:`documentmerge`.
 
+* **Variables** – The panel displays the variables editor.  See :ref:`user_defined_variables`.
 
-
-
+* **Print** – The panel displays the print controller view.  See :ref:`printing`.
 
 
