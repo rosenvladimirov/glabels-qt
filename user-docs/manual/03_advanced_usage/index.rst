@@ -6,7 +6,5 @@ Advanced Usage
 .. toctree::
    :maxdepth: 2
    
-   template_designer
-   mancreate
-   customizing
-   spreadsheet_export
+   01_template_designer/index
+   02_manual_templates/index
