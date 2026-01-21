@@ -1,13 +1,13 @@
 .. _starting:
 
 Starting gLabels
-----------------
+****************
 
 You can start the **gLabels Label Designer** from the command line or from a window manager.
 
 
 From the Command Line
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 To start gLabels from the command line, simply type:
 
@@ -29,7 +29,7 @@ To see a full list of command line options, simply type:
 
 
 From a Window Manager
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 .. note:: As gLabels runs on many different platforms with many different window managers or desktop environments, the exact process to start gLabels will differ from platform to platform.  The process should be the same as launching any program on a given platform.
 
@@ -44,7 +44,7 @@ You may also be able to start gLabels with an existing gLabels project file, by 
 
 
 Welcome Window
-^^^^^^^^^^^^^^
+--------------
 
 When started without a project file, gLabels will present the following simplified startup (or "Welcome") window.  In the center of this window are shortcut buttons that allow you to :ref:`create a new project <create-new>` or :ref:`open an existing one <opening>`.
 

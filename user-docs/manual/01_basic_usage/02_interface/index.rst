@@ -123,7 +123,7 @@ Quick-Access Tool Bar
 .. figure:: figures/interface-quick-access-tool-bar.png
    :align: center
 
-The Quick-Access tool bar, pictured above, allows acces to several of the most common :menuslection:`&File` commands with a single click.
+The Quick-Access tool bar, pictured above, allows acces to several of the most common :menuselection:`&File` commands with a single click.
 These commands are
 
 * :menuselection:`&New...` – Create a new gLabels project.  See :ref:`createnew`.

@@ -3,28 +3,45 @@
 Creating a New gLabels Project
 ******************************
 
-To create a new **gLabels** project, choose **File** ➡ **New…** in the main
-window.
+To create a new gLabels project, select the :menuselection:`&File --> &New...` menuitem.
+This will display the **Select Product** dialog, shown below.
 
-The **gLabels – Select Product** window appears. Here you can choose a template
-for your new project. If you have already saved projects, the **Recent** tab is
-active, and recently used templates are shown. To be able to choose from all
-available templates, click on the **Search All** tab, as shown in the following
-illustration:
 
-.. figure:: ./figures/select_product.png
+.. figure:: figures/select_product.png
+   :align: center
 
-When searching all templates, you have some options to filter the template
-collection. You can **Filter by paper size** or **Filter by category**.
-For the latter, click on the **Selected** radio button, and then click on one
-or more categories that might be relevant to you. Besides that, you can use
-the **Search** field to find templates. Just type something like vendor name,
-or whatever you know about a template you like to use. Your input will be
-applied in addition to the filters already selected, if any.
 
-From this point of view, not all of the template properties are shown. These
-can be viewed later in the **Properties** panel (see :ref:`changingproperties`).
+This dialog will allow you to select a product template for your project.
+gLabels includes hundreds of pre-defined product templates.
+This dialog has two tabs to help you locate a suitable template: the :guilabel:`Search All` tab, and the :guilabel:`Recent` tab.
 
-Just click on a template to create the new project. It will be opened in a new
-window, to prevent you from losing unsaved changes in the previously opened
-window.
+Search All Tab
+--------------
+This tab lets you search the entire gLabels product database.
+Search results will be displayed in the selection panel located in the center of this dialog, and will be updated as you edit the filter criteria in this tab.
+For a product to appear in the selection panel, all criteria must match.
+To edit the filer criteria, you can
+
+#. Type a search string in the :guilabel:`Search` text entry.
+   This string will be matched against the "manufacturer part#" string of each product template (E.g. "Avery 5095").
+   The search string only needs to be a substring of this string.
+
+#. Select a paper size family with the :guilabel:`Filter by paper size` check boxes.  One or more size families must be selected.
+
+#. Select one or more product categories in the :guilabel:`Filter by category` controls.  You can either select all categories with the :guilabel:`All` radio button, or any combination of individual categories under the :guilabel:`Selected` radio button.
+
+
+Recent Tab
+----------
+This tab will limit the products in the selection panel to the 10 most recent products that you have used.
+
+
+Product Selection
+-----------------
+To select a product
+
+#. Click on a product in the selection panel.  Information about the selected product will be displayed in the :guilabel:`Product Information` panel located on the right side of this dialog.
+
+#. Confirm the selection by pressing the :guilabel:`Select` button
+   A new project will be created by opening a new gLabels window.
+
