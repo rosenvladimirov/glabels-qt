@@ -3,18 +3,20 @@
 Saving Your gLabels Project
 ***************************
 
-To save a **gLabels** project, choose **File** ➡ **Save**. If the project
-hasn't been saved before, the dialog **gLabels – Save Project As** will be
-shown, and you will be prompted for choosing a folder and submitting a
-filename.
+To save your project, either
 
-To save a **gLabels** project under a different name, choose
-**File** ➡ **Save As...**. Again, you will be prompted for choosing a folder
-and submitting a filename.
+* Select the :menuselection:`&File --> &Save` menu item, or
 
-.. Maybe write something about the reasons why it is not recommended to change
-   the extension?
+* Click on the :guilabel:`Save` button on the Quick-Access tool bar.
 
-In both cases, the extension *.glabels* will be added automatically to the
-chosen filename. Although it is possible to choose a different extension, we
-don't recommend this.
+When you save a project for the first time, the :guilabel:`Save As` dialog will open.
+Otherwise, the project will overwrite the previously saved project file.
+
+To save the project under a different filename or location, select the :menuselection:`&File --> Save &As...` menu item.
+This will open the :guilabel:`Save As` dialog.  Use this dialog to select a filename and location to save your project.
+
+
+Automatic extension to the file name
+------------------------------------
+
+When saving a file, gLabels always appends a `.glabels` extension to the file name, except if the file name already has this extension.

@@ -34,7 +34,8 @@ set (QTHELP_FILES
 
 find_program (QHELPGENERATOR_EXECUTABLE
   NAMES qhelpgenerator
-  HINTS ${QT_BIN_DIR}
+  PATHS /usr/lib/qt6/libexec
+  NO_DEFAULT_PATH
 )
 
 add_custom_target (qthelp-manual
