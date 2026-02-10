@@ -24,6 +24,7 @@
 #include "Config.hpp"
 #include "StrUtil.hpp"
 #include "FileUtil.hpp"
+#include "GenericTemplate.hpp"
 #include "Settings.hpp"
 #include "XmlCategoryParser.hpp"
 #include "XmlPaperParser.hpp"
@@ -87,6 +88,7 @@ namespace glabels::model
                 readCategories();
                 readVendors();
                 readTemplates();
+                createGenericTemplates();
         }
 
 
@@ -693,6 +695,22 @@ namespace glabels::model
                 else
                 {
                         qWarning() << "Duplicate template name: " << tmplate.name();
+                }
+        }
+
+
+        void Db::createGenericTemplates()
+        {
+                for ( auto& paper : papers() )
+                {
+                        if ( paper.type() == Paper::SHEET )
+                        {
+                                registerTemplate( GenericTemplate::fullPage( paper ) );
+                        }
+                        else if ( paper.type() == Paper::ENVELOPE )
+                        {
+                                registerTemplate( GenericTemplate::envelope( paper ) );
+                        }
                 }
         }
 

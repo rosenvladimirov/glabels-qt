@@ -272,6 +272,21 @@
     </message>
 </context>
 <context>
+    <name>GenericTemplate</name>
+    <message>
+        <source>Generic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Full Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Envelope</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MergeView</name>
     <message>
         <source>Source</source>
