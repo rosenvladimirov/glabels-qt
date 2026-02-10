@@ -278,11 +278,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 Full Page</source>
+        <source>%1 full-page labels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 Envelope</source>
+        <source>%1 envelope</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -34,7 +34,7 @@ namespace glabels::model
         {
                 Template tmplate( tr("Generic"),
                                   "FP-" + paper.id(),
-                                  QString( tr( "%1 Full Page" ) ).arg( paper.name() ),
+                                  QString( tr( "%1 full-page labels" ) ).arg( paper.name() ),
                                   paper.id(),
                                   paper.width(),
                                   paper.height() );
@@ -63,7 +63,7 @@ namespace glabels::model
         {
                 Template tmplate( tr("Generic"),
                                   "EN-" + paper.id(),
-                                  QString( tr( "%1 Envelope" ) ).arg( paper.name() ),
+                                  QString( tr( "%1 envelope" ) ).arg( paper.name() ),
                                   paper.id(),
                                   paper.width(),
                                   paper.height() );
