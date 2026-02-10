@@ -101,7 +101,23 @@ namespace glabels::model
 
                 QString pwgSize = XmlUtil::getStringAttr( node, "pwg_size", "" );
 
-                return Paper( id, name, width, height, pwgSize );
+                Paper::Type type;
+                QString typeString = XmlUtil::getStringAttr( node, "type", "sheet" );
+                if ( typeString == "sheet" )
+                {
+                        type = Paper::SHEET;
+                }
+                else if ( typeString == "envelope" )
+                {
+                        type = Paper::ENVELOPE;
+                }
+                else
+                {
+                        qWarning() << "Warning: unknown paper type: " << typeString << ".";
+                        type = Paper::SHEET;
+                }
+
+                return Paper( id, name, width, height, pwgSize, type );
         }
 
 

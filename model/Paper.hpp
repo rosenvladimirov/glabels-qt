@@ -33,12 +33,22 @@ namespace glabels::model
         class Paper
         {
         public:
+                enum Type
+                {
+                        SHEET,
+                        ENVELOPE,
+                        ROLL
+                };
+
+
+        public:
                 Paper() = default;
                 Paper( const QString& id,
                        const QString& name,
                        Distance       width,
                        Distance       height,
-                       const QString& pwgSize );
+                       const QString& pwgSize,
+                       Type           type = SHEET );
                 ~Paper() = default;
 
                 QString id() const;
@@ -53,8 +63,11 @@ namespace glabels::model
                 /* PWG 5101.1-2002 size name */
                 QString pwgSize() const;
 
+                Type type() const;
+
                 bool isSizeIso() const;
                 bool isSizeUs() const;
+
 
         private:
                 QString  mId;
@@ -62,6 +75,8 @@ namespace glabels::model
                 Distance mWidth;
                 Distance mHeight;
                 QString  mPwgSize;
+                Type     mType;
+
         };
 
 }

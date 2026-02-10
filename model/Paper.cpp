@@ -29,12 +29,14 @@ namespace glabels::model
                       const QString& name,
                       Distance       width,
                       Distance       height,
-                      const QString& pwgSize )
+                      const QString& pwgSize,
+                      Type           type )
                 : mId(id),
                   mName(name),
                   mWidth(width),
                   mHeight(height),
-                  mPwgSize(pwgSize)
+                  mPwgSize(pwgSize),
+                  mType(type)
         {
                 // empty
         }
@@ -67,6 +69,12 @@ namespace glabels::model
         QString Paper::pwgSize() const
         {
                 return mPwgSize;
+        }
+
+
+        Paper::Type Paper::type() const
+        {
+                return mType;
         }
 
 
