@@ -55,6 +55,10 @@ namespace glabels::model
                 frame.addLayout( layout );
                 tmplate.addFrame( frame );
 
+                tmplate.addCategory( "label" );
+                tmplate.addCategory( "rectangle-label" );
+                tmplate.addCategory( "card" );
+
                 return tmplate;
         }
 
@@ -83,6 +87,8 @@ namespace glabels::model
 
                 frame.addLayout( layout );
                 tmplate.addFrame( frame );
+
+                tmplate.addCategory( "mail" );
 
                 return tmplate;
         }
