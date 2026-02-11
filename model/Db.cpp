@@ -472,11 +472,12 @@ namespace glabels::model
                 for ( auto& paper : mPapers )
                 {
                         qDebug() << "paper "
-                                 << "id="       << paper.id()          << ", "
-                                 << "name="     << paper.name()        << ", "
-                                 << "width="    << paper.width().pt()  << "pts, "
-                                 << "height="   << paper.height().pt() << "pts, "
-                                 << "pwg_size=" << paper.pwgSize();
+                                 << "id="        << paper.id()          << ", "
+                                 << "name="      << paper.name()        << ", "
+                                 << "width="     << paper.width().pt()  << "pts, "
+                                 << "height="    << paper.height().pt() << "pts, "
+                                 << "pwg_class=" << paper.pwgClass()
+                                 << "type="      << paper.type();
                 }
 
                 qDebug();

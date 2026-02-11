@@ -29,13 +29,13 @@ namespace glabels::model
                       const QString& name,
                       Distance       width,
                       Distance       height,
-                      const QString& pwgSize,
+                      const QString& pwgClass,
                       Type           type )
                 : mId(id),
                   mName(name),
                   mWidth(width),
                   mHeight(height),
-                  mPwgSize(pwgSize),
+                  mPwgClass(pwgClass),
                   mType(type)
         {
                 // empty
@@ -66,9 +66,9 @@ namespace glabels::model
         }
 
 
-        QString Paper::pwgSize() const
+        QString Paper::pwgClass() const
         {
-                return mPwgSize;
+                return mPwgClass;
         }
 
 
@@ -80,13 +80,13 @@ namespace glabels::model
 
         bool Paper::isSizeIso() const
         {
-                return mPwgSize.startsWith( "iso_" );
+                return mPwgClass == "iso";
         }
 
 
         bool Paper::isSizeUs() const
         {
-                return mPwgSize.startsWith( "na_" );
+                return mPwgClass == "na";
         }
 
 }

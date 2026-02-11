@@ -47,7 +47,7 @@ namespace glabels::model
                        const QString& name,
                        Distance       width,
                        Distance       height,
-                       const QString& pwgSize,
+                       const QString& pwgClass,
                        Type           type = SHEET );
                 ~Paper() = default;
 
@@ -60,8 +60,8 @@ namespace glabels::model
                 /* Height */
                 Distance height() const;
 
-                /* PWG 5101.1-2002 size name */
-                QString pwgSize() const;
+                /* PWG 5101.1-2023 class */
+                QString pwgClass() const;
 
                 Type type() const;
 
@@ -74,7 +74,7 @@ namespace glabels::model
                 QString  mName;
                 Distance mWidth;
                 Distance mHeight;
-                QString  mPwgSize;
+                QString  mPwgClass;
                 Type     mType;
 
         };

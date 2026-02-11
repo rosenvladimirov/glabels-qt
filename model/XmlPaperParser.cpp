@@ -99,7 +99,7 @@ namespace glabels::model
                 Distance width   = XmlUtil::getLengthAttr( node, "width", Distance(0) );
                 Distance height  = XmlUtil::getLengthAttr( node, "height", Distance(0) );
 
-                QString pwgSize = XmlUtil::getStringAttr( node, "pwg_size", "" );
+                QString pwgClass = XmlUtil::getStringAttr( node, "pwg_class", "iso" );
 
                 Paper::Type type;
                 QString typeString = XmlUtil::getStringAttr( node, "type", "sheet" );
@@ -117,7 +117,7 @@ namespace glabels::model
                         type = Paper::SHEET;
                 }
 
-                return Paper( id, name, width, height, pwgSize, type );
+                return Paper( id, name, width, height, pwgClass, type );
         }
 
 
