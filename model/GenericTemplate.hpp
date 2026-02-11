@@ -39,8 +39,18 @@ namespace glabels::model
                 GenericTemplate() = delete;
 
                 static Template fullPage( const Paper& paper );
+                static Template halfPage1x2( const Paper& paper );
+                static Template halfPage2x1( const Paper& paper );
+                static Template quarterPage2x2( const Paper& paper );
+
                 static Template envelope( const Paper& paper );
 
+
+        private:
+                static Template sheetTemplate( const Paper&   paper,
+                                               int            nx,
+                                               int            ny,
+                                               const QString& description );
         };
 
 }

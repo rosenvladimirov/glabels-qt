@@ -285,6 +285,14 @@
         <source>%1 envelope</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>%1 half-page labels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 quarter-page labels</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MergeView</name>

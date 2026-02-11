@@ -32,41 +32,32 @@ namespace glabels::model
 
         Template GenericTemplate::fullPage( const Paper& paper )
         {
-                Template tmplate( tr("Generic"),
-                                  "FP-" + paper.id(),
-                                  QString( tr( "%1 full-page labels" ) ).arg( paper.name() ),
-                                  paper.id(),
-                                  paper.width(),
-                                  paper.height() );
+                return sheetTemplate( paper, 1, 1, QString( tr( "%1 full-page labels" ) ).arg( paper.name() ) );
+        }
 
-                FrameRect frame( paper.width(),
-                                 paper.height(),
-                                 Distance::pt( 0 ),
-                                 Distance::pt( 0 ),
-                                 Distance::pt( 0 ) );
 
-                Layout layout( 1,
-                               1,
-                               Distance::pt( 0 ),
-                               Distance::pt( 0 ),
-                               Distance::pt( 0 ),
-                               Distance::pt( 0 ) );
+        Template GenericTemplate::halfPage1x2( const Paper& paper )
+        {
+                return sheetTemplate( paper, 1, 2, QString( tr( "%1 half-page labels" ) ).arg( paper.name() ) );
+        }
 
-                frame.addLayout( layout );
-                tmplate.addFrame( frame );
 
-                tmplate.addCategory( "label" );
-                tmplate.addCategory( "rectangle-label" );
-                tmplate.addCategory( "card" );
+        Template GenericTemplate::halfPage2x1( const Paper& paper )
+        {
+                return sheetTemplate( paper, 2, 1, QString( tr( "%1 half-page labels" ) ).arg( paper.name() ) );
+        }
 
-                return tmplate;
+
+        Template GenericTemplate::quarterPage2x2( const Paper& paper )
+        {
+                return sheetTemplate( paper, 2, 2, QString( tr( "%1 quarter-page labels" ) ).arg( paper.name() ) );
         }
 
 
         Template GenericTemplate::envelope( const Paper& paper )
         {
                 Template tmplate( tr("Generic"),
-                                  "EN-" + paper.id(),
+                                  paper.id() + "-ENV",
                                   QString( tr( "%1 envelope" ) ).arg( paper.name() ),
                                   paper.id(),
                                   paper.width(),
@@ -89,6 +80,42 @@ namespace glabels::model
                 tmplate.addFrame( frame );
 
                 tmplate.addCategory( "mail" );
+
+                return tmplate;
+        }
+
+
+        Template GenericTemplate::sheetTemplate( const Paper&   paper,
+                                                 int            nx,
+                                                 int            ny,
+                                                 const QString& description )
+        {
+                Template tmplate( tr("Generic"),
+                                  QString( "%1-%2x%3" ).arg(paper.id()).arg(nx).arg(ny),
+                                  description,
+                                  paper.id(),
+                                  paper.width(),
+                                  paper.height() );
+
+                FrameRect frame( paper.width()/nx,
+                                 paper.height()/ny,
+                                 Distance::pt( 0 ),
+                                 Distance::pt( 0 ),
+                                 Distance::pt( 0 ) );
+
+                Layout layout( nx,
+                               ny,
+                               Distance::pt( 0 ),
+                               Distance::pt( 0 ),
+                               paper.width()/nx,
+                               paper.height()/ny );
+
+                frame.addLayout( layout );
+                tmplate.addFrame( frame );
+
+                tmplate.addCategory( "label" );
+                tmplate.addCategory( "rectangle-label" );
+                tmplate.addCategory( "card" );
 
                 return tmplate;
         }

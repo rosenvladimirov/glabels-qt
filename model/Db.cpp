@@ -706,6 +706,9 @@ namespace glabels::model
                         if ( paper.type() == Paper::SHEET )
                         {
                                 registerTemplate( GenericTemplate::fullPage( paper ) );
+                                registerTemplate( GenericTemplate::halfPage1x2( paper ) );
+                                registerTemplate( GenericTemplate::halfPage2x1( paper ) );
+                                registerTemplate( GenericTemplate::quarterPage2x2( paper ) );
                         }
                         else if ( paper.type() == Paper::ENVELOPE )
                         {
