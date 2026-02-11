@@ -279,18 +279,22 @@
     </message>
     <message>
         <source>%1 full-page labels</source>
+        <extracomment>%1 = page size. (e.g. A4)</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%1 envelope</source>
+        <extracomment>%1 = envelope size. (e.g. DL)</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%1 half-page labels</source>
+        <extracomment>%1 = page size. (e.g. A4)</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>%1 quarter-page labels</source>
+        <extracomment>%1 = page size. (e.g. A4)</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>

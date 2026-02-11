@@ -32,12 +32,16 @@ namespace glabels::model
 
         Template GenericTemplate::fullPage( const Paper& paper )
         {
+                // TRANSLATORS
+                //:   %1 = page size.  (e.g. A4)
                 return sheetTemplate( paper, 1, 1, QString( tr( "%1 full-page labels" ) ).arg( paper.name() ) );
         }
 
 
         Template GenericTemplate::halfPage1x2( const Paper& paper )
         {
+                // TRANSLATORS
+                //:   %1 = page size.  (e.g. A4)
                 return sheetTemplate( paper, 1, 2, QString( tr( "%1 half-page labels" ) ).arg( paper.name() ) );
         }
 
@@ -50,15 +54,21 @@ namespace glabels::model
 
         Template GenericTemplate::quarterPage2x2( const Paper& paper )
         {
+                // TRANSLATORS
+                //:   %1 = page size.  (e.g. A4)
                 return sheetTemplate( paper, 2, 2, QString( tr( "%1 quarter-page labels" ) ).arg( paper.name() ) );
         }
 
 
         Template GenericTemplate::envelope( const Paper& paper )
         {
+                // TRANSLATORS
+                //:   %1 = envelope size.  (e.g. DL)
+                QString description = QString( tr( "%1 envelope" ) ).arg( paper.name() );
+
                 Template tmplate( tr("Generic"),
                                   paper.id() + "-ENV",
-                                  QString( tr( "%1 envelope" ) ).arg( paper.name() ),
+                                  description,
                                   paper.id(),
                                   paper.width(),
                                   paper.height() );
