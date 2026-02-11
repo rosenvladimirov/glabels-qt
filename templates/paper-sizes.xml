@@ -36,11 +36,18 @@
   <Paper-size id="B10"          name="B10"          pwg_size="iso_b10"      width="31mm"    height="44mm" />
 
   <!-- Envelopes -->
-  <Paper-size id="number10"     name="#10"          pwg_size="na_number-10" width="4.125in" height="9.5in" type="envelope" />
-  <Paper-size id="monarch"      name="Monarch"      pwg_size="na_monarch"   width="3.875in" height="7.5in" type="envelope" />
-  <Paper-size id="c5"           name="C5"           pwg_size="iso_c5"       width="162mm"   height="229mm" type="envelope" />
-  <Paper-size id="c6"           name="C6"           pwg_size="iso_c6"       width="114mm"   height="162mm" type="envelope" />
-  <Paper-size id="dl"           name="DL"           pwg_size="iso_dl"       width="110mm"   height="220mm" type="envelope" />
+  <Paper-size id="personal"     name="Personal"     pwg_size="na_personal"  width="3.625in" height="6.5in"    type="envelope" />
+  <Paper-size id="monarch"      name="Monarch"      pwg_size="na_monarch"   width="3.875in" height="7.5in"    type="envelope" />
+  <Paper-size id="no9"          name="#9"           pwg_size="na_number-9"  width="3.875in" height="8.875in"  type="envelope" />
+  <Paper-size id="no10"         name="#10"          pwg_size="na_number-10" width="4.125in" height="9.5in"    type="envelope" />
+  <Paper-size id="no11"         name="#11"          pwg_size="na_number-11" width="4.5in"   height="10.375in" type="envelope" />
+  <Paper-size id="no12"         name="#12"          pwg_size="na_number-12" width="4.75in"  height="11in"     type="envelope" />
+  <Paper-size id="no14"         name="#14"          pwg_size="na_number-14" width="5in"     height="11.5in"   type="envelope" />
+  <Paper-size id="dl"           name="DL"           pwg_size="iso_dl"       width="110mm"   height="220mm"    type="envelope" />
+  <Paper-size id="c4"           name="C4"           pwg_size="iso_c4"       width="229mm"   height="324mm"    type="envelope" />
+  <Paper-size id="c5"           name="C5"           pwg_size="iso_c5"       width="162mm"   height="229mm"    type="envelope" />
+  <Paper-size id="c6"           name="C6"           pwg_size="iso_c6"       width="114mm"   height="162mm"    type="envelope" />
+  <Paper-size id="b6"           name="B6"           pwg_size="iso_b6"       width="125mm"   height="176mm"    type="envelope" />
 
   <!-- ISO 217 -->
   <Paper-size id="RA0"          name="RA0"          pwg_size="iso_ra0"      width="860mm"   height="1220mm" />
