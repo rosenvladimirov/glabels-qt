@@ -26,7 +26,7 @@ How To Contribute to gLabels
 
 ### Would you like to submit new product templates?
 
-* Before submitting, please read [PRODUCT-TEMPLATES.md](PRODUCT-TEMPLATES.md) located in this directory.
+* Before submitting, please read [PRODUCT-TEMPLATES.md](PRODUCT-TEMPLATES.md) and [TEMPLATE-STYLE.md](TEMPLATE-STYLE.md) located in this directory.
 
 * [Open an issue](https://github.com/j-evins/glabels-qt/issues/new) and attach your completed product template file(s).
 

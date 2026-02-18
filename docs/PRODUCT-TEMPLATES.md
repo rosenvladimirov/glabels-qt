@@ -1,7 +1,9 @@
 Manually Creating Product Templates
 ===================================
 
-This document is a reference for manually creating *gLabels* product templates.
+This document is a reference for manually creating *gLabels* product templates.  See
+[TEMPLATE-STYLE.md](TEMPLATE-STYLE.md) located in this directory for style guidelines
+for product template submissions.
 
 *gLabels* searches for templates in several locations as described here:</p>
 
@@ -83,7 +85,7 @@ Property       | Type     | Description
 *_description* | string   | Translatable description of stationery product. Used in predefined labels instead of description.
 *width*        | distance | Page width. Only valid if `size="other"` or `size="roll"`.
 *height*       | distance | Page height. Only valid if `size="other"`.  Value is ignored if `size="roll"`.
-*equiv*        | string   | Equivalent part number.  If this property is present, the template is a clone of another template of the same brand.  The template will inherit all properties, except brand and name from the other template. This equiv property must refer to a previously defined template - *gLabels* does not currently support forward references.
+*equiv*        | string   | Equivalent part number.  If this property is present, the template is a clone of another template of the same brand.  The template will inherit all properties, except *part* from the other template. This equiv property must refer to a previously defined template - *gLabels* does not currently support forward references.
 
 ### Guidelines for Creating Product Descriptions
 
