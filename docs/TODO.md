@@ -39,7 +39,7 @@ To Do List for gLabels 4.0 -- 2019-10-07
 
 
 
-To Do List for post gLabels 4.0 -- 2019-03-17
+To Do List for post gLabels 4.0 -- 2026-02-18
 =============================================
 
 - [ ] Create a "built-in" merge source
@@ -71,4 +71,14 @@ To Do List for post gLabels 4.0 -- 2019-03-17
   The current built-in fixed margin seems to confuse people when dealing with
   different horizontal and vertical alignments.
 
+- [ ] Add support for arbitrary DPI when defining templates.  Some label
+  printers use native units in their label specifications (e.g. pins, pixels, etc.)
+  This would look something like this
 
+  `... dpi="300" ... width="525d" height="350d" ...`
+
+  These would be converted to model::Distance when parsing.
+
+- [ ] Resurrect the evolution and vcard backends.  This would be optional based
+  on availability.
+  
