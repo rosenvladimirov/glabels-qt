@@ -30,6 +30,7 @@ This is the brand name or manufacturer of the product.  It must match one of the
 in the [vendors.xml](../templates/vendors.xml) file.  Add a new vendor line if it does not
 currently exist.
 
+
 ### *part* Attribute
 
 This is the actual part number of the product.  This is usually a short set of numbers and/or
@@ -47,6 +48,7 @@ is acceptable.  For example:
 - `3274.1`, `3274.2`, and `3274.3`
 - `5931-Disc`, and `5931-Spine`
 
+
 ### *_description* Attribute
 
 - Descriptions should be short. They should describe what the product is in very simple terms
@@ -58,7 +60,7 @@ is acceptable.  For example:
 - If at all possible, try to reuse descriptions from other templates (this keeps the
   number of unique strings that need translation to a minimum).
 
-- Don't repeat the brand or part number.
+- Don't repeat the brand or part number in the description.
 
 - Only capitalize the first word of the description.
 
@@ -76,10 +78,19 @@ The following are good bad descriptions:
 | `Dymo continuous labels` |    ❌    | Don't include brand or part number.        |
 
 
-*Meta* Nodes
-------------
+
+*Meta* Node Attributes
+----------------------
+
+### *category* Attribute
 
 - All templates should include all appropriate `<Meta category=...` nodes.
 - Categories must match one of the existing categories in the [categories.xml](../templates/categories.xml) file.  Do not add new categories!
 - All templates should include either a `<Meta category="label"/>` or `<Meta category="card"/>` node.
+
+
+### *product_url* Attribute
+
+Unfortunately, manufacturer websites are constantly being updated and rearranged, rendering such deep URLs obsolete very quickly.  Therefore,
+use of this attribute is deprecated.
 
