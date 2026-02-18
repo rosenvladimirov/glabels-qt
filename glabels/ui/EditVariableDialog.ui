@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>469</width>
-    <height>297</height>
+    <height>310</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -132,6 +132,14 @@
    </slots>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>typeCombo</tabstop>
+  <tabstop>nameEdit</tabstop>
+  <tabstop>valueEdit</tabstop>
+  <tabstop>colorValueButton</tabstop>
+  <tabstop>incrementCombo</tabstop>
+  <tabstop>stepSizeEdit</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

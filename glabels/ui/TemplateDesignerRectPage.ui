@@ -187,6 +187,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>wSpin</tabstop>
+  <tabstop>hSpin</tabstop>
+  <tabstop>rSpin</tabstop>
+  <tabstop>xWasteSpin</tabstop>
+  <tabstop>yWasteSpin</tabstop>
+  <tabstop>xMarginSpin</tabstop>
+  <tabstop>yMarginSpin</tabstop>
+ </tabstops>
  <resources>
   <include location="../images.qrc"/>
  </resources>

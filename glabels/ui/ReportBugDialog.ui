@@ -218,6 +218,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>websiteButton</tabstop>
+  <tabstop>infoText</tabstop>
+  <tabstop>copyButton</tabstop>
+ </tabstops>
  <resources>
   <include location="../icons.qrc"/>
  </resources>

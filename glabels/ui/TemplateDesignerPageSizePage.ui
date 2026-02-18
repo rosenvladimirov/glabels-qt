@@ -129,6 +129,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>pageSizeCombo</tabstop>
+  <tabstop>wSpin</tabstop>
+  <tabstop>hSpin</tabstop>
+  <tabstop>rollWSpin</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

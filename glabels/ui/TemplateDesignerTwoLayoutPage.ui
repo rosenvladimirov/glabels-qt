@@ -170,7 +170,11 @@
    <item row="0" column="1" rowspan="2">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="glabels::SimplePreview" name="preview"/>
+      <widget class="glabels::SimplePreview" name="preview">
+       <property name="interactive">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -199,7 +203,8 @@
           <string>Print test sheet</string>
          </property>
          <property name="icon">
-          <iconset theme="glabels-print"/>
+          <iconset theme="glabels-print">
+           <normaloff>.</normaloff>.</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -248,6 +253,22 @@
    <header>SimplePreview.hpp</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>nxSpin1</tabstop>
+  <tabstop>nySpin1</tabstop>
+  <tabstop>x0Spin1</tabstop>
+  <tabstop>y0Spin1</tabstop>
+  <tabstop>dxSpin1</tabstop>
+  <tabstop>dySpin1</tabstop>
+  <tabstop>nxSpin2</tabstop>
+  <tabstop>nySpin2</tabstop>
+  <tabstop>x0Spin2</tabstop>
+  <tabstop>y0Spin2</tabstop>
+  <tabstop>dxSpin2</tabstop>
+  <tabstop>dySpin2</tabstop>
+  <tabstop>preview</tabstop>
+  <tabstop>printButton</tabstop>
+ </tabstops>
  <resources>
   <include location="../icons.qrc"/>
  </resources>

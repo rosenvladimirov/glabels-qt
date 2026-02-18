@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -195,6 +195,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>unitsInchesRadio</tabstop>
+  <tabstop>unitsMillimetersRadio</tabstop>
+  <tabstop>unitsCentimetersRadio</tabstop>
+  <tabstop>unitsPointsRadio</tabstop>
+  <tabstop>unitsPicasRadio</tabstop>
+  <tabstop>gridOriginTlRadio</tabstop>
+  <tabstop>gridOriginCenterRadio</tabstop>
+  <tabstop>gridSpacingSpin</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

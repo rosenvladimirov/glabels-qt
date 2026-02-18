@@ -434,6 +434,13 @@
    <header>SimplePreview.hpp</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>changeProductButton</tabstop>
+  <tabstop>lengthSpin</tabstop>
+  <tabstop>orientationCombo</tabstop>
+  <tabstop>similarBrowser</tabstop>
+  <tabstop>preview</tabstop>
+ </tabstops>
  <resources>
   <include location="../icons.qrc"/>
  </resources>

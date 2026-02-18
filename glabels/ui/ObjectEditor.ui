@@ -56,7 +56,6 @@
         <font>
          <family>Sans Serif</family>
          <pointsize>10</pointsize>
-         <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>
@@ -70,7 +69,7 @@
    <item row="1" column="0">
     <widget class="QTabWidget" name="notebook">
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="textPage">
       <attribute name="title">
@@ -106,7 +105,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="glabels-align-text-left"/>
+                 <iconset theme="glabels-align-text-left">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -131,7 +131,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="glabels-align-text-center"/>
+                 <iconset theme="glabels-align-text-center">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -153,7 +154,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="glabels-align-text-right"/>
+                 <iconset theme="glabels-align-text-right">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -182,7 +184,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="glabels-valign-text-top"/>
+                 <iconset theme="glabels-valign-text-top">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -207,7 +210,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="glabels-valign-text-middle"/>
+                 <iconset theme="glabels-valign-text-middle">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -229,7 +233,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="glabels-valign-text-bottom"/>
+                 <iconset theme="glabels-valign-text-bottom">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -382,7 +387,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="glabels-format-text-bold"/>
+                 <iconset theme="glabels-format-text-bold">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -404,7 +410,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="glabels-format-text-italic"/>
+                 <iconset theme="glabels-format-text-italic">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -423,7 +430,8 @@
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset theme="glabels-format-text-underline"/>
+                 <iconset theme="glabels-format-text-underline">
+                  <normaloff>.</normaloff>.</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -1537,6 +1545,51 @@
    </slots>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>notebook</tabstop>
+  <tabstop>textFontFamilyCombo</tabstop>
+  <tabstop>textFontSizeSpin</tabstop>
+  <tabstop>textFontBoldToggle</tabstop>
+  <tabstop>textFontItalicToggle</tabstop>
+  <tabstop>textFontUnderlineToggle</tabstop>
+  <tabstop>textColorButton</tabstop>
+  <tabstop>textHAlignLeftToggle</tabstop>
+  <tabstop>textHAlignCenterToggle</tabstop>
+  <tabstop>textHAlignRightToggle</tabstop>
+  <tabstop>textVAlignTopToggle</tabstop>
+  <tabstop>textVAlignMiddleToggle</tabstop>
+  <tabstop>textVAlignBottomToggle</tabstop>
+  <tabstop>textWrapModeCombo</tabstop>
+  <tabstop>textLineSpacingSpin</tabstop>
+  <tabstop>textAutoShrinkCheck</tabstop>
+  <tabstop>textEdit</tabstop>
+  <tabstop>textInsertFieldButton</tabstop>
+  <tabstop>barcodeStyleButton</tabstop>
+  <tabstop>barcodeShowTextCheck</tabstop>
+  <tabstop>barcodeChecksumCheck</tabstop>
+  <tabstop>barcodeColorButton</tabstop>
+  <tabstop>barcodeDataEdit</tabstop>
+  <tabstop>barcodeInsertFieldButton</tabstop>
+  <tabstop>imageFilenameLineEdit</tabstop>
+  <tabstop>imageBrowseButton</tabstop>
+  <tabstop>imageFieldButton</tabstop>
+  <tabstop>lineWidthSpin</tabstop>
+  <tabstop>lineColorButton</tabstop>
+  <tabstop>fillColorButton</tabstop>
+  <tabstop>posXSpin</tabstop>
+  <tabstop>posYSpin</tabstop>
+  <tabstop>sizeWSpin</tabstop>
+  <tabstop>sizeHSpin</tabstop>
+  <tabstop>sizeAspectCheck</tabstop>
+  <tabstop>sizeResetImageButton</tabstop>
+  <tabstop>sizeLineLengthSpin</tabstop>
+  <tabstop>sizeLineAngleSpin</tabstop>
+  <tabstop>shadowEnableCheck</tabstop>
+  <tabstop>shadowXSpin</tabstop>
+  <tabstop>shadowYSpin</tabstop>
+  <tabstop>shadowColorButton</tabstop>
+  <tabstop>shadowOpacitySpin</tabstop>
+ </tabstops>
  <resources>
   <include location="../icons.qrc"/>
  </resources>
