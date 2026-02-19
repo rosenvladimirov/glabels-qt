@@ -61,7 +61,6 @@
   <Template brand="Avery" part="L4785" size="A4" _description="Name badge labels">
     <Meta category="label"/>
     <Meta category="rectangle-label"/>
-    <Meta product_url="http://www.avery.co.uk/avery/en_gb/Products/Naming/Self-Adhesive-Name-Badges/White-self-adhesive-name-badges_L4785_20.htm"/>
     <Label-rectangle id="0" width="80mm" height="50mm" round="4mm" x_waste="7.5mm" y_waste="2.5mm">
       <Markup-margin size="1mm"/>
       <Layout nx="2" ny="5" x0="18mm" y0="13mm" dx="95mm" dy="55mm"/>
