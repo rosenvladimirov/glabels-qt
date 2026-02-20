@@ -17,6 +17,30 @@ is the naming convention for these files:
 Where *brand* is the lowercase brand name, and *class* is the media size class (currently
 `iso`, `us`, and `other`).
 
+Templates should be sorted in [natural order](https://en.wikipedia.org/wiki/Natural_sort_order)
+by part number within each file.  An exception to this rule is to group equivalent templates
+directly below their referenced template.  For example:
+
+```xml
+  <Template brand="Avery" part="5126" size="US-Letter" _description="Shipping labels">
+    <Meta category="label"/>
+    <Meta category="rectangle-label"/>
+    <Meta category="mail"/>
+    <Label-rectangle id="0" width="8.5in" height="5.5in" round="0in" x_waste="0in" y_waste="0in">
+      <Markup-margin size="9pt"/>
+      <Layout nx="1" ny="2" x0="0in" y0="0in" dx="0in" dy="5.5in"/>
+    </Label-rectangle>
+  </Template>
+
+  <Template brand="Avery" part="5526" equiv="5126"/>
+  <Template brand="Avery" part="8126" equiv="5126"/>
+  <Template brand="Avery" part="15516" equiv="5126"/>
+  <Template brand="Avery" part="18126" equiv="5126"/>
+
+
+  <Template brand="Avery" part="5159" size="US-Letter" _description="Address labels">...
+```
+
 When creating a new template file, it must be added to the variable template_files in
 the [CMakeLists.txt](../templates/CMakeLists.txt) file in this same directory.
 
@@ -67,7 +91,7 @@ is acceptable.  For example:
 The following are good bad descriptions:
 
 | description              | Good/Bad | Notes                                         |
-|:-------------------------|:---------|:----------------------------------------------|
+|:-------------------------|:--------:|:----------------------------------------------|
 | `Address labels`         |    ✅    |                                               |
 | `Address Labels`         |    ❌    | Capitalized second word of description.       |
 | `Business cards`         |    ✅    |                                               |
