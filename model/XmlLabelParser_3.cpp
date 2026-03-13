@@ -53,8 +53,6 @@ namespace
         using namespace glabels::model;
 
         const uint32_t GDK_PIXBUF_MAGIC_NUMBER {0x47646b50};
-
-        const double   FONT_SCALE_FACTOR       {0.75};               // In glabels-3, fonts were rendered at 75% of specified fontsize
         const Distance MARGIN_OFFSET           { Distance::pt(3) };  // In glabels-3, margin was not accounted for in text baseline calculations
 
         typedef enum
@@ -557,7 +555,7 @@ namespace glabels::model
 
                                 /* font attrs */
                                 fontFamily        = XmlUtil::getStringAttr( element, "font_family", "Sans" );
-                                fontSize          = XmlUtil::getDoubleAttr( element, "font_size", 10 ) * FONT_SCALE_FACTOR;
+                                fontSize          = XmlUtil::getDoubleAttr( element, "font_size", 10 );
                                 fontWeight        = getWeightAttr( element, "font_weight", QFont::Normal );
                                 fontItalicFlag    = XmlUtil::getBoolAttr( element, "font_italic", false );
 
