@@ -42,13 +42,16 @@ namespace
         ///
         /// Calculate pixel size
         ///
-        /// Assume a virtual DPI of 96 pixels/inch for all QPainter contexts.
+        /// Assume a virtual DPI of 72 pixels/inch for all QPainter contexts.
         /// Ideally, we should use pointSizes for device independence, but as
-        /// Qt-6.4 on X11, Wayland, and MacOS this approach has better results.
+        /// of Qt-6.4, the  xcb (X11) and Wayland backends will render the same
+        /// font differently. Currently this function is basically the unity
+        /// function (i.e. 1 pt = 1 pixel) with rounding, but is a placeholder
+        /// that may need to be tweaked for different backends.
         ///
         int pixelSize( double pointSize )
         {
-                const double virtual_dpi = 96;
+                const double virtual_dpi = 72;
                 return qMax( 1, qRound( pointSize * virtual_dpi/72.0 ) );
         }
 }
