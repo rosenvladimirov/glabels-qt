@@ -60,12 +60,6 @@ using namespace glabels::barcode;
 using namespace glabels::merge;
 
 
-namespace
-{
-        const double FONT_SCALE_FACTOR {0.75};
-}
-
-
 void TestXmlLabel::initTestCase()
 {
         QCoreApplication::setOrganizationName( glabels::model::Version::ORGANIZATION_NAME );
@@ -548,7 +542,7 @@ void TestXmlLabel::parser_3ReadFile()
         QCOMPARE( modelTextObject0->shadow(), false );
         QCOMPARE( modelTextObject0->text(), QString( "Hello, my name is" ) );
         QCOMPARE( modelTextObject0->fontFamily(), QString( "Sans" ) );
-        QCOMPARE( modelTextObject0->fontSize(), 16 * FONT_SCALE_FACTOR );
+        QCOMPARE( modelTextObject0->fontSize(), 16 );
         QCOMPARE( modelTextObject0->fontWeight(), QFont::Bold );
         QCOMPARE( modelTextObject0->fontItalicFlag(), false );
         QCOMPARE( modelTextObject0->textLineSpacing(), 1.0 );
@@ -566,7 +560,7 @@ void TestXmlLabel::parser_3ReadFile()
         QCOMPARE( modelTextObject1->shadow(), false );
         QCOMPARE( modelTextObject1->text(), QString( "${Name}" ) );
         QCOMPARE( modelTextObject1->fontFamily(), QString( "Sans" ) );
-        QCOMPARE( modelTextObject1->fontSize(), 20 * FONT_SCALE_FACTOR );
+        QCOMPARE( modelTextObject1->fontSize(), 20 );
         QCOMPARE( modelTextObject1->fontWeight(), QFont::Normal );
         QCOMPARE( modelTextObject1->fontItalicFlag(), false );
         QCOMPARE( modelTextObject1->textLineSpacing(), 1.0 );
@@ -584,7 +578,7 @@ void TestXmlLabel::parser_3ReadFile()
         QCOMPARE( modelTextObject2->shadow(), false );
         QCOMPARE( modelTextObject2->text(), QString( "Department: ${Department}" ) );
         QCOMPARE( modelTextObject2->fontFamily(), QString( "Sans" ) );
-        QCOMPARE( modelTextObject2->fontSize(), 11 * FONT_SCALE_FACTOR );
+        QCOMPARE( modelTextObject2->fontSize(), 11 );
         QCOMPARE( modelTextObject2->fontWeight(), QFont::Normal );
         QCOMPARE( modelTextObject2->fontItalicFlag(), false );
         QCOMPARE( modelTextObject2->textLineSpacing(), 1.0 );
