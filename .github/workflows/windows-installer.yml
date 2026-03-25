@@ -1,0 +1,72 @@
+name: Windows Installer
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build-installer:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Pre-install vcpkg
+      shell: bash
+      run: git clone --depth 1 https://github.com/microsoft/vcpkg.git
+
+    - name: Restore vcpkg cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ${{ github.workspace }}/vcpkg/installed
+          ${{ github.workspace }}/vcpkg/downloads
+        key: vcpkg-installer-${{ runner.os }}-${{ hashFiles('.github/workflows/windows-installer.yml') }}
+        restore-keys: |
+          vcpkg-installer-${{ runner.os }}-
+
+    - name: Install dependencies via vcpkg
+      shell: bash
+      run: |
+        ./vcpkg/bootstrap-vcpkg.sh
+        ./vcpkg/vcpkg install pkgconf
+        ./vcpkg/vcpkg install zlib
+        ./vcpkg/vcpkg install libqrencode
+        ./vcpkg/vcpkg install zint
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '6.2.*'
+        install-deps: 'true'
+        archives: 'qtbase qtsvg qttools icu qttranslations'
+
+    - name: Install NSIS
+      shell: pwsh
+      run: choco install nsis -y
+
+    - name: Configure CMake
+      run: >
+        cmake -B build
+        -DCMAKE_CXX_COMPILER=cl
+        -DCMAKE_C_COMPILER=cl
+        -DCMAKE_BUILD_TYPE=Release
+        -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+        -S ${{ github.workspace }}
+
+    - name: Build
+      run: cmake --build build --config Release
+
+    - name: Create NSIS Installer
+      working-directory: build
+      run: cpack -C Release -G NSIS
+
+    - name: Upload Installer
+      uses: actions/upload-artifact@v4
+      with:
+        name: glabels-windows-installer
+        path: build/glabels-*.exe
