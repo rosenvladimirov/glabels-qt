@@ -130,44 +130,75 @@ glabels-qt-fork/
 └── templates/                          # 1911 label шаблона
 ```
 
-## Пример за употреба
+## Примери за употреба
+
+### Зареждане от файл
 
 ```python
 import glabels
 
-# Списък шаблони
-templates = glabels.list_templates()
-print(f"{len(templates)} шаблона")  # 1911 шаблона
+label = glabels.Label.open("my-labels.glabels")
+label.render_pdf("output.pdf")
+```
 
-# Създаване на етикет
-model = glabels.Model()
-model.set_tmplate(templates[0])
+### Зареждане от XML string (през паметта)
+
+```python
+import glabels
+
+xml = open("template.glabels", "rb").read()  # или от база данни, API и т.н.
+model = glabels.XmlLabelParser.read_buffer(xml)
+glabels.render_model_to_pdf(model, "output.pdf")
+```
+
+### Сериализация/десериализация през паметта
+
+```python
+import glabels
+
+# Model → bytes
+buf = glabels.XmlLabelCreator.write_buffer(label.model)
+
+# bytes → Model
+model = glabels.XmlLabelParser.read_buffer(buf)
+```
+
+### Създаване на етикет програмно
+
+```python
+import glabels
+
+# Създаване от шаблон
+label = glabels.Label(template="Avery 5160")
 
 # Добавяне на текст
-text = glabels.ModelTextObject()
-text.set_x0(glabels.mm(5))
-text.set_y0(glabels.mm(5))
-text.set_w(glabels.mm(60))
-text.set_h(glabels.mm(10))
-text.set_text("Hello from Python!")
-model.add_object(text)
+label.add_text(
+    x=glabels.mm(2), y=glabels.mm(3),
+    w=glabels.mm(60), h=glabels.mm(8),
+    text="${name}", font_size=14,
+)
 
 # Добавяне на правоъгълник
-box = glabels.ModelBoxObject(
-    glabels.mm(0), glabels.mm(0),
-    glabels.mm(50), glabels.mm(30),
-    False,
-    glabels.pt(1),
-    glabels.ColorNode((0, 0, 0, 255)),
-    glabels.ColorNode((200, 200, 200, 255)),
+label.add_box(
+    x=glabels.mm(0), y=glabels.mm(0),
+    w=glabels.mm(66), h=glabels.mm(25),
 )
-model.add_object(box)
-
-# Задаване на променливи
-model.variables().set_variables({"company": "Acme Corp"})
 
 # Рендериране към PDF
-renderer = glabels.PageRenderer(model)
-renderer.set_n_copies(model.frame().n_labels())
-glabels.render_to_pdf(renderer, "output.pdf")
+label.render_pdf("output.pdf", copies=30)
+
+# Запис като .glabels файл
+label.save("my-labels.glabels")
 ```
+
+### I/O справка
+
+| Операция | Код |
+|----------|-----|
+| Файл → Model | `model = glabels.XmlLabelParser.read_file("path.glabels")` |
+| bytes → Model | `model = glabels.XmlLabelParser.read_buffer(buf)` |
+| Model → файл | `glabels.XmlLabelCreator.write_file(model, "path.glabels")` |
+| Model → bytes | `buf = glabels.XmlLabelCreator.write_buffer(model)` |
+| High-level отвори | `label = glabels.Label.open("path.glabels")` |
+| High-level запис | `label.save("path.glabels")` |
+| High-level PDF | `label.render_pdf("output.pdf")` |
