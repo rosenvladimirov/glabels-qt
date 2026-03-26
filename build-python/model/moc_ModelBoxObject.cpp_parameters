@@ -1,0 +1,4 @@
+-DHAVE_ZLIB=1
+-o
+/home/rosen/Проекти/glabels-qt/glabels-qt-fork/build-python/model/moc_ModelBoxObject.cpp
+/home/rosen/Проекти/glabels-qt/glabels-qt-fork/model/ModelBoxObject.hpp

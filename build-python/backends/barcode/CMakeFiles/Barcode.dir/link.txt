@@ -1,0 +1,2 @@
+/usr/bin/ar qc libBarcode.a CMakeFiles/Barcode.dir/Backends.cpp.o CMakeFiles/Barcode.dir/Style.cpp.o CMakeFiles/Barcode.dir/GnuBarcode.cpp.o CMakeFiles/Barcode.dir/QrEncode.cpp.o CMakeFiles/Barcode.dir/Zint.cpp.o CMakeFiles/Barcode.dir/moc_Backends.cpp.o
+/usr/bin/ranlib libBarcode.a

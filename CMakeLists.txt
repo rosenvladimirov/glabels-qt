@@ -116,7 +116,46 @@ if (MINGW)
    set (CMAKE_PREFIX_PATH ${MINGW_BASE_DIR} )
 endif ()
 
-find_package (Qt6 6.2 REQUIRED COMPONENTS Concurrent Core Gui Widgets PrintSupport Xml Svg LinguistTools Test)
+if (BUILD_PYTHON_BINDINGS)
+  find_package (Qt6 6.2 REQUIRED COMPONENTS Core Gui PrintSupport Xml)
+  find_package (Qt6 6.2 QUIET COMPONENTS Svg)
+  if (NOT Qt6Svg_FOUND)
+    # Manually create Qt6::Svg target from system .so.6 (no -dev package needed)
+    set (_svg_lib "/usr/lib/x86_64-linux-gnu/libQt6Svg.so.6")
+    set (_svg_inc_candidates
+      "/usr/include/x86_64-linux-gnu/qt6"
+      "/usr/include/qt6"
+    )
+    # Also search QT6SVG_INCLUDE_DIR if user provides it
+    if (DEFINED QT6SVG_INCLUDE_DIR)
+      list (PREPEND _svg_inc_candidates "${QT6SVG_INCLUDE_DIR}")
+    endif ()
+
+    find_path (_svg_inc QtSvg/QSvgRenderer PATHS ${_svg_inc_candidates} NO_DEFAULT_PATH)
+
+    if (EXISTS "${_svg_lib}" AND _svg_inc)
+      add_library (Qt6::Svg SHARED IMPORTED)
+      set_target_properties (Qt6::Svg PROPERTIES
+        IMPORTED_LOCATION "${_svg_lib}"
+        IMPORTED_SONAME "libQt6Svg.so.6"
+        INTERFACE_INCLUDE_DIRECTORIES "${_svg_inc};${_svg_inc}/QtSvg"
+      )
+      message (STATUS "Qt6Svg found manually: ${_svg_lib} (headers: ${_svg_inc})")
+    elseif (EXISTS "${_svg_lib}")
+      add_library (Qt6::Svg SHARED IMPORTED)
+      set_target_properties (Qt6::Svg PROPERTIES
+        IMPORTED_LOCATION "${_svg_lib}"
+        IMPORTED_SONAME "libQt6Svg.so.6"
+      )
+      message (STATUS "Qt6Svg library found: ${_svg_lib} (no headers - set QT6SVG_INCLUDE_DIR)")
+    else ()
+      add_library (Qt6::Svg INTERFACE IMPORTED)
+      message (STATUS "Qt6Svg not found - SVG support disabled")
+    endif ()
+  endif ()
+else ()
+  find_package (Qt6 6.2 REQUIRED COMPONENTS Concurrent Core Gui Widgets PrintSupport Xml Svg LinguistTools Test)
+endif ()
 
 if (WIN32)
    # Locate Qt directories
@@ -133,6 +172,16 @@ find_package (LibQrencode 3.4 QUIET)
 find_package (LibZint 2.15 QUIET)
 # Unit testing support
 find_package (Qt5Test 5.6 QUIET)
+
+
+#=======================================
+# Python bindings option
+#=======================================
+option (BUILD_PYTHON_BINDINGS "Build Python bindings via pybind11" OFF)
+
+if (BUILD_PYTHON_BINDINGS)
+  set (CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif ()
 
 
 #=======================================
@@ -174,12 +223,19 @@ endif ()
 add_subdirectory (glbarcode)
 add_subdirectory (backends)
 add_subdirectory (model)
-add_subdirectory (glabels)
-add_subdirectory (glabels-batch)
 add_subdirectory (templates)
-add_subdirectory (user-docs)
-add_subdirectory (translations)
-add_subdirectory (data)
+
+if (NOT BUILD_PYTHON_BINDINGS)
+  add_subdirectory (glabels)
+  add_subdirectory (glabels-batch)
+  add_subdirectory (user-docs)
+  add_subdirectory (translations)
+  add_subdirectory (data)
+endif ()
+
+if (BUILD_PYTHON_BINDINGS)
+  add_subdirectory (python)
+endif ()
 
 
 #=======================================

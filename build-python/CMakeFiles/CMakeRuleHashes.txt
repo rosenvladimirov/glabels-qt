@@ -1,0 +1,15 @@
+# Hashes of file build rules.
+2409d602f3489213b0cae9dfcdd2061e backends/barcode/moc_Backends.cpp
+43cc320805022f54a752d58939e33d13 backends/merge/moc_Merge.cpp
+927cf6c582e1c1237453ce5879e42ace model/moc_Model.cpp
+a45b70a176307dade60c49b15b524bf4 model/moc_ModelBarcodeObject.cpp
+dc2df4fe4879b186f3c6a0a68e2fab49 model/moc_ModelBoxObject.cpp
+13ff0a3e2a82e033f16b0b66e064edf8 model/moc_ModelEllipseObject.cpp
+507395547ed86ff792737e3d1c13455b model/moc_ModelImageObject.cpp
+ebc45a8c9fe0baac4f4880eb2f1eb615 model/moc_ModelLineObject.cpp
+cc49841bb45154697b24a779ab462a2b model/moc_ModelObject.cpp
+d221a6a830b73d7fef5e64805d684566 model/moc_ModelShapeObject.cpp
+304fe60f37b31a54daff9244e2a9748d model/moc_ModelTextObject.cpp
+51033560626d2a3883f8f60a738d2b90 model/moc_PageRenderer.cpp
+7745bc7503c7bfa34a3588964b5448c7 model/moc_Settings.cpp
+cc4155627e88b4c66f5206a4cc2c6b20 model/moc_Variables.cpp

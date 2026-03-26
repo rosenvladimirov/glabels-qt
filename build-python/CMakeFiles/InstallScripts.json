@@ -1,0 +1,15 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/rosen/\u041f\u0440\u043e\u0435\u043a\u0442\u0438/glabels-qt/glabels-qt-fork/build-python/cmake_install.cmake",
+		"/home/rosen/\u041f\u0440\u043e\u0435\u043a\u0442\u0438/glabels-qt/glabels-qt-fork/build-python/glbarcode/cmake_install.cmake",
+		"/home/rosen/\u041f\u0440\u043e\u0435\u043a\u0442\u0438/glabels-qt/glabels-qt-fork/build-python/backends/cmake_install.cmake",
+		"/home/rosen/\u041f\u0440\u043e\u0435\u043a\u0442\u0438/glabels-qt/glabels-qt-fork/build-python/backends/barcode/cmake_install.cmake",
+		"/home/rosen/\u041f\u0440\u043e\u0435\u043a\u0442\u0438/glabels-qt/glabels-qt-fork/build-python/backends/merge/cmake_install.cmake",
+		"/home/rosen/\u041f\u0440\u043e\u0435\u043a\u0442\u0438/glabels-qt/glabels-qt-fork/build-python/model/cmake_install.cmake",
+		"/home/rosen/\u041f\u0440\u043e\u0435\u043a\u0442\u0438/glabels-qt/glabels-qt-fork/build-python/model/unit_tests/cmake_install.cmake",
+		"/home/rosen/\u041f\u0440\u043e\u0435\u043a\u0442\u0438/glabels-qt/glabels-qt-fork/build-python/templates/cmake_install.cmake",
+		"/home/rosen/\u041f\u0440\u043e\u0435\u043a\u0442\u0438/glabels-qt/glabels-qt-fork/build-python/python/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

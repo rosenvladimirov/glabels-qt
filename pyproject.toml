@@ -1,0 +1,48 @@
+[build-system]
+requires = ["scikit-build-core>=0.10", "pybind11>=2.12"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "glabels"
+version = "0.1.0"
+description = "Python bindings for gLabels-qt label designer"
+license = {text = "GPL-3.0-or-later"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Jim Evins", email = "evins@snaught.com"},
+]
+keywords = ["labels", "barcode", "pdf", "printing", "glabels"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: C++",
+    "Topic :: Printing",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/jimevins/glabels-qt"
+Issues = "https://github.com/jimevins/glabels-qt/issues"
+
+[tool.scikit-build]
+wheel.packages = ["python/glabels"]
+cmake.build-type = "Release"
+
+[tool.scikit-build.cmake.define]
+BUILD_PYTHON_BINDINGS = "ON"
+
+[tool.cibuildwheel]
+# Build for CPython only
+build = "cp39-* cp310-* cp311-* cp312-* cp313-*"
+skip = "*-musllinux_*"
+
+[tool.cibuildwheel.linux]
+before-all = "apt-get update && apt-get install -y qt6-base-dev qt6-svg-dev libcups2-dev zlib1g-dev"

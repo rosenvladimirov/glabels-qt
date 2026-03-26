@@ -1,0 +1,4 @@
+-DHAVE_GNU_BARCODE=1
+-o
+/home/rosen/Проекти/glabels-qt/glabels-qt-fork/build-python/backends/barcode/moc_Backends.cpp
+/home/rosen/Проекти/glabels-qt/glabels-qt-fork/backends/barcode/Backends.hpp
