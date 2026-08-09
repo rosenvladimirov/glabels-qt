@@ -10,6 +10,8 @@
 #include <QList>
 #include <QMap>
 #include <QColor>
+#include <QFlags>
+#include <Qt>
 
 namespace pybind11::detail {
 
@@ -165,6 +167,45 @@ public:
         for (auto it = src.constBegin(); it != src.constEnd(); ++it)
             result[pybind11::cast(it.key())] = pybind11::cast(it.value());
         return result.release();
+    }
+};
+
+
+// QFlags<Qt::AlignmentFlag> <-> Python int
+//
+// Без този кастер `ModelTextObject` не може да се построи от Python изобщо:
+// константите се изнасят като голи int (`AlignLeft` = 1, `AlignTop` = 32), а
+// конструкторът иска `QFlags<Qt::AlignmentFlag>`, за който pybind11 няма
+// вграден превод. Всяко извикване на `Label.add_text` падаше с TypeError.
+//
+// ⚠️ Приема се и вече готов QFlags, и цяло число — второто, защото точно така
+// изглеждат изнесените константи от `bind_types.cpp`, а и защото подравняването
+// естествено се комбинира с побитово ИЛИ, което в Python дава int.
+template <>
+struct type_caster<QFlags<Qt::AlignmentFlag>> {
+public:
+    PYBIND11_TYPE_CASTER(QFlags<Qt::AlignmentFlag>, const_name("int"));
+
+    bool load(handle src, bool) {
+        if (!src || src.is_none()) return false;
+        PyObject* index = PyNumber_Index(src.ptr());
+        if (!index) {
+            PyErr_Clear();
+            return false;
+        }
+        const long raw = PyLong_AsLong(index);
+        Py_DECREF(index);
+        if (raw == -1 && PyErr_Occurred()) {
+            PyErr_Clear();
+            return false;
+        }
+        value = QFlags<Qt::AlignmentFlag>(static_cast<Qt::AlignmentFlag>(raw));
+        return true;
+    }
+
+    static handle cast(const QFlags<Qt::AlignmentFlag>& src,
+                       return_value_policy, handle) {
+        return PyLong_FromLong(static_cast<long>(src.toInt()));
     }
 };
 
