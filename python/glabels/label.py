@@ -200,24 +200,46 @@ class Label:
             source_type: Merge type id (e.g., "Text/CSV/Keys") or name.
             filename: Path to the data file.
         """
+        # Reusing the existing merge only makes sense when it is already of the
+        # requested type. A model loaded from a .glabels file always carries a
+        # "None" merge, and set_source() succeeds on it — so returning early
+        # left the null backend in place: the source looked set, keys() was
+        # empty and record_list() returned nothing, and every ${field} rendered
+        # blank. Silent, because nothing failed.
         merge = self._model.merge()
-        if merge is not None:
-            # Try setting source on existing merge
+        if merge is not None and merge.id() not in (None, "", "None"):
             try:
                 merge.set_source(filename)
+                merge.reload_source()
                 return
             except Exception:
                 pass
 
-        # Create new merge
+        # Create the new merge.
+        #
+        # create_merge() never returns None: given something it does not know,
+        # it hands back the null backend (id "None"). So the old "if it is None,
+        # retry by name" fallback could not fire, and a display name — which is
+        # exactly what MergeFactory.name_list() offers — silently produced a
+        # merge that reads nothing. Resolve the name to an id first, then verify
+        # what came back rather than trusting it.
         new_merge = _ext.MergeFactory.create_merge(source_type)
-        if new_merge is None:
-            # Try by name
+        if new_merge is None or new_merge.id() in (None, "", "None"):
             merge_id = _ext.MergeFactory.name_to_id(source_type)
-            new_merge = _ext.MergeFactory.create_merge(merge_id)
-        if new_merge is not None:
-            new_merge.set_source(filename)
-            self._model.set_merge(new_merge)
+            if merge_id:
+                new_merge = _ext.MergeFactory.create_merge(merge_id)
+        if new_merge is None or new_merge.id() in (None, "", "None"):
+            raise ValueError(
+                "unknown merge source type %r — expected an id such as "
+                "'Text/Comma/Line1Keys' or a name from "
+                "MergeFactory.name_list()" % (source_type,))
+        new_merge.set_source(filename)
+        self._model.set_merge(new_merge)
+        # Keep a reference: without it the merge is collected as soon as this
+        # function returns and the model falls back to the null backend — the
+        # source appeared set while keys() stayed empty and every ${field}
+        # rendered blank. The same lifetime caveat as Model/ModelObject.
+        self._merge = new_merge
 
     def set_variable(self, name, value, var_type=None):
         """Set a user variable.
