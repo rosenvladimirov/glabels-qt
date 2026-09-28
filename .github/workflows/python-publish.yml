@@ -1,57 +1,78 @@
-name: Build & Publish Python Package
+name: python-glabels wheel
+
+# Every push to master builds the self-contained wheel and smoke-tests it in a
+# clean container. A tag vX.Y.Z (matching `version` in pyproject.toml) also
+# publishes it to PyPI through Trusted Publishing — no token is stored here.
 
 on:
+  push:
+    branches: [master]
+    tags: ["v*"]
+    paths:
+      - "model/**"
+      - "backends/**"
+      - "glbarcode/**"
+      - "python/**"
+      - "templates/**"
+      - "packaging/python-wheel/**"
+      - "pyproject.toml"
+      - "CMakeLists.txt"
+      - ".github/workflows/python-publish.yml"
   workflow_dispatch:
-  release:
-    types: [published]
 
 jobs:
-  build-sdist:
-    name: Build source distribution
+  build:
+    name: Build wheel (cp312, Ubuntu 24.04)
     runs-on: ubuntu-latest
+    container: ubuntu:24.04
     steps:
       - uses: actions/checkout@v4
-      - name: Build sdist
-        run: pipx run build --sdist
+      - name: Tag matches pyproject version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          VER=$(sed -n 's/^version *= *"\(.*\)"/\1/p' pyproject.toml)
+          test "v$VER" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME != pyproject $VER"; exit 1; }
+      - name: Build
+        run: bash packaging/python-wheel/build.sh . dist
       - uses: actions/upload-artifact@v4
         with:
-          name: sdist
-          path: dist/*.tar.gz
+          name: wheel
+          path: dist/*.whl
 
-  build-wheels:
-    name: Build wheels on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-22.04]
+  test:
+    name: Smoke test in a clean container
+    needs: build
+    runs-on: ubuntu-latest
+    # deliberately bare: no Qt, no fonts — like a headless server
+    container: ubuntu:24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: pypa/cibuildwheel@v2.21
-        env:
-          CIBW_BUILD: "cp39-manylinux_x86_64 cp310-manylinux_x86_64 cp311-manylinux_x86_64 cp312-manylinux_x86_64 cp313-manylinux_x86_64"
-          CIBW_BEFORE_ALL_LINUX: >
-            yum install -y qt6-qtbase-devel qt6-qtsvg-devel cups-devel zlib-devel ||
-            apt-get update && apt-get install -y qt6-base-dev qt6-svg-dev libcups2-dev zlib1g-dev
-          CIBW_ENVIRONMENT: >
-            CMAKE_ARGS="-DBUILD_PYTHON_BINDINGS=ON"
-      - uses: actions/upload-artifact@v4
         with:
-          name: wheels-${{ matrix.os }}
-          path: wheelhouse/*.whl
+          sparse-checkout: packaging/python-wheel
+      - uses: actions/download-artifact@v4
+        with:
+          name: wheel
+          path: dist
+      - name: Install and render
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends python3 python3-pip >/dev/null
+          pip install --break-system-packages dist/*.whl pypdf
+          python3 packaging/python-wheel/smoke_test.py
 
   publish:
     name: Publish to PyPI
-    needs: [build-sdist, build-wheels]
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
-    if: github.event_name == 'release'
     environment:
       name: pypi
-      url: https://pypi.org/p/glabels
+      url: https://pypi.org/p/python-glabels
     permissions:
       id-token: write
     steps:
       - uses: actions/download-artifact@v4
         with:
+          name: wheel
           path: dist
-          merge-multiple: true
       - uses: pypa/gh-action-pypi-publish@release/v1
