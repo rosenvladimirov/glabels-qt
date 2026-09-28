@@ -2,7 +2,9 @@ name: python-glabels wheel
 
 # Every push to master builds the self-contained wheel and smoke-tests it in a
 # clean container. A tag vX.Y.Z (matching `version` in pyproject.toml) also
-# publishes it to PyPI through Trusted Publishing — no token is stored here.
+# publishes it to PyPI with the PYPI_API_TOKEN secret of the `pypi`
+# environment (switch to Trusted Publishing by dropping `password:` once a
+# trusted publisher is registered on PyPI).
 
 on:
   push:
@@ -76,3 +78,5 @@ jobs:
           name: wheel
           path: dist
       - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
