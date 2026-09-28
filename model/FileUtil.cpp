@@ -45,7 +45,16 @@ namespace glabels::model
         {
                 QDir dir;
 
-                // First, try finding templates directory relative to application path
+                // An explicit location wins. Needed when the library is embedded
+                // (e.g. the Python bindings installed from a wheel), where neither
+                // the application path nor the source directory exist.
+                const QString envDir = qEnvironmentVariable( "GLABELS_TEMPLATES_DIR" );
+                if ( !envDir.isEmpty() && dir.cd( envDir ) )
+                {
+                        return dir;
+                }
+
+                // Next, try finding templates directory relative to application path
                 dir.cd( QApplication::applicationDirPath() );
                 if ( (dir.dirName() == "bin") &&
                      dir.cdUp() && dir.cd( "share" ) && dir.cd( "glabels-qt" ) && dir.cd( "templates" ) )

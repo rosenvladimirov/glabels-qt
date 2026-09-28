@@ -19,6 +19,36 @@ Usage:
     label.render_pdf("labels.pdf")
 """
 
+import os as _os
+
+
+def _use_bundled_resources():
+    """Point Qt and gLabels at the resources shipped inside the wheel.
+
+    A self-contained wheel carries its own Qt plugins, template database and
+    fonts next to this file. Without them the library aborts the whole process
+    (qFatal: "Cannot locate system template directory!"), or renders labels
+    without a single glyph when the system has no fonts. The environment must
+    be set before the extension module initialises Qt.
+    """
+    here = _os.path.dirname(_os.path.abspath(__file__))
+    templates = _os.path.join(here, "templates")
+    plugins = _os.path.join(here, "plugins")
+    fonts_conf = _os.path.join(here, "fonts.conf")
+    if _os.path.isdir(templates):
+        _os.environ.setdefault("GLABELS_TEMPLATES_DIR", templates)
+    if _os.path.isdir(plugins):
+        # the bundled Qt only works with plugins built against it
+        _os.environ["QT_PLUGIN_PATH"] = plugins
+    if _os.path.isfile(fonts_conf):
+        _os.environ.setdefault("FONTCONFIG_FILE", fonts_conf)
+    if not (_os.environ.get("DISPLAY") or _os.environ.get("WAYLAND_DISPLAY")):
+        # headless server: Qt starts a GUI application even to render a PDF
+        _os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+
+
+_use_bundled_resources()
+
 from glabels import glabels_ext as _ext
 
 # Auto-initialize all subsystems on import
