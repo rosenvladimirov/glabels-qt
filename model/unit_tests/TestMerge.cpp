@@ -474,6 +474,21 @@ void TestMerge::odooReport()
                   QString( "glabels_product_product_mec_product_label_60x30" ) );
         QCOMPARE( OdooReport::reportNameStem( "stock.lot", "Етикет партида" ), QString( "glabels_stock_lot" ) );
         QCOMPARE( OdooReport::reportNameStem( "stock.lot", "  --Lot--  " ), QString( "glabels_stock_lot_lot" ) );
+
+        // JSON-2 replies: bare scalars (write -> true) are valid replies
+        bool ok = false;
+        QCOMPARE( OdooClient::parseReply( "true", ok ).toBool(), true );
+        QVERIFY( ok );
+        QCOMPARE( OdooClient::parseReply( "[1384]", ok ).toArray()[0].toInt(), 1384 );
+        QVERIFY( ok );
+        QCOMPARE( OdooClient::parseReply( "{\"name\": \"x\"}", ok ).toObject()["name"].toString(), QString( "x" ) );
+        QVERIFY( ok );
+        OdooClient::parseReply( "<html>404</html>", ok );
+        QVERIFY( !ok );
+        OdooClient::parseReply( "", ok );
+        QVERIFY( !ok );
+        OdooClient::parseReply( "1, 2", ok );
+        QVERIFY( !ok );
 #else
         QSKIP( "Built without Qt6::Network" );
 #endif

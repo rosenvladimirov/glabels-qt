@@ -547,17 +547,17 @@ namespace glabels::merge
                         return QJsonValue();
                 }
 
-                QJsonParseError parseError;
-                QJsonDocument doc = QJsonDocument::fromJson( reply, &parseError );
+                bool parsed = false;
+                QJsonValue value = parseReply( reply, parsed );
 
-                if ( status == 404 && parseError.error != QJsonParseError::NoError )
+                if ( status == 404 && !parsed )
                 {
                         // HTML 404 page: the endpoint does not exist (Odoo <= 18)
                         notFound = true;
                         return QJsonValue();
                 }
 
-                if ( parseError.error != QJsonParseError::NoError )
+                if ( !parsed )
                 {
                         mError = QCoreApplication::translate( "glabels::merge::OdooClient",
                                                               "Invalid reply from server (HTTP %1)" ).arg( status );
@@ -566,7 +566,7 @@ namespace glabels::merge
 
                 if ( status != 200 )
                 {
-                        mError = errorFromJson( doc.object() );
+                        mError = errorFromJson( value.toObject() );
                         if ( mError.isEmpty() )
                         {
                                 mError = QString( "HTTP %1" ).arg( status );
@@ -574,11 +574,31 @@ namespace glabels::merge
                         return QJsonValue();
                 }
 
-                if ( doc.isArray() )
+                return value;
+        }
+
+
+        ///
+        /// Parse any JSON value, including the bare scalars JSON-2 returns
+        /// (write/unlink answer "true"), which QJsonDocument alone rejects
+        ///
+        QJsonValue OdooClient::parseReply( const QByteArray& reply, bool& ok )
+        {
+                ok = false;
+                if ( reply.trimmed().isEmpty() )
                 {
-                        return doc.array();
+                        return QJsonValue();
                 }
-                return doc.object();
+
+                QJsonParseError parseError;
+                QJsonDocument doc = QJsonDocument::fromJson( "[" + reply + "]", &parseError );
+                if ( parseError.error != QJsonParseError::NoError || doc.array().size() != 1 )
+                {
+                        return QJsonValue();
+                }
+
+                ok = true;
+                return doc.array()[0];
         }
 
 

@@ -206,7 +206,11 @@ namespace glabels
                 }
 
                 QApplication::setOverrideCursor( Qt::WaitCursor );
-                merge::OdooClient client( mSource, merge::OdooClient::apiKey( mSource ) );
+                // The record is written without a language, so the base (en_US)
+                // value changes; the merge language is applied to the name below
+                merge::OdooSource baseSource = mSource;
+                baseSource.lang.clear();
+                merge::OdooClient client( baseSource, merge::OdooClient::apiKey( mSource ) );
 
                 // report_glabels must be the v19 module with the CSV column contract
                 bool hasContract = false;
@@ -268,6 +272,20 @@ namespace glabels
                 else
                 {
                         client.write( "ir.actions.report", { reportId }, values );
+                }
+
+                // The name is translatable: written without a language only en_US
+                // would change, and users in the merge language would keep the old one
+                if ( client.errorString().isEmpty() && !mSource.lang.isEmpty() && mSource.lang != "en_US" )
+                {
+                        merge::OdooClient langClient( mSource, merge::OdooClient::apiKey( mSource ) );
+                        langClient.write( "ir.actions.report", { reportId }, QJsonObject{ { "name", name } } );
+                        if ( !langClient.errorString().isEmpty() )
+                        {
+                                QApplication::restoreOverrideCursor();
+                                setStatus( langClient.errorString(), true );
+                                return;
+                        }
                 }
                 QApplication::restoreOverrideCursor();
 

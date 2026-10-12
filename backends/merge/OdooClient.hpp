@@ -119,6 +119,9 @@ namespace glabels::merge
                 static QString apiKey( const OdooSource& source );
                 static void saveApiKey( const OdooSource& source, const QString& apiKey, bool persist = true );
 
+                // Parse a JSON reply, scalars included
+                static QJsonValue parseReply( const QByteArray& reply, bool& ok );
+
                 // Convert an Odoo field value into merge text
                 static QString valueToString( const QJsonValue& value, const QString& type );
 
