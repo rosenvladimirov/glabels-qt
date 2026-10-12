@@ -35,6 +35,11 @@
 #include "model/Db.hpp"
 #include "model/Model.hpp"
 
+#if GLABELS_ODOO_MERGE
+#include "OdooPublishDialog.hpp"
+#include "merge/OdooRpc.hpp"
+#endif
+
 #include <QClipboard>
 #include <QDebug>
 #include <QFrame>
@@ -307,6 +312,10 @@ namespace glabels
                 fileSaveAsAction->setShortcut( QKeySequence::SaveAs );
                 fileSaveAsAction->setStatusTip( tr("Save current gLabels project to a different name") );
                 connect( fileSaveAsAction, SIGNAL(triggered()), this, SLOT(fileSaveAs()) );
+
+                filePublishOdooAction = new QAction( tr("Publish to &Odoo..."), this );
+                filePublishOdooAction->setStatusTip( tr("Create or update an Odoo report with this label") );
+                connect( filePublishOdooAction, SIGNAL(triggered()), this, SLOT(filePublishOdoo()) );
 
                 fileShowEditorPageAction = new QAction( tr("&Edit") , this );
                 fileShowEditorPageAction->setShortcut( QKeySequence( Qt::CTRL | Qt::Key_1 ) );
@@ -617,6 +626,9 @@ namespace glabels
                 }
                 fileMenu->addAction( fileSaveAction );
                 fileMenu->addAction( fileSaveAsAction );
+#if GLABELS_ODOO_MERGE
+                fileMenu->addAction( filePublishOdooAction );
+#endif
                 fileMenu->addSeparator();
                 fileMenu->addAction( fileShowEditorPageAction );
                 fileMenu->addAction( fileShowPropertiesPageAction );
@@ -907,6 +919,7 @@ namespace glabels
                 fileRecentMenu->setEnabled( !recentFileList.isEmpty() );
                 fileSaveAction->setEnabled( hasModel && mModel->isModified() );
                 fileSaveAsAction->setEnabled( hasModel );
+                filePublishOdooAction->setEnabled( hasModel );
                 fileShowEditorPageAction->setEnabled( !isWelcomePage && !isEditorPage );
                 fileShowPropertiesPageAction->setEnabled( !isWelcomePage && !isPropertiesPage );
                 fileShowMergePageAction->setEnabled( !isWelcomePage && !isMergePage );
@@ -1210,6 +1223,26 @@ namespace glabels
         void MainWindow::fileSaveAs()
         {
                 File::saveAs( this );
+        }
+
+
+        ///
+        /// File->Publish to Odoo Action
+        ///
+        void MainWindow::filePublishOdoo()
+        {
+#if GLABELS_ODOO_MERGE
+                if ( !mModel || mModel->merge()->id() != merge::OdooRpc::id() )
+                {
+                        QMessageBox::information( this, tr("Publish to Odoo"),
+                                                  tr("Choose an Odoo merge source first (Merge → Format). "
+                                                     "The report is published to that server and model.") );
+                        return;
+                }
+
+                OdooPublishDialog dialog( mModel.get(), this );
+                dialog.exec();
+#endif
         }
 
 

@@ -79,6 +79,18 @@ namespace glabels::merge
 
 
         ///
+        /// Helpers for publishing a label as a report_glabels (v19) report
+        ///
+        struct OdooReport
+        {
+                static QStringList parseColumns( const QString& text );
+                static QStringList invalidColumns( const QStringList& columns );
+                static QByteArray csvHeader( const QStringList& columns );
+                static QString reportNameStem( const QString& model, const QString& name );
+        };
+
+
+        ///
         /// Minimal synchronous Odoo RPC client
         ///
         /// Tries the JSON-2 API first (Odoo 19+: /json/2/<model>/<method> with a
@@ -97,6 +109,10 @@ namespace glabels::merge
                                        int limit,
                                        const QString& order );
 
+                int create( const QString& model, const QJsonObject& values );
+                bool write( const QString& model, const QList<int>& ids, const QJsonObject& values );
+                int modelId( const QString& model );
+
                 QString errorString() const;
 
                 // API key storage (outside of the label file)
@@ -111,7 +127,7 @@ namespace glabels::merge
         private:
                 QJsonValue call( const QString& model,
                                  const QString& method,
-                                 const QJsonArray& args,
+                                 const QJsonArray& ids,
                                  const QJsonObject& kwargs );
                 QJsonValue callJson2( const QString& model,
                                       const QString& method,

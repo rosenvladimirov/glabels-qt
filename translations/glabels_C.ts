@@ -1454,6 +1454,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Publish to &amp;Odoo...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create or update an Odoo report with this label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1874,6 +1882,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Publish to Odoo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose an Odoo merge source first (Merge → Format). The report is published to that server and model.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2254,6 +2270,73 @@
     </message>
     <message>
         <source>The domain is not a valid list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>glabels::OdooPublishDialog</name>
+    <message>
+        <source>Publish to Odoo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field paths (e.g. categ_id.name) or report_glabels values (creator, company, date_now, currency), separated by commas.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to the Print menu of the model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Report:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Columns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Publish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a report name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List at least one column.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>gLabels cannot use a field name containing &apos;:&apos; or &apos;}&apos;: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This server has no report_glabels 19.0.2 or newer (the report has no CSV column file).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Model %1 not found on the server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Report &quot;%1&quot; created (id %2).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Report &quot;%1&quot; updated (id %2).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3012,6 +3095,10 @@
     </message>
     <message>
         <source>Authentication failed for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The server did not return the new record</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -112,8 +112,8 @@ set (glabels_resource_files
 
 if (TARGET Qt6::Network)
   # Odoo RPC merge source (see backends/merge/OdooRpc)
-  list (APPEND glabels_sources OdooMergeDialog.cpp)
-  list (APPEND glabels_qobject_headers OdooMergeDialog.hpp)
+  list (APPEND glabels_sources OdooMergeDialog.cpp OdooPublishDialog.cpp)
+  list (APPEND glabels_qobject_headers OdooMergeDialog.hpp OdooPublishDialog.hpp)
 endif ()
 
 qt6_wrap_cpp (glabels_moc_sources ${glabels_qobject_headers})

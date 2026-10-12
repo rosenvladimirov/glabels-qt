@@ -31,6 +31,7 @@
 #include <QNetworkRequest>
 #include <QSettings>
 #include <QTimer>
+#include <QRegularExpression>
 #include <QUrlQuery>
 
 #include <algorithm>
@@ -47,6 +48,11 @@ namespace
                 static QMap<QString,QString> keys;
                 return keys;
         }
+
+
+        // Characters the gLabels field parser does not accept in a field name
+        // (model/SubstitutionField.cpp); report_glabels rejects them too.
+        const QString FORBIDDEN_CHARS = ":}";
 
 
         QSettings* keyStore()
@@ -369,7 +375,7 @@ namespace glabels::merge
         ///
         QJsonValue OdooClient::call( const QString& model,
                                      const QString& method,
-                                     const QJsonArray& args,
+                                     const QJsonArray& ids,
                                      const QJsonObject& kwargs )
         {
                 mError.clear();
@@ -385,6 +391,10 @@ namespace glabels::merge
                 {
                         QJsonObject params = kwargs;
                         params["context"] = context();
+                        if ( !ids.isEmpty() )
+                        {
+                                params["ids"] = ids;
+                        }
 
                         bool notFound = false;
                         QJsonValue result = callJson2( model, method, params, notFound );
@@ -444,8 +454,76 @@ namespace glabels::merge
                 QJsonObject legacyKwargs = kwargs;
                 legacyKwargs["context"] = context();
 
+                // Record methods take the ids as the first positional argument
+                QJsonArray args;
+                if ( !ids.isEmpty() )
+                {
+                        args.append( ids );
+                }
+
                 return callJsonRpc( "object", "execute_kw",
                                     QJsonArray{ mSource.database, mUid, mApiKey, model, method, args, legacyKwargs } );
+        }
+
+
+        ///
+        /// create: returns the new record id, 0 on error
+        ///
+        int OdooClient::create( const QString& model, const QJsonObject& values )
+        {
+                QJsonObject kwargs;
+                kwargs["vals_list"] = QJsonArray{ values };
+                QJsonValue result = call( model, "create", QJsonArray(), kwargs );
+
+                // JSON-2 and execute_kw both return the list of new ids
+                if ( result.isArray() && !result.toArray().isEmpty() )
+                {
+                        return result.toArray()[0].toInt();
+                }
+                if ( result.isDouble() )
+                {
+                        return result.toInt();
+                }
+                if ( mError.isEmpty() )
+                {
+                        mError = QCoreApplication::translate( "glabels::merge::OdooClient",
+                                                              "The server did not return the new record" );
+                }
+                return 0;
+        }
+
+
+        ///
+        /// write
+        ///
+        bool OdooClient::write( const QString& model, const QList<int>& ids, const QJsonObject& values )
+        {
+                QJsonArray idArray;
+                for ( int id : ids )
+                {
+                        idArray.append( id );
+                }
+
+                QJsonObject kwargs;
+                kwargs["vals"] = values;
+                call( model, "write", idArray, kwargs );
+                return mError.isEmpty();
+        }
+
+
+        ///
+        /// ir.model id of a model, 0 if unknown
+        ///
+        int OdooClient::modelId( const QString& model )
+        {
+                QJsonArray rows = searchRead( "ir.model",
+                                              QJsonArray{ QJsonArray{ "model", "=", model } },
+                                              { "id" }, 1, QString() );
+                if ( rows.isEmpty() )
+                {
+                        return 0;
+                }
+                return rows[0].toObject()["id"].toInt();
         }
 
 
@@ -602,6 +680,87 @@ namespace glabels::merge
                 // The reply belongs to the local manager; free it before the manager goes away
                 delete networkReply;
                 return ok;
+        }
+
+
+        ///
+        /// Split the columns text
+        ///
+        QStringList OdooReport::parseColumns( const QString& text )
+        {
+                QStringList columns;
+                for ( const auto& part : text.split( ',', Qt::SkipEmptyParts ) )
+                {
+                        QString column = part.trimmed();
+                        if ( !column.isEmpty() && !columns.contains( column ) )
+                        {
+                                columns << column;
+                        }
+                }
+                return columns;
+        }
+
+
+        ///
+        /// Columns gLabels cannot use as field names
+        ///
+        QStringList OdooReport::invalidColumns( const QStringList& columns )
+        {
+                QStringList bad;
+                for ( const auto& column : columns )
+                {
+                        for ( const auto& ch : FORBIDDEN_CHARS )
+                        {
+                                if ( column.contains( ch ) )
+                                {
+                                        bad << column;
+                                        break;
+                                }
+                        }
+                }
+                return bad;
+        }
+
+
+        ///
+        /// First CSV line: the column contract with report_glabels
+        ///
+        QByteArray OdooReport::csvHeader( const QStringList& columns )
+        {
+                QStringList cells;
+                for ( auto column : columns )
+                {
+                        if ( column.contains( ',' ) || column.contains( '"' ) || column.contains( '\n' ) )
+                        {
+                                column.replace( "\"", "\"\"" );
+                                column = "\"" + column + "\"";
+                        }
+                        cells << column;
+                }
+                return cells.join( ',' ).toUtf8() + "\n";
+        }
+
+
+        ///
+        /// Technical report name: glabels_<model>_<name>, ASCII only
+        ///
+        QString OdooReport::reportNameStem( const QString& model, const QString& name )
+        {
+                static const QRegularExpression notAllowed( "[^a-z0-9]+" );
+
+                QString modelPart = model.toLower();
+                modelPart.replace( notAllowed, "_" );
+
+                QString namePart = name.normalized( QString::NormalizationForm_KD ).toLower();
+                namePart.replace( notAllowed, "_" );
+                namePart = namePart.section( '_', 0, -1, QString::SectionSkipEmpty );
+
+                QString stem = "glabels_" + modelPart;
+                if ( !namePart.isEmpty() )
+                {
+                        stem += "_" + namePart;
+                }
+                return stem.left( 100 );
         }
 
 }

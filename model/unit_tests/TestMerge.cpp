@@ -452,3 +452,29 @@ void TestMerge::odooValue()
         QSKIP( "Built without Qt6::Network" );
 #endif
 }
+
+
+void TestMerge::odooReport()
+{
+#if GLABELS_ODOO_MERGE
+        // Columns: trimmed, empty and duplicate parts dropped
+        QStringList columns = OdooReport::parseColumns( " id, name ,,categ_id.name, name , date_now" );
+        QCOMPARE( columns, ( QStringList{ "id", "name", "categ_id.name", "date_now" } ) );
+
+        // ':' and '}' cannot be gLabels field names
+        QCOMPARE( OdooReport::invalidColumns( { "name", "price:2", "a}b" } ), ( QStringList{ "price:2", "a}b" } ) );
+        QVERIFY( OdooReport::invalidColumns( columns ).isEmpty() );
+
+        // CSV header line, quoted only when needed
+        QCOMPARE( OdooReport::csvHeader( { "id", "categ_id.name" } ), QByteArray( "id,categ_id.name\n" ) );
+        QCOMPARE( OdooReport::csvHeader( { "a,b", "say \"hi\"" } ), QByteArray( "\"a,b\",\"say \"\"hi\"\"\"\n" ) );
+
+        // Technical report name
+        QCOMPARE( OdooReport::reportNameStem( "product.product", "MEC Product label 60x30" ),
+                  QString( "glabels_product_product_mec_product_label_60x30" ) );
+        QCOMPARE( OdooReport::reportNameStem( "stock.lot", "Етикет партида" ), QString( "glabels_stock_lot" ) );
+        QCOMPARE( OdooReport::reportNameStem( "stock.lot", "  --Lot--  " ), QString( "glabels_stock_lot_lot" ) );
+#else
+        QSKIP( "Built without Qt6::Network" );
+#endif
+}

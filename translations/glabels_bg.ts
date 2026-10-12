@@ -1454,6 +1454,14 @@
             <translation>Запис на текущия проект на gLabels с друго име</translation>
         </message>
         <message>
+            <source>Publish to &amp;Odoo...</source>
+            <translation>Публикувай в &amp;Odoo...</translation>
+        </message>
+        <message>
+            <source>Create or update an Odoo report with this label</source>
+            <translation>Създаване или обновяване на отчет в Odoo с този етикет</translation>
+        </message>
+        <message>
             <source>&amp;Edit</source>
             <translation>&amp;Редакция</translation>
         </message>
@@ -1924,6 +1932,14 @@
             <translation>Запис на проекта?</translation>
         </message>
         <message>
+            <source>Publish to Odoo</source>
+            <translation>Публикуване в Odoo</translation>
+        </message>
+        <message>
+            <source>Choose an Odoo merge source first (Merge → Format). The report is published to that server and model.</source>
+            <translation>Първо изберете Odoo източник за сливане (Сливане → Формат). Отчетът се публикува на неговия сървър и модел.</translation>
+        </message>
+        <message>
             <source>Paste</source>
             <translation>Поставяне</translation>
         </message>
@@ -2255,6 +2271,73 @@
         <message>
             <source>The domain is not a valid list.</source>
             <translation>Домейнът не е валиден списък.</translation>
+        </message>
+    </context>
+    <context>
+        <name>glabels::OdooPublishDialog</name>
+        <message>
+            <source>Publish to Odoo</source>
+            <translation>Публикуване в Odoo</translation>
+        </message>
+        <message>
+            <source>New report</source>
+            <translation>Нов отчет</translation>
+        </message>
+        <message>
+            <source>Field paths (e.g. categ_id.name) or report_glabels values (creator, company, date_now, currency), separated by commas.</source>
+            <translation>Пътища до полета (напр. categ_id.name) или стойности на report_glabels (creator, company, date_now, currency), разделени със запетая.</translation>
+        </message>
+        <message>
+            <source>Add to the Print menu of the model</source>
+            <translation>Добави в менюто „Печат“ на модела</translation>
+        </message>
+        <message>
+            <source>Server:</source>
+            <translation>Сървър:</translation>
+        </message>
+        <message>
+            <source>Report:</source>
+            <translation>Отчет:</translation>
+        </message>
+        <message>
+            <source>Name:</source>
+            <translation>Име:</translation>
+        </message>
+        <message>
+            <source>Columns:</source>
+            <translation>Колони:</translation>
+        </message>
+        <message>
+            <source>Publish</source>
+            <translation>Публикувай</translation>
+        </message>
+        <message>
+            <source>Enter a report name.</source>
+            <translation>Въведете име на отчета.</translation>
+        </message>
+        <message>
+            <source>List at least one column.</source>
+            <translation>Посочете поне една колона.</translation>
+        </message>
+        <message>
+            <source>gLabels cannot use a field name containing ':' or '}': %1</source>
+            <translation>gLabels не приема име на поле с „:“ или „}“: %1</translation>
+        </message>
+        <message>
+            <source>This server has no report_glabels 19.0.2 or newer (the report has no CSV column file).</source>
+            <translation>На този сървър няма report_glabels 19.0.2 или по-нов (отчетът няма CSV файл с колони).</translation>
+        </message>
+        <message>
+            <source>Model %1 not found on the server.</source>
+            <translation>Моделът %1 не е намерен на сървъра.</translation>
+        </message>
+        <message>
+            <source>Report "%1" created (id %2).</source>
+            <translation>Отчетът „%1“ е създаден (id %2).</translation>
+        </message>
+        <message>
+            <source>Report "%1" updated (id %2).</source>
+            <translation>Отчетът „%1“ е обновен (id %2).</translation>
         </message>
     </context>
     <context>
@@ -3013,6 +3096,10 @@
         <message>
             <source>Authentication failed for %1</source>
             <translation>Неуспешно удостоверяване за %1</translation>
+        </message>
+        <message>
+            <source>The server did not return the new record</source>
+            <translation>Сървърът не върна новия запис</translation>
         </message>
         <message>
             <source>Invalid reply from server (HTTP %1)</source>

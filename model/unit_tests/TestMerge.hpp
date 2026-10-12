@@ -38,4 +38,5 @@ private slots:
         void odooSource();
         void odooDomain();
         void odooValue();
+        void odooReport();
 };

@@ -99,6 +99,7 @@ namespace glabels
                 void fileOpenRecent();
                 void fileSave();
                 void fileSaveAs();
+                void filePublishOdoo();
                 void fileShowEditorPage();
                 void fileShowPropertiesPage();
                 void fileShowMergePage();
@@ -264,6 +265,7 @@ namespace glabels
                 QAction*  fileOpenAction;
                 QAction*  fileSaveAction;
                 QAction*  fileSaveAsAction;
+                QAction*  filePublishOdooAction;
                 QAction*  fileShowEditorPageAction;
                 QAction*  fileShowPropertiesPageAction;
                 QAction*  fileShowMergePageAction;
