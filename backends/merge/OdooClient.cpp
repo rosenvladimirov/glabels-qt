@@ -351,7 +351,7 @@ namespace glabels::merge
                 QList<OdooField> list;
 
                 QJsonObject kwargs;
-                kwargs["attributes"] = QJsonArray{ "string", "type", "store" };
+                kwargs["attributes"] = QJsonArray{ "string", "type", "store", "relation" };
                 QJsonValue result = call( model, "fields_get", QJsonArray(), kwargs );
                 if ( !result.isObject() )
                 {
@@ -366,6 +366,7 @@ namespace glabels::merge
                         field.name   = it.key();
                         field.label  = attrs["string"].toString();
                         field.type   = attrs["type"].toString();
+                        field.relation = attrs["relation"].toString();
                         field.stored = attrs["store"].toBool( true );
                         list << field;
                 }
@@ -373,6 +374,36 @@ namespace glabels::merge
                 std::sort( list.begin(), list.end(),
                            []( const OdooField& a, const OdooField& b ) { return a.name < b.name; } );
                 return list;
+        }
+
+
+        bool OdooField::isRelational() const
+        {
+                return !relation.isEmpty()
+                        && ( type == "many2one" || type == "one2many" || type == "many2many" );
+        }
+
+
+        bool OdooField::isToMany() const
+        {
+                return isRelational() && type != "many2one";
+        }
+
+
+        ///
+        /// read: records by id, archived ones included (unlike search_read)
+        ///
+        QJsonArray OdooClient::read( const QString& model, const QList<int>& ids, const QStringList& fields )
+        {
+                QJsonArray idArray;
+                for ( int id : ids )
+                {
+                        idArray << id;
+                }
+
+                QJsonObject kwargs;
+                kwargs["fields"] = QJsonArray::fromStringList( fields );
+                return call( model, "read", idArray, kwargs ).toArray();
         }
 
 
@@ -778,29 +809,53 @@ namespace glabels::merge
         }
 
 
+        namespace
+        {
+                QString csvCell( QString cell )
+                {
+                        if ( cell.contains( ',' ) || cell.contains( '"' ) || cell.contains( '\n' ) || cell.contains( '\r' ) )
+                        {
+                                cell.replace( "\"", "\"\"" );
+                                cell = "\"" + cell + "\"";
+                        }
+                        return cell;
+                }
+        }
+
+
         ///
         /// First CSV line: the column contract with report_glabels
         ///
         QByteArray OdooReport::csvHeader( const QStringList& columns )
         {
-                QStringList cells;
-                for ( auto column : columns )
-                {
-                        if ( column.contains( ',' ) || column.contains( '"' ) || column.contains( '\n' ) )
-                        {
-                                column.replace( "\"", "\"\"" );
-                                column = "\"" + column + "\"";
-                        }
-                        cells << column;
-                }
-                return cells.join( ',' ).toUtf8() + "\n";
+                return csvFile( columns, {} );
         }
 
 
         ///
-        /// Columns from the first line of a report CSV (BOM, quotes and CRLF allowed)
+        /// Whole CSV: the columns, then sample rows for the next designer
+        /// (report_glabels reads only the first line)
         ///
-        QStringList OdooReport::parseCsvHeader( const QByteArray& csv )
+        QByteArray OdooReport::csvFile( const QStringList& columns, const QList<QStringList>& rows )
+        {
+                QByteArray csv;
+                for ( const QStringList& line : QList<QStringList>{ columns } + rows )
+                {
+                        QStringList cells;
+                        for ( const auto& cell : line )
+                        {
+                                cells << csvCell( cell );
+                        }
+                        csv += cells.join( ',' ).toUtf8() + "\n";
+                }
+                return csv;
+        }
+
+
+        ///
+        /// All CSV rows (BOM, quotes, quoted line breaks and CRLF allowed)
+        ///
+        QList<QStringList> OdooReport::parseCsv( const QByteArray& csv )
         {
                 QString text = QString::fromUtf8( csv );
                 if ( text.startsWith( QChar( 0xFEFF ) ) )
@@ -808,11 +863,12 @@ namespace glabels::merge
                         text.remove( 0, 1 );
                 }
 
-                QStringList columns;
+                QList<QStringList> rows;
+                QStringList row;
                 QString cell;
                 bool quoted = false;
-                bool atEnd = false;
-                for ( int i = 0; i < text.size() && !atEnd; i++ )
+                bool pending = false;   // something read since the last line end
+                for ( int i = 0; i < text.size(); i++ )
                 {
                         QChar ch = text[i];
                         if ( quoted )
@@ -834,27 +890,64 @@ namespace glabels::merge
                         else if ( ch == '"' )
                         {
                                 quoted = true;
+                                pending = true;
                         }
                         else if ( ch == ',' )
                         {
-                                columns << cell.trimmed();
+                                row << cell;
                                 cell.clear();
+                                pending = true;
                         }
                         else if ( ch == '\n' || ch == '\r' )
                         {
-                                atEnd = true;
+                                if ( ch == '\r' && i + 1 < text.size() && text[i+1] == '\n' )
+                                {
+                                        i++;
+                                }
+                                if ( pending || !cell.isEmpty() )
+                                {
+                                        row << cell;
+                                        rows << row;
+                                }
+                                row.clear();
+                                cell.clear();
+                                pending = false;
                         }
                         else
                         {
                                 cell += ch;
+                                pending = true;
                         }
                 }
-                if ( !cell.trimmed().isEmpty() || !columns.isEmpty() )
+                if ( pending || !cell.isEmpty() )
                 {
-                        columns << cell.trimmed();
+                        row << cell;
+                        rows << row;
                 }
+                return rows;
+        }
 
-                columns.removeAll( QString() );
+
+        ///
+        /// Columns from the first line of a report CSV
+        ///
+        QStringList OdooReport::parseCsvHeader( const QByteArray& csv )
+        {
+                QStringList columns;
+                for ( const auto& cell : parseCsv( csv ).value( 0 ) )
+                {
+                        if ( !cell.trimmed().isEmpty() )
+                        {
+                                columns << cell.trimmed();
+                        }
+                }
+                return columns;
+        }
+
+
+        const QStringList& OdooReport::magicColumns()
+        {
+                static const QStringList columns = { "creator", "company", "date_now", "currency" };
                 return columns;
         }
 

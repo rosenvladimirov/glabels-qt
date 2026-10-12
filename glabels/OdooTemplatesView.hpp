@@ -24,6 +24,7 @@
 
 #include "merge/OdooClient.hpp"
 
+#include <QMap>
 #include <QWidget>
 
 class QCheckBox;
@@ -52,6 +53,7 @@ namespace glabels
                 QString           name;
                 QString           model;
                 QStringList       columns;      // CSV column contract
+                QMap<QString,QString> samples;  // sample row of the CSV, per column
                 QString           writeDate;    // to notice changes made by others
 
                 bool isValid() const { return reportId != 0; }

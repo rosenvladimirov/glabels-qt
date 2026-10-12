@@ -2209,11 +2209,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Load fields</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No field checked = all simple fields</source>
+        <source>Report columns in order, separated by commas: fields, field paths through related models, report_glabels values (creator, company, date_now, currency) or columns of other modules.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Columns (empty = all simple fields):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2277,11 +2293,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 fields loaded from %2.</source>
+        <source>%1 fields loaded from %2. Open a relation to use the fields of the related model.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Server URL and model are required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>gLabels cannot use a field name containing &apos;:&apos; or &apos;}&apos;: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2487,11 +2507,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Opened &quot;%1&quot;. Filled by Odoo when printing (shown here with the CSV sample): %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Save to Odoo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Report &quot;%1&quot; was changed on the server after you opened it. Overwrite it with this label?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List at least one column.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

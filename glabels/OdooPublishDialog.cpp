@@ -25,6 +25,7 @@
 #include "model/XmlLabelCreator.hpp"
 
 #include "merge/Merge.hpp"
+#include "merge/OdooRpc.hpp"
 
 #include <QApplication>
 #include <QCheckBox>
@@ -68,7 +69,9 @@ namespace glabels
 
                 mNameEdit = new QLineEdit( mModel->shortName() );
 
-                mColumnsEdit = new QLineEdit( mModel->merge()->keys().join( ", " ) );
+                // The merge columns; "id" only when it was asked for
+                QStringList mergeColumns = mSource.fields.isEmpty() ? mModel->merge()->keys() : mSource.fields;
+                mColumnsEdit = new QLineEdit( mergeColumns.join( ", " ) );
                 mColumnsEdit->setToolTip( tr("Field paths (e.g. categ_id.name) or report_glabels values "
                                              "(creator, company, date_now, currency), separated by commas.") );
 
@@ -242,7 +245,16 @@ namespace glabels
                 values["name"]                      = name;
                 values["glabels_template_file"]     = QString::fromLatin1( templateData.toBase64() );
                 values["glabels_template_filename"] = name + ".glabels";
-                values["glabels_csv_file"]          = QString::fromLatin1( merge::OdooReport::csvHeader( columns ).toBase64() );
+                // Header plus the first record as sample row for the next designer
+                QStringList sample;
+                if ( auto* odooMerge = dynamic_cast<merge::OdooRpc*>( mModel->merge() ) )
+                {
+                        sample = odooMerge->sampleRow( columns );
+                }
+                QByteArray csvData = sample.isEmpty()
+                                     ? merge::OdooReport::csvHeader( columns )
+                                     : merge::OdooReport::csvFile( columns, { sample } );
+                values["glabels_csv_file"]          = QString::fromLatin1( csvData.toBase64() );
                 values["glabels_csv_filename"]      = name + ".csv";
 
                 if ( mPrintMenuCheck->isChecked() )

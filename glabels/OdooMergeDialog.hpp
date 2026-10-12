@@ -30,7 +30,8 @@ class QCheckBox;
 class QComboBox;
 class QLabel;
 class QLineEdit;
-class QListWidget;
+class QTreeWidget;
+class QTreeWidgetItem;
 class QSpinBox;
 
 
@@ -66,6 +67,9 @@ namespace glabels
         private slots:
                 void onLoadModelsClicked();
                 void onLoadFieldsClicked();
+                void onFieldExpanded( QTreeWidgetItem* item );
+                void onFieldChanged( QTreeWidgetItem* item, int column );
+                void onColumnsEdited();
                 void onAccepted();
 
 
@@ -75,6 +79,9 @@ namespace glabels
         private:
                 merge::OdooSource currentSource() const;
                 void setStatus( const QString& text, bool error );
+                void addFieldItems( QTreeWidgetItem* parent, const QString& model, const QString& prefix );
+                QStringList columns() const;
+                void syncChecks( QTreeWidgetItem* item, const QStringList& columns );
 
 
                 /////////////////////////////////
@@ -87,14 +94,15 @@ namespace glabels
                 QLineEdit*   mApiKeyEdit;
                 QCheckBox*   mRememberCheck;
                 QComboBox*   mModelCombo;
-                QListWidget* mFieldsList;
+                QTreeWidget* mFieldsTree;
+                QLineEdit*   mColumnsEdit;
                 QLineEdit*   mDomainEdit;
                 QLineEdit*   mOrderEdit;
                 QLineEdit*   mLangEdit;
                 QSpinBox*    mLimitSpin;
                 QLabel*      mStatusLabel;
 
-                QStringList  mInitialFields;
+                bool         mSyncing{ false };
         };
 
 }

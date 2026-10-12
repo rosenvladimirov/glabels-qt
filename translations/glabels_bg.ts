@@ -2209,12 +2209,28 @@
             <translation>Зареди моделите</translation>
         </message>
         <message>
+            <source>Field</source>
+            <translation>Поле</translation>
+        </message>
+        <message>
+            <source>Label</source>
+            <translation>Етикет</translation>
+        </message>
+        <message>
+            <source>Type</source>
+            <translation>Тип</translation>
+        </message>
+        <message>
             <source>Load fields</source>
             <translation>Зареди полетата</translation>
         </message>
         <message>
-            <source>No field checked = all simple fields</source>
-            <translation>Без отметнати полета = всички прости полета</translation>
+            <source>Report columns in order, separated by commas: fields, field paths through related models, report_glabels values (creator, company, date_now, currency) or columns of other modules.</source>
+            <translation>Колоните на отчета по ред, разделени със запетая: полета, пътища до полета през свързани модели, стойности на report_glabels (creator, company, date_now, currency) или колони от други модули.</translation>
+        </message>
+        <message>
+            <source>Columns (empty = all simple fields):</source>
+            <translation>Колони (празно = всички прости полета):</translation>
         </message>
         <message>
             <source>No limit</source>
@@ -2277,12 +2293,16 @@
             <translation>Първо въведете адреса на сървъра и модела.</translation>
         </message>
         <message>
-            <source>%1 fields loaded from %2.</source>
-            <translation>Заредени полета от %2: %1.</translation>
+            <source>%1 fields loaded from %2. Open a relation to use the fields of the related model.</source>
+            <translation>Заредени са %1 полета от %2. Отворете релация, за да ползвате полетата на свързания модел.</translation>
         </message>
         <message>
             <source>Server URL and model are required.</source>
             <translation>Адресът на сървъра и моделът са задължителни.</translation>
+        </message>
+        <message>
+            <source>gLabels cannot use a field name containing &apos;:&apos; or &apos;}&apos;: %1</source>
+            <translation>gLabels не приема име на поле с „:“ или „}“: %1</translation>
         </message>
         <message>
             <source>The domain is not a valid list.</source>
@@ -2479,6 +2499,10 @@
             <translation>Файлът с шаблона на отчета не е етикет на gLabels.</translation>
         </message>
         <message>
+            <source>Opened &quot;%1&quot;. Filled by Odoo when printing (shown here with the CSV sample): %2</source>
+            <translation>Отворен е „%1“. Попълват се от Odoo при печат (тук са показани с примера от CSV): %2</translation>
+        </message>
+        <message>
             <source>Opened &quot;%1&quot;.</source>
             <translation>Отворен е „%1“.</translation>
         </message>
@@ -2493,6 +2517,10 @@
         <message>
             <source>Report &quot;%1&quot; was changed on the server after you opened it. Overwrite it with this label?</source>
             <translation>Отчетът „%1“ е променен на сървъра, след като го отворихте. Да се презапише ли с този етикет?</translation>
+        </message>
+        <message>
+            <source>List at least one column.</source>
+            <translation>Посочете поне една колона.</translation>
         </message>
         <message>
             <source>gLabels cannot use a field name containing &apos;:&apos; or &apos;}&apos;: %1</source>

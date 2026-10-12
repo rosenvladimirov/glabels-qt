@@ -475,6 +475,23 @@ void TestMerge::odooReport()
         QCOMPARE( OdooReport::parseCsvHeader( "\xEF\xBB\xBFid, name\r\n1,Box\r\n" ), ( QStringList{ "id", "name" } ) );
         QVERIFY( OdooReport::parseCsvHeader( "" ).isEmpty() );
 
+        // Whole CSV with a sample row, as Packit's shelf labels (CRLF, quoted price)
+        QByteArray packit = "product_tmpl_id.name,product_template_attribute_value_ids.name,default_code,price\r\n"
+                            "\xD0\x91\xD1\x8F\xD0\xBB\xD0\xB0,20 \xC3\x97 8 cm,34111,\"0,50 \xE2\x82\xAC\"\r\n";
+        QList<QStringList> rows = OdooReport::parseCsv( packit );
+        QCOMPARE( rows.size(), 2 );
+        QCOMPARE( rows[0].size(), 4 );
+        QCOMPARE( rows[1][0], QString::fromUtf8( "\xD0\x91\xD1\x8F\xD0\xBB\xD0\xB0" ) );
+        QCOMPARE( rows[1][3], QString::fromUtf8( "0,50 \xE2\x82\xAC" ) );
+
+        // ...written back the same way (a quoted line break survives too)
+        QStringList cols{ "name", "price", "note" };
+        QStringList sample{ "Box", "0,50", "two\nlines" };
+        QByteArray written = OdooReport::csvFile( cols, { sample } );
+        QCOMPARE( written, QByteArray( "name,price,note\nBox,\"0,50\",\"two\nlines\"\n" ) );
+        QCOMPARE( OdooReport::parseCsv( written ), ( QList<QStringList>{ cols, sample } ) );
+        QCOMPARE( OdooReport::csvHeader( cols ), QByteArray( "name,price,note\n" ) );
+
         // Technical report name
         QCOMPARE( OdooReport::reportNameStem( "product.product", "MEC Product label 60x30" ),
                   QString( "glabels_product_product_mec_product_label_60x30" ) );

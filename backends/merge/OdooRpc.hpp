@@ -24,8 +24,10 @@
 
 #include "Merge.hpp"
 #include "OdooClient.hpp"
+#include "Record.hpp"
 
 #include <QJsonArray>
+#include <QMap>
 
 
 namespace glabels::merge
@@ -34,8 +36,13 @@ namespace glabels::merge
         ///
         /// Odoo RPC Merge Backend
         ///
-        /// Source is an OdooSource URL; keys are the model's fields (from
-        /// fields_get), records come from search_read.
+        /// Source is an OdooSource URL; records come from search_read.  The
+        /// keys are the report columns of report_glabels: fields of the model,
+        /// field paths through related models (product_tmpl_id.name,
+        /// product_variant_ids.default_code), report_glabels values (company,
+        /// date_now...) and columns of other modules (price).  What cannot be
+        /// read from Odoo is shown with a fallback value, e.g. the sample row
+        /// of the report CSV.
         ///
         struct OdooRpc : public Merge
         {
@@ -67,6 +74,20 @@ namespace glabels::merge
 
 
                 /////////////////////////////////
+                // Report columns
+                /////////////////////////////////
+        public:
+                // Values for columns Odoo cannot fill here (set before setSource)
+                void setFallbackValues( const QMap<QString,QString>& values );
+
+                // Columns that are neither fields nor field paths of the model
+                QStringList unresolvedKeys() const;
+
+                // First record as a CSV sample row; unresolved columns keep the fallback
+                QStringList sampleRow( const QStringList& columns ) const;
+
+
+                /////////////////////////////////
                 // Implementation of virtual methods
                 /////////////////////////////////
         public:
@@ -84,8 +105,9 @@ namespace glabels::merge
                 /////////////////////////////////
         private:
                 QStringList            mKeys;
-                QMap<QString,QString>  mTypes;
-                QJsonArray             mRows;
+                QStringList            mUnresolved;
+                QMap<QString,QString>  mFallback;
+                QList<Record>          mRecords;
                 int                    mIndex{ 0 };
                 QString                mError;
         };

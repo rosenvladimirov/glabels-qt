@@ -74,7 +74,11 @@ namespace glabels::merge
                 QString name;
                 QString label;
                 QString type;
+                QString relation;     // comodel of many2one/one2many/many2many
                 bool    stored{ true };
+
+                bool isRelational() const;
+                bool isToMany() const;
         };
 
 
@@ -86,7 +90,12 @@ namespace glabels::merge
                 static QStringList parseColumns( const QString& text );
                 static QStringList invalidColumns( const QStringList& columns );
                 static QByteArray csvHeader( const QStringList& columns );
+                static QByteArray csvFile( const QStringList& columns, const QList<QStringList>& rows );
+                static QList<QStringList> parseCsv( const QByteArray& csv );
                 static QStringList parseCsvHeader( const QByteArray& csv );
+
+                // Values report_glabels fills without a field (creator, company...)
+                static const QStringList& magicColumns();
                 static QString reportNameStem( const QString& model, const QString& name );
         };
 
@@ -110,6 +119,7 @@ namespace glabels::merge
                                        int limit,
                                        const QString& order );
 
+                QJsonArray read( const QString& model, const QList<int>& ids, const QStringList& fields );
                 int create( const QString& model, const QJsonObject& values );
                 bool write( const QString& model, const QList<int>& ids, const QJsonObject& values );
                 int modelId( const QString& model );

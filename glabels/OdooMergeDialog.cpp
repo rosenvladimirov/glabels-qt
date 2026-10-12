@@ -32,7 +32,8 @@
 #include <QJsonObject>
 #include <QLabel>
 #include <QLineEdit>
-#include <QListWidget>
+#include <QHeaderView>
+#include <QTreeWidget>
 #include <QPushButton>
 #include <QSpinBox>
 #include <QVBoxLayout>
@@ -50,7 +51,6 @@ namespace glabels
                 setWindowTitle( tr("Odoo merge source") );
 
                 merge::OdooSource src = merge::OdooSource::fromString( source );
-                mInitialFields = src.fields;
 
                 mUrlEdit = new QLineEdit( src.baseUrl.toString() );
                 mUrlEdit->setPlaceholderText( "https://erp.example.com" );
@@ -78,21 +78,27 @@ namespace glabels
                 modelRow->addWidget( mModelCombo, 1 );
                 modelRow->addWidget( loadModelsButton );
 
-                mFieldsList = new QListWidget;
-                mFieldsList->setMinimumHeight( 180 );
-                for ( const auto& name : src.fields )
-                {
-                        auto* item = new QListWidgetItem( name, mFieldsList );
-                        item->setData( Qt::UserRole, name );
-                        item->setFlags( item->flags() | Qt::ItemIsUserCheckable );
-                        item->setCheckState( Qt::Checked );
-                }
+                // Fields of the model; relations open into the fields of the
+                // related model, so paths like product_tmpl_id.name can be picked
+                mFieldsTree = new QTreeWidget;
+                mFieldsTree->setMinimumHeight( 220 );
+                mFieldsTree->setHeaderLabels( { tr("Field"), tr("Label"), tr("Type") } );
+                mFieldsTree->header()->setSectionResizeMode( 0, QHeaderView::ResizeToContents );
                 auto* loadFieldsButton = new QPushButton( tr("Load fields") );
 
+                // The columns themselves: their order, plus values that are not
+                // fields (company, date_now, columns of other modules like price)
+                mColumnsEdit = new QLineEdit( src.fields.join( ", " ) );
+                mColumnsEdit->setPlaceholderText( "product_tmpl_id.name, default_code, price, date_now" );
+                mColumnsEdit->setToolTip( tr("Report columns in order, separated by commas: fields, field paths "
+                                             "through related models, report_glabels values (creator, company, "
+                                             "date_now, currency) or columns of other modules.") );
+
                 auto* fieldsBox = new QVBoxLayout;
-                fieldsBox->addWidget( mFieldsList );
-                fieldsBox->addWidget( new QLabel( tr("No field checked = all simple fields") ) );
+                fieldsBox->addWidget( mFieldsTree );
                 fieldsBox->addWidget( loadFieldsButton, 0, Qt::AlignLeft );
+                fieldsBox->addWidget( new QLabel( tr("Columns (empty = all simple fields):") ) );
+                fieldsBox->addWidget( mColumnsEdit );
 
                 mDomainEdit = new QLineEdit( src.domain );
                 mDomainEdit->setPlaceholderText( "[[\"product_id.default_code\", \"=\", \"PR6030\"]]" );
@@ -139,6 +145,9 @@ namespace glabels
 
                 connect( loadModelsButton, &QPushButton::clicked, this, &OdooMergeDialog::onLoadModelsClicked );
                 connect( loadFieldsButton, &QPushButton::clicked, this, &OdooMergeDialog::onLoadFieldsClicked );
+                connect( mFieldsTree, &QTreeWidget::itemExpanded, this, &OdooMergeDialog::onFieldExpanded );
+                connect( mFieldsTree, &QTreeWidget::itemChanged, this, &OdooMergeDialog::onFieldChanged );
+                connect( mColumnsEdit, &QLineEdit::editingFinished, this, &OdooMergeDialog::onColumnsEdited );
                 connect( buttons, &QDialogButtonBox::accepted, this, &OdooMergeDialog::onAccepted );
                 connect( buttons, &QDialogButtonBox::rejected, this, &QDialog::reject );
 
@@ -167,14 +176,7 @@ namespace glabels
                 src.lang     = mLangEdit->text().trimmed();
                 src.limit    = mLimitSpin->value();
 
-                for ( int i = 0; i < mFieldsList->count(); i++ )
-                {
-                        QListWidgetItem* item = mFieldsList->item( i );
-                        if ( item->checkState() == Qt::Checked )
-                        {
-                                src.fields << item->data( Qt::UserRole ).toString();
-                        }
-                }
+                src.fields   = columns();
 
                 return src;
         }
@@ -224,6 +226,12 @@ namespace glabels
         }
 
 
+        QStringList OdooMergeDialog::columns() const
+        {
+                return merge::OdooReport::parseColumns( mColumnsEdit->text() );
+        }
+
+
         ///
         /// Load fields of the selected model
         ///
@@ -236,11 +244,27 @@ namespace glabels
                         return;
                 }
 
-                QStringList checked = src.fields.isEmpty() ? mInitialFields : src.fields;
+                mFieldsTree->clear();
+                addFieldItems( mFieldsTree->invisibleRootItem(), src.model, QString() );
+                if ( mFieldsTree->topLevelItemCount() > 0 )
+                {
+                        setStatus( tr("%1 fields loaded from %2. Open a relation to use the fields "
+                                      "of the related model.").arg( mFieldsTree->topLevelItemCount() ).arg( src.model ), false );
+                }
+        }
+
+
+        ///
+        /// Field items of a model under parent; relations get a placeholder
+        /// child so they can be opened
+        ///
+        void OdooMergeDialog::addFieldItems( QTreeWidgetItem* parent, const QString& model, const QString& prefix )
+        {
+                merge::OdooSource src = currentSource();
 
                 QApplication::setOverrideCursor( Qt::WaitCursor );
                 merge::OdooClient client( src, mApiKeyEdit->text().trimmed() );
-                QList<merge::OdooField> fields = client.fieldsGet( src.model );
+                QList<merge::OdooField> fields = client.fieldsGet( model );
                 QApplication::restoreOverrideCursor();
 
                 if ( !client.errorString().isEmpty() )
@@ -249,16 +273,85 @@ namespace glabels
                         return;
                 }
 
-                mFieldsList->clear();
+                QStringList selected = columns();
+
+                mSyncing = true;
                 for ( const auto& f : fields )
                 {
-                        auto* item = new QListWidgetItem( QString( "%1 — %2 (%3)" ).arg( f.name, f.label, f.type ),
-                                                          mFieldsList );
-                        item->setData( Qt::UserRole, f.name );
+                        QString path = prefix.isEmpty() ? f.name : prefix + "." + f.name;
+                        auto* item = new QTreeWidgetItem( parent );
+                        item->setText( 0, f.name );
+                        item->setText( 1, f.label );
+                        item->setText( 2, f.isRelational() ? QString( "%1 → %2" ).arg( f.type, f.relation ) : f.type );
+                        item->setData( 0, Qt::UserRole, path );
+                        item->setData( 0, Qt::UserRole + 1, f.isRelational() ? f.relation : QString() );
                         item->setFlags( item->flags() | Qt::ItemIsUserCheckable );
-                        item->setCheckState( checked.contains( f.name ) ? Qt::Checked : Qt::Unchecked );
+                        item->setCheckState( 0, selected.contains( path ) ? Qt::Checked : Qt::Unchecked );
+                        if ( f.isRelational() )
+                        {
+                                new QTreeWidgetItem( item );   // placeholder, replaced on expand
+                        }
                 }
-                setStatus( tr("%1 fields loaded from %2.").arg( fields.size() ).arg( src.model ), false );
+                mSyncing = false;
+        }
+
+
+        void OdooMergeDialog::onFieldExpanded( QTreeWidgetItem* item )
+        {
+                QString relation = item->data( 0, Qt::UserRole + 1 ).toString();
+                if ( relation.isEmpty() || item->childCount() != 1 || !item->child( 0 )->text( 0 ).isEmpty() )
+                {
+                        return;
+                }
+                delete item->takeChild( 0 );
+                addFieldItems( item, relation, item->data( 0, Qt::UserRole ).toString() );
+        }
+
+
+        ///
+        /// Checking a field adds its path to the columns, unchecking removes it
+        ///
+        void OdooMergeDialog::onFieldChanged( QTreeWidgetItem* item, int column )
+        {
+                if ( mSyncing || column != 0 )
+                {
+                        return;
+                }
+
+                QString path = item->data( 0, Qt::UserRole ).toString();
+                QStringList list = columns();
+                if ( item->checkState( 0 ) == Qt::Checked && !list.contains( path ) )
+                {
+                        list << path;
+                }
+                else if ( item->checkState( 0 ) != Qt::Checked )
+                {
+                        list.removeAll( path );
+                }
+                mColumnsEdit->setText( list.join( ", " ) );
+        }
+
+
+        void OdooMergeDialog::onColumnsEdited()
+        {
+                mSyncing = true;
+                syncChecks( mFieldsTree->invisibleRootItem(), columns() );
+                mSyncing = false;
+        }
+
+
+        void OdooMergeDialog::syncChecks( QTreeWidgetItem* item, const QStringList& columns )
+        {
+                for ( int i = 0; i < item->childCount(); i++ )
+                {
+                        QTreeWidgetItem* child = item->child( i );
+                        QString path = child->data( 0, Qt::UserRole ).toString();
+                        if ( !path.isEmpty() )
+                        {
+                                child->setCheckState( 0, columns.contains( path ) ? Qt::Checked : Qt::Unchecked );
+                        }
+                        syncChecks( child, columns );
+                }
         }
 
 
@@ -271,6 +364,13 @@ namespace glabels
                 if ( !src.isValid() )
                 {
                         setStatus( tr("Server URL and model are required."), true );
+                        return;
+                }
+
+                QStringList bad = merge::OdooReport::invalidColumns( src.fields );
+                if ( !bad.isEmpty() )
+                {
+                        setStatus( tr("gLabels cannot use a field name containing ':' or '}': %1").arg( bad.join( ", " ) ), true );
                         return;
                 }
 

@@ -422,43 +422,50 @@ namespace glabels
                 tmpl.reportId   = reportId;
                 tmpl.name       = row["name"].toString();
                 tmpl.model      = row["model"].toString();
-                tmpl.columns    = merge::OdooReport::parseCsvHeader(
-                        QByteArray::fromBase64( row[CSV_FIELD].toString().toLatin1() ) );
+                QByteArray csv  = QByteArray::fromBase64( row[CSV_FIELD].toString().toLatin1() );
+                tmpl.columns    = merge::OdooReport::parseCsvHeader( csv );
                 tmpl.writeDate  = row["write_date"].toString();
 
-                // Records of the report model as merge source, so the editor and the
-                // preview show live data.  Only real fields: the CSV may also list
-                // field paths and report_glabels values (company, date_now...).
-                QSet<QString> modelFields;
-                for ( const auto& field : client.fieldsGet( tmpl.model ) )
+                // The CSV is the column contract; its second line holds the
+                // designer's sample values
+                QList<QStringList> csvRows = merge::OdooReport::parseCsv( csv );
+                QStringList header = csvRows.value( 0 );
+                QStringList sample = csvRows.value( 1 );
+                for ( int i = 0; i < header.size() && i < sample.size(); i++ )
                 {
-                        modelFields.insert( field.name );
+                        tmpl.samples[ header[i].trimmed() ] = sample[i];
                 }
-                QString mergeWarning = client.errorString();
 
+                // Records of the report model as merge source, with exactly the
+                // columns of the CSV: fields, paths through related models,
+                // report_glabels values and columns of other modules
                 merge::OdooSource mergeSource = src;
-                mergeSource.model = tmpl.model;
-                for ( const auto& column : tmpl.columns )
-                {
-                        if ( column != "id" && modelFields.contains( column ) )
-                        {
-                                mergeSource.fields << column;
-                        }
-                }
+                mergeSource.model  = tmpl.model;
+                mergeSource.fields = tmpl.columns;
 
-                if ( mergeWarning.isEmpty() )
-                {
-                        label->setMerge( merge::Factory::createMerge( merge::OdooRpc::id() ) );
-                        label->merge()->setSource( mergeSource.toString() );
-                }
+                auto* odooMerge = dynamic_cast<merge::OdooRpc*>( merge::Factory::createMerge( merge::OdooRpc::id() ) );
+                odooMerge->setFallbackValues( tmpl.samples );
+                label->setMerge( odooMerge );
+                label->merge()->setSource( mergeSource.toString() );
+                QString mergeWarning = label->merge()->errorString();
+                QStringList unresolved = odooMerge->unresolvedKeys();
                 label->clearModified();
                 QApplication::restoreOverrideCursor();
 
                 mOpened = tmpl;
-                setStatus( mergeWarning.isEmpty()
-                           ? tr("Opened \"%1\".").arg( tmpl.name )
-                           : tr("Opened \"%1\" without merge data: %2").arg( tmpl.name, mergeWarning ),
-                           !mergeWarning.isEmpty() );
+                if ( !mergeWarning.isEmpty() )
+                {
+                        setStatus( tr("Opened \"%1\" without merge data: %2").arg( tmpl.name, mergeWarning ), true );
+                }
+                else if ( !unresolved.isEmpty() )
+                {
+                        setStatus( tr("Opened \"%1\". Filled by Odoo when printing (shown here with the CSV sample): %2")
+                                   .arg( tmpl.name, unresolved.join( ", " ) ), false );
+                }
+                else
+                {
+                        setStatus( tr("Opened \"%1\".").arg( tmpl.name ), false );
+                }
 
                 emit templateOpened( label );
         }
@@ -509,21 +516,22 @@ namespace glabels
                         }
                 }
 
-                // Fields chosen in the merge source are columns the label may use
+                // The columns of the merge source are the contract, when it is
+                // still the report model; otherwise the CSV stays as it was
                 QStringList columns = mCurrent.columns;
-                if ( mModel->merge()->id() == merge::OdooRpc::id() )
+                auto* odooMerge = dynamic_cast<merge::OdooRpc*>( mModel->merge() );
+                if ( odooMerge )
                 {
-                        merge::OdooSource mergeSource = merge::OdooSource::fromString( mModel->merge()->source() );
-                        if ( mergeSource.model == mCurrent.model )
+                        merge::OdooSource mergeSource = merge::OdooSource::fromString( odooMerge->source() );
+                        if ( mergeSource.model == mCurrent.model && !mergeSource.fields.isEmpty() )
                         {
-                                for ( const auto& field : mergeSource.fields )
-                                {
-                                        if ( !columns.contains( field ) )
-                                        {
-                                                columns << field;
-                                        }
-                                }
+                                columns = mergeSource.fields;
                         }
+                }
+                if ( columns.isEmpty() )
+                {
+                        setStatus( tr("List at least one column."), true );
+                        return false;
                 }
                 QStringList bad = merge::OdooReport::invalidColumns( columns );
                 if ( !bad.isEmpty() )
@@ -532,12 +540,31 @@ namespace glabels
                         return false;
                 }
 
+                // Header plus a sample row: the first record, or the old sample
+                QStringList sample;
+                for ( const auto& column : columns )
+                {
+                        sample << mCurrent.samples.value( column );
+                }
+                if ( odooMerge )
+                {
+                        sample = odooMerge->sampleRow( columns );
+                        for ( int i = 0; i < columns.size(); i++ )
+                        {
+                                if ( sample[i].isEmpty() )
+                                {
+                                        sample[i] = mCurrent.samples.value( columns[i] );
+                                }
+                        }
+                }
+                QByteArray csvData = merge::OdooReport::csvFile( columns, { sample } );
+
                 QByteArray templateData;
                 model::XmlLabelCreator::writeBuffer( mModel, templateData );
 
                 QJsonObject values;
                 values["glabels_template_file"] = QString::fromLatin1( templateData.toBase64() );
-                values[CSV_FIELD]               = QString::fromLatin1( merge::OdooReport::csvHeader( columns ).toBase64() );
+                values[CSV_FIELD]               = QString::fromLatin1( csvData.toBase64() );
 
                 QApplication::setOverrideCursor( Qt::WaitCursor );
                 client.write( REPORT_MODEL, { mCurrent.reportId }, values );
@@ -556,6 +583,11 @@ namespace glabels
                 }
 
                 mCurrent.columns = columns;
+                mCurrent.samples.clear();
+                for ( int i = 0; i < columns.size(); i++ )
+                {
+                        mCurrent.samples[ columns[i] ] = sample[i];
+                }
                 if ( !rows.isEmpty() )
                 {
                         mCurrent.writeDate = rows[0].toObject()["write_date"].toString();
