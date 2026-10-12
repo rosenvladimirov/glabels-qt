@@ -83,6 +83,9 @@ namespace glabels::merge
                 // Columns that are neither fields nor field paths of the model
                 QStringList unresolvedKeys() const;
 
+                // Why the report engine could not fill the columns (old module, missing pricelist...)
+                QString previewError() const;
+
                 // First record as a CSV sample row; unresolved columns keep the fallback
                 QStringList sampleRow( const QStringList& columns ) const;
 
@@ -110,6 +113,7 @@ namespace glabels::merge
                 QList<Record>          mRecords;
                 int                    mIndex{ 0 };
                 QString                mError;
+                QString                mPreviewError;
         };
 
 }

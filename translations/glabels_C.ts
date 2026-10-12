@@ -2499,6 +2499,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Opened &quot;%1&quot;, but the report could not fill its columns (prices...): %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Opened &quot;%1&quot;.</source>
         <translation type="unfinished"></translation>
     </message>

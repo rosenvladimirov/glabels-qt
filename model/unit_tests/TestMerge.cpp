@@ -366,6 +366,8 @@ void TestMerge::odooSource()
         src.order    = "name desc, id";
         src.lang     = "bg_BG";
         src.limit    = 25;
+        src.fields  << "product_tmpl_id.name" << QString::fromUtf8( "price.\xD0\x9A\xD0\xB0\xD1\x88\xD0\xBE\xD0\xBD" );
+        src.report   = 1183;
 
         QString text = src.toString();
         QVERIFY( !text.contains( "admin@" ) );
@@ -380,6 +382,7 @@ void TestMerge::odooSource()
         QCOMPARE( back.order, src.order );
         QCOMPARE( back.lang, src.lang );
         QCOMPARE( back.limit, src.limit );
+        QCOMPARE( back.report, 1183 );
         QVERIFY( back.isValid() );
         QCOMPARE( back.keyLocation(), QString( "https://erp.example.com:8069#prod" ) );
 
@@ -388,6 +391,7 @@ void TestMerge::odooSource()
         QVERIFY( minimal.isValid() );
         QCOMPARE( minimal.domain, QString( "[]" ) );
         QCOMPARE( minimal.limit, 80 );
+        QCOMPARE( minimal.report, 0 );
         QVERIFY( minimal.fields.isEmpty() );
 
         QVERIFY( !OdooSource::fromString( "https://erp.example.com/" ).isValid() );

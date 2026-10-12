@@ -442,6 +442,7 @@ namespace glabels
                 merge::OdooSource mergeSource = src;
                 mergeSource.model  = tmpl.model;
                 mergeSource.fields = tmpl.columns;
+                mergeSource.report = reportId;
 
                 auto* odooMerge = dynamic_cast<merge::OdooRpc*>( merge::Factory::createMerge( merge::OdooRpc::id() ) );
                 odooMerge->setFallbackValues( tmpl.samples );
@@ -449,6 +450,7 @@ namespace glabels
                 label->merge()->setSource( mergeSource.toString() );
                 QString mergeWarning = label->merge()->errorString();
                 QStringList unresolved = odooMerge->unresolvedKeys();
+                QString previewError = odooMerge->previewError();
                 label->clearModified();
                 QApplication::restoreOverrideCursor();
 
@@ -456,6 +458,11 @@ namespace glabels
                 if ( !mergeWarning.isEmpty() )
                 {
                         setStatus( tr("Opened \"%1\" without merge data: %2").arg( tmpl.name, mergeWarning ), true );
+                }
+                else if ( !previewError.isEmpty() )
+                {
+                        setStatus( tr("Opened \"%1\", but the report could not fill its columns "
+                                      "(prices...): %2").arg( tmpl.name, previewError ), true );
                 }
                 else if ( !unresolved.isEmpty() )
                 {

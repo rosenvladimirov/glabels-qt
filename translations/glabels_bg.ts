@@ -2499,6 +2499,10 @@
             <translation>Файлът с шаблона на отчета не е етикет на gLabels.</translation>
         </message>
         <message>
+            <source>Opened &quot;%1&quot;, but the report could not fill its columns (prices...): %2</source>
+            <translation>Отворен е „%1“, но отчетът не можа да попълни колоните си (цени...): %2</translation>
+        </message>
+        <message>
             <source>Opened &quot;%1&quot;. Filled by Odoo when printing (shown here with the CSV sample): %2</source>
             <translation>Отворен е „%1“. Попълват се от Odoo при печат (тук са показани с примера от CSV): %2</translation>
         </message>

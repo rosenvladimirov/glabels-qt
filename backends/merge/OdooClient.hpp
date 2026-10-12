@@ -54,6 +54,7 @@ namespace glabels::merge
                 QString     order;        // e.g. "name asc"
                 QString     lang;         // e.g. "bg_BG", empty = user language
                 int         limit{ 80 };
+                int         report{ 0 };  // report_glabels report: its engine fills the columns
 
                 bool isValid() const;
 
@@ -120,6 +121,9 @@ namespace glabels::merge
                                        const QString& order );
 
                 QJsonArray read( const QString& model, const QList<int>& ids, const QStringList& fields );
+
+                // report_glabels 19.0.2.2+: column values as printed (prices, packagings...)
+                QJsonObject previewValues( int reportId, const QList<int>& resIds, const QStringList& columns );
                 int create( const QString& model, const QJsonObject& values );
                 bool write( const QString& model, const QList<int>& ids, const QJsonObject& values );
                 int modelId( const QString& model );

@@ -62,7 +62,8 @@ namespace glabels::merge
                   mKeys(merge->mKeys),
                   mUnresolved(merge->mUnresolved),
                   mFallback(merge->mFallback),
-                  mError(merge->mError)
+                  mError(merge->mError),
+                  mPreviewError(merge->mPreviewError)
         {
         }
 
@@ -166,6 +167,12 @@ namespace glabels::merge
         }
 
 
+        QString OdooRpc::previewError() const
+        {
+                return mPreviewError;
+        }
+
+
         QStringList OdooRpc::sampleRow( const QStringList& columns ) const
         {
                 const QList<Record>& records = recordList();
@@ -196,6 +203,7 @@ namespace glabels::merge
                 mRecords.clear();
                 mIndex = 0;
                 mError.clear();
+                mPreviewError.clear();
 
                 OdooSource src = OdooSource::fromString( source() );
                 if ( !src.isValid() )
@@ -425,6 +433,60 @@ namespace glabels::merge
                                 }
                         }
                         mRecords << record;
+                }
+
+                // A published report: its engine fills every column as when
+                // printing — prices from the report pricelist, packagings, VAT,
+                // report_glabels values — so they follow each record
+                if ( src.report > 0 && !mRecords.isEmpty() )
+                {
+                        QList<int> ids;
+                        for ( const auto& record : mRecords )
+                        {
+                                ids << record.value( "id" ).toInt();
+                        }
+
+                        QJsonObject preview = client.previewValues( src.report, ids, columns );
+                        if ( !client.errorString().isEmpty() )
+                        {
+                                mPreviewError = client.errorString();
+                                qWarning() << "OdooRpc: report" << src.report << mPreviewError;
+                                return;
+                        }
+
+                        QStringList unknown;
+                        for ( const auto& column : preview["unknown"].toArray() )
+                        {
+                                unknown << column.toString();
+                        }
+
+                        QMap<int,QJsonObject> byId;
+                        for ( const auto& row : preview["rows"].toArray() )
+                        {
+                                byId[ row.toObject()["id"].toInt() ] = row.toObject();
+                        }
+
+                        for ( auto& record : mRecords )
+                        {
+                                QJsonObject row = byId.value( record.value( "id" ).toInt() );
+                                for ( const auto& column : columns )
+                                {
+                                        if ( row.contains( column ) && !unknown.contains( column ) )
+                                        {
+                                                record[column] = row[column].toString();
+                                        }
+                                }
+                        }
+
+                        QStringList stillUnresolved;
+                        for ( const auto& column : mUnresolved )
+                        {
+                                if ( unknown.contains( column ) )
+                                {
+                                        stillUnresolved << column;
+                                }
+                        }
+                        mUnresolved = stillUnresolved;
                 }
         }
 

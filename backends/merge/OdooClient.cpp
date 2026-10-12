@@ -115,6 +115,7 @@ namespace glabels::merge
                 if ( !order.isEmpty() )    add( "order", order );
                 if ( !lang.isEmpty() )     add( "lang", lang );
                 add( "limit", QString::number( limit ) );
+                if ( report > 0 )          add( "report", QString::number( report ) );
 
                 return normalizedBaseUrl( baseUrl ).toString( QUrl::FullyEncoded ) + "/?" + items.join( '&' );
         }
@@ -153,6 +154,7 @@ namespace glabels::merge
                 bool ok = false;
                 int limit = value( "limit" ).toInt( &ok );
                 if ( ok ) s.limit = limit;
+                s.report = value( "report" ).toInt();
 
                 s.baseUrl = normalizedBaseUrl( url );
                 return s;
@@ -404,6 +406,24 @@ namespace glabels::merge
                 QJsonObject kwargs;
                 kwargs["fields"] = QJsonArray::fromStringList( fields );
                 return call( model, "read", idArray, kwargs ).toArray();
+        }
+
+
+        ///
+        /// Column values from the report engine, exactly as printed
+        ///
+        QJsonObject OdooClient::previewValues( int reportId, const QList<int>& resIds, const QStringList& columns )
+        {
+                QJsonArray idArray;
+                for ( int id : resIds )
+                {
+                        idArray << id;
+                }
+
+                QJsonObject kwargs;
+                kwargs["res_ids"] = idArray;
+                kwargs["columns"] = QJsonArray::fromStringList( columns );
+                return call( "ir.actions.report", "glabels_preview_values", QJsonArray{ reportId }, kwargs ).toObject();
         }
 
 

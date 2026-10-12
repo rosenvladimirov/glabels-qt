@@ -314,6 +314,19 @@ namespace glabels
                         return;
                 }
 
+                // From now on the report engine fills the columns (prices...) in the editor
+                if ( auto* odooMerge = dynamic_cast<merge::OdooRpc*>( mModel->merge() ) )
+                {
+                        merge::OdooSource src = merge::OdooSource::fromString( odooMerge->source() );
+                        if ( src.report != reportId )
+                        {
+                                src.report = reportId;
+                                QApplication::setOverrideCursor( Qt::WaitCursor );
+                                odooMerge->setSource( src.toString() );
+                                QApplication::restoreOverrideCursor();
+                        }
+                }
+
                 QMessageBox::information( this, tr("Publish to Odoo"),
                                           created
                                           ? tr("Report \"%1\" created (id %2).").arg( name ).arg( reportId )
