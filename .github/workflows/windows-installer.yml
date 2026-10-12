@@ -41,9 +41,9 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: '6.2.*'
+        version: '6.8.3'
         install-deps: 'true'
-        archives: 'qtbase qtsvg qttools icu qttranslations'
+        archives: 'qtbase qtsvg qttools qttranslations'
 
     - name: Install NSIS
       shell: pwsh

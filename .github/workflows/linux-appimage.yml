@@ -1,0 +1,76 @@
+name: Linux AppImage
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build-appimage:
+    # Oldest supported runner: the AppImage runs on distributions with this glibc or newer
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install pkgconf libqrencode-dev zlib1g-dev libfuse2 libxkbcommon-x11-0 libxcb-cursor0
+        wget -q https://downloads.sourceforge.net/project/zint/zint/2.15.0/zint-2.15.0-src.tar.gz
+        tar xzf zint-2.15.0-src.tar.gz
+        ( cd zint-2.15.0-src && mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make -j4 && sudo make install && sudo ldconfig )
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: '6.8.3'
+        install-deps: 'true'
+        archives: 'qtbase qtsvg qttools qttranslations qtwayland icu'
+
+    - name: Configure CMake
+      run: >
+        cmake -B build
+        -DCMAKE_BUILD_TYPE=Release
+        -DCMAKE_INSTALL_PREFIX=/usr
+        -S ${{ github.workspace }}
+
+    - name: Build
+      run: cmake --build build --config Release -j4
+
+    - name: Create AppImage
+      shell: bash
+      env:
+        APPIMAGE_EXTRACT_AND_RUN: 1
+        QMAKE: ${{ env.QT_ROOT_DIR }}/bin/qmake
+        EXTRA_QT_MODULES: svg
+      run: |
+        DESTDIR=$PWD/AppDir cmake --install build
+        wget -q https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+        wget -q https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
+        chmod +x linuxdeploy*.AppImage
+        export LD_LIBRARY_PATH=$QT_ROOT_DIR/lib:/usr/local/lib
+        export VERSION=$(head -1 build/VERSION.txt | tr -d ' ' | tr '/' '-')
+        export OUTPUT=glabels-qt-$VERSION-x86_64.AppImage
+        ./linuxdeploy-x86_64.AppImage --appdir AppDir \
+          --desktop-file AppDir/usr/share/applications/org.glabels.glabels-qt.desktop \
+          --executable AppDir/usr/bin/glabels-batch-qt \
+          --plugin qt --output appimage
+        ls -l glabels-qt-*.AppImage
+
+    - name: Smoke test
+      shell: bash
+      run: |
+        sudo apt-get -y install xvfb
+        APP=$(ls glabels-qt-*.AppImage | head -1)
+        xvfb-run -a ./$APP --appimage-extract-and-run --Version
+
+    - name: Upload AppImage
+      uses: actions/upload-artifact@v4
+      with:
+        name: glabels-linux-appimage
+        path: glabels-qt-*.AppImage
