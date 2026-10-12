@@ -43,7 +43,7 @@ jobs:
       with:
         version: '6.8.3'
         install-deps: 'true'
-        archives: 'qtbase qtsvg qttools qttranslations'
+        archives: 'qtbase qtsvg qttools qttranslations qtdeclarative'
 
     - name: Install NSIS
       shell: pwsh

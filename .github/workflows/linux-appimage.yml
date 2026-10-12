@@ -30,7 +30,7 @@ jobs:
       with:
         version: '6.8.3'
         install-deps: 'true'
-        archives: 'qtbase qtsvg qttools qttranslations qtwayland icu'
+        archives: 'qtbase qtsvg qttools qttranslations qtdeclarative qtwayland icu'
 
     - name: Configure CMake
       run: >
