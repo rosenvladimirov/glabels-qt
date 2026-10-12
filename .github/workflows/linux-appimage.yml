@@ -2,7 +2,7 @@ name: Linux AppImage
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, feature/odoo-rpc-merge ]
   workflow_dispatch:
 
 jobs:
