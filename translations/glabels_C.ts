@@ -236,6 +236,10 @@
         <source>Text: Semicolon Separated Values, keys on line 1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Odoo: records via RPC (API key)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Frame</name>
@@ -1959,11 +1963,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Browse...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Configure...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Select merge file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge source error</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2131,6 +2147,113 @@
     </message>
     <message>
         <source>Use substitution field</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>glabels::OdooMergeDialog</name>
+    <message>
+        <source>Odoo merge source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optional on Odoo 19+ with one database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only needed for Odoo 18 and older</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Odoo user API key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember the key on this computer (never stored in the label file)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load models</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No field checked = all simple fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server URL:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Database:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Login:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>API key:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Model:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fields:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Domain:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Order:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GLABELS_ODOO_API_KEY is set and overrides the stored key.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter the server URL first.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 models loaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter the server URL and the model first.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 fields loaded from %2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server URL and model are required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The domain is not a valid list.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2870,6 +2993,44 @@
     </message>
     <message>
         <source>BC412 (SEMI TI-95)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>glabels::merge::OdooClient</name>
+    <message>
+        <source>No API key for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This server needs a database name (no JSON-2 API)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This server needs a login (no JSON-2 API)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authentication failed for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid reply from server (HTTP %1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Timeout connecting to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>glabels::merge::OdooRpc</name>
+    <message>
+        <source>Invalid Odoo source: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid domain: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
