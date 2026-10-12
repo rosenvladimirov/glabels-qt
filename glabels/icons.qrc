@@ -124,6 +124,7 @@
 	<!-- flat: 48 x 48 -->
 	<file>icons/glabels-flat/48x48/actions/glabels-edit.svg</file>
 	<file>icons/glabels-flat/48x48/actions/glabels-merge.svg</file>
+	<file>icons/glabels-flat/48x48/actions/glabels-odoo.svg</file>
 	<file>icons/glabels-flat/48x48/actions/glabels-print.svg</file>
 	<file>icons/glabels-flat/48x48/actions/glabels-properties.svg</file>
 	<file>icons/glabels-flat/48x48/actions/glabels-variables.svg</file>

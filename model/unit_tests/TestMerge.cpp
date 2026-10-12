@@ -469,6 +469,12 @@ void TestMerge::odooReport()
         QCOMPARE( OdooReport::csvHeader( { "id", "categ_id.name" } ), QByteArray( "id,categ_id.name\n" ) );
         QCOMPARE( OdooReport::csvHeader( { "a,b", "say \"hi\"" } ), QByteArray( "\"a,b\",\"say \"\"hi\"\"\"\n" ) );
 
+        // ...and back: only the first line counts, BOM and CRLF are fine
+        QCOMPARE( OdooReport::parseCsvHeader( OdooReport::csvHeader( { "id", "a,b", "say \"hi\"" } ) ),
+                  ( QStringList{ "id", "a,b", "say \"hi\"" } ) );
+        QCOMPARE( OdooReport::parseCsvHeader( "\xEF\xBB\xBFid, name\r\n1,Box\r\n" ), ( QStringList{ "id", "name" } ) );
+        QVERIFY( OdooReport::parseCsvHeader( "" ).isEmpty() );
+
         // Technical report name
         QCOMPARE( OdooReport::reportNameStem( "product.product", "MEC Product label 60x30" ),
                   QString( "glabels_product_product_mec_product_label_60x30" ) );

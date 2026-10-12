@@ -858,7 +858,7 @@
     <context>
         <name>StartupView</name>
         <message>
-            <source>Welcome to gLabels.  Let's get started:</source>
+            <source>Welcome to gLabels.  Let&apos;s get started:</source>
             <translation>Добре дошли в gLabels. Да започваме:</translation>
         </message>
         <message>
@@ -889,11 +889,11 @@
     <context>
         <name>TemplateDesignerApplyPage</name>
         <message>
-            <source>You have completed the gLabels Product Template Designer.  If you wish to accept and save your product template, click "Save."</source>
+            <source>You have completed the gLabels Product Template Designer.  If you wish to accept and save your product template, click &quot;Save.&quot;</source>
             <translation>Завършихте дизайнера на продуктови шаблони на gLabels. Ако искате да приемете и запишете шаблона, натиснете „Запис“.</translation>
         </message>
         <message>
-            <source>Otherwise, you may click "Cancel" to abandon your design or "Back" to review or continue editing this product template.</source>
+            <source>Otherwise, you may click &quot;Cancel&quot; to abandon your design or &quot;Back&quot; to review or continue editing this product template.</source>
             <translation>Иначе натиснете „Отказ“, за да се откажете, или „Назад“, за да прегледате или продължите редакцията на шаблона.</translation>
         </message>
     </context>
@@ -927,7 +927,7 @@
     <context>
         <name>TemplateDesignerContinuousPage</name>
         <message>
-            <source>Click "Cancel" to quit, or click "Back" to begin with a different product.</source>
+            <source>Click &quot;Cancel&quot; to quit, or click &quot;Back&quot; to begin with a different product.</source>
             <translation>Натиснете „Отказ“ за изход или „Назад“, за да започнете с друг продукт.</translation>
         </message>
     </context>
@@ -953,7 +953,7 @@
     <context>
         <name>TemplateDesignerIntroPage</name>
         <message>
-            <source>This dialog will help you create a custom product template. Let's get started:</source>
+            <source>This dialog will help you create a custom product template. Let&apos;s get started:</source>
             <translation>Този диалог ще ви помогне да създадете собствен продуктов шаблон. Да започваме:</translation>
         </message>
         <message>
@@ -1003,7 +1003,7 @@
     <context>
         <name>TemplateDesignerNamePage</name>
         <message>
-            <source>(e.g. "Mailing Labels," "Business Cards," ...)</source>
+            <source>(e.g. &quot;Mailing Labels,&quot; &quot;Business Cards,&quot; ...)</source>
             <translation>(напр. „Адресни етикети“, „Визитки“, ...)</translation>
         </message>
         <message>
@@ -1080,7 +1080,7 @@
     <context>
         <name>TemplateDesignerPathPage</name>
         <message>
-            <source>Click "Cancel" to quit, or click "Back" to begin with a different product.</source>
+            <source>Click &quot;Cancel&quot; to quit, or click &quot;Back&quot; to begin with a different product.</source>
             <translation>Натиснете „Отказ“ за изход или „Назад“, за да започнете с друг продукт.</translation>
         </message>
     </context>
@@ -1352,11 +1352,11 @@
             <translation>Файлове на glabels (*.glabels);;Всички файлове (*)</translation>
         </message>
         <message>
-            <source>Unable to open "</source>
+            <source>Unable to open &quot;</source>
             <translation>Не може да се отвори „</translation>
         </message>
         <message>
-            <source>".</source>
+            <source>&quot;.</source>
             <translation>“.</translation>
         </message>
         <message>
@@ -1422,6 +1422,14 @@
             <translation>Печат</translation>
         </message>
         <message>
+            <source>Odoo</source>
+            <translation>Odoo</translation>
+        </message>
+        <message>
+            <source>gLabels templates in Odoo</source>
+            <translation>Шаблони на gLabels в Odoo</translation>
+        </message>
+        <message>
             <source>&amp;New...</source>
             <translation>&amp;Нов...</translation>
         </message>
@@ -1460,6 +1468,14 @@
         <message>
             <source>Create or update an Odoo report with this label</source>
             <translation>Създаване или обновяване на отчет в Odoo с този етикет</translation>
+        </message>
+        <message>
+            <source>Save to O&amp;doo</source>
+            <translation>Запиши в O&amp;doo</translation>
+        </message>
+        <message>
+            <source>Write this label back to the Odoo report it was opened from</source>
+            <translation>Записване на етикета обратно в отчета в Odoo, от който е отворен</translation>
         </message>
         <message>
             <source>&amp;Edit</source>
@@ -1594,7 +1610,7 @@
             <translation>Бърз достъп</translation>
         </message>
         <message>
-            <source>Change visibility of the "Quick Access" toolbar in current window</source>
+            <source>Change visibility of the &quot;Quick Access&quot; toolbar in current window</source>
             <translation>Показване/скриване на лентата „Бърз достъп“ в текущия прозорец</translation>
         </message>
         <message>
@@ -1602,7 +1618,7 @@
             <translation>Редактор</translation>
         </message>
         <message>
-            <source>Change visibility of the "Editor" toolbar in current window</source>
+            <source>Change visibility of the &quot;Editor&quot; toolbar in current window</source>
             <translation>Показване/скриване на лентата „Редактор“ в текущия прозорец</translation>
         </message>
         <message>
@@ -1920,11 +1936,11 @@
             <translation>(променен)</translation>
         </message>
         <message>
-            <source>Save changes to project "%1" before closing?</source>
+            <source>Save changes to project &quot;%1&quot; before closing?</source>
             <translation>Да се запишат ли промените в проекта „%1“ преди затваряне?</translation>
         </message>
         <message>
-            <source>Your changes will be lost if you don't save them.</source>
+            <source>Your changes will be lost if you don&apos;t save them.</source>
             <translation>Промените ще се загубят, ако не ги запишете.</translation>
         </message>
         <message>
@@ -2320,7 +2336,7 @@
             <translation>Посочете поне една колона.</translation>
         </message>
         <message>
-            <source>gLabels cannot use a field name containing ':' or '}': %1</source>
+            <source>gLabels cannot use a field name containing &apos;:&apos; or &apos;}&apos;: %1</source>
             <translation>gLabels не приема име на поле с „:“ или „}“: %1</translation>
         </message>
         <message>
@@ -2332,12 +2348,171 @@
             <translation>Моделът %1 не е намерен на сървъра.</translation>
         </message>
         <message>
-            <source>Report "%1" created (id %2).</source>
+            <source>Report &quot;%1&quot; created (id %2).</source>
             <translation>Отчетът „%1“ е създаден (id %2).</translation>
         </message>
         <message>
-            <source>Report "%1" updated (id %2).</source>
+            <source>Report &quot;%1&quot; updated (id %2).</source>
             <translation>Отчетът „%1“ е обновен (id %2).</translation>
+        </message>
+    </context>
+    <context>
+        <name>glabels::OdooTemplatesView</name>
+        <message>
+            <source>gLabels templates in Odoo</source>
+            <translation>Шаблони на gLabels в Odoo</translation>
+        </message>
+        <message>
+            <source>Optional on Odoo 19+ with one database</source>
+            <translation>По избор при Odoo 19+ с една база</translation>
+        </message>
+        <message>
+            <source>Only needed for Odoo 18 and older</source>
+            <translation>Нужно само за Odoo 18 и по-стари</translation>
+        </message>
+        <message>
+            <source>Odoo user API key</source>
+            <translation>API ключ на потребител в Odoo</translation>
+        </message>
+        <message>
+            <source>Remember the key on this computer (never stored in the label file)</source>
+            <translation>Запомни ключа на този компютър (никога не се записва във файла на етикета)</translation>
+        </message>
+        <message>
+            <source>Load templates</source>
+            <translation>Зареди шаблоните</translation>
+        </message>
+        <message>
+            <source>Saved servers:</source>
+            <translation>Запомнени сървъри:</translation>
+        </message>
+        <message>
+            <source>Server URL:</source>
+            <translation>Адрес на сървъра:</translation>
+        </message>
+        <message>
+            <source>Database:</source>
+            <translation>База данни:</translation>
+        </message>
+        <message>
+            <source>Login:</source>
+            <translation>Потребител:</translation>
+        </message>
+        <message>
+            <source>API key:</source>
+            <translation>API ключ:</translation>
+        </message>
+        <message>
+            <source>Language:</source>
+            <translation>Език:</translation>
+        </message>
+        <message>
+            <source>Server</source>
+            <translation>Сървър</translation>
+        </message>
+        <message>
+            <source>Name</source>
+            <translation>Име</translation>
+        </message>
+        <message>
+            <source>Model</source>
+            <translation>Модел</translation>
+        </message>
+        <message>
+            <source>Technical name</source>
+            <translation>Техническо име</translation>
+        </message>
+        <message>
+            <source>Print menu</source>
+            <translation>Меню „Печат“</translation>
+        </message>
+        <message>
+            <source>Last change</source>
+            <translation>Последна промяна</translation>
+        </message>
+        <message>
+            <source>Open for editing</source>
+            <translation>Отвори за редакция</translation>
+        </message>
+        <message>
+            <source>Save the label to Odoo</source>
+            <translation>Запиши етикета в Odoo</translation>
+        </message>
+        <message>
+            <source>New server</source>
+            <translation>Нов сървър</translation>
+        </message>
+        <message>
+            <source>Server URL and API key are required.</source>
+            <translation>Адресът на сървъра и API ключът са задължителни.</translation>
+        </message>
+        <message>
+            <source>Yes</source>
+            <translation>Да</translation>
+        </message>
+        <message>
+            <source>No</source>
+            <translation>Не</translation>
+        </message>
+        <message>
+            <source>No gLabels reports on this server (is report_glabels installed?).</source>
+            <translation>На този сървър няма отчети на gLabels (инсталиран ли е report_glabels?).</translation>
+        </message>
+        <message>
+            <source>%1 gLabels reports.</source>
+            <translation>Отчети на gLabels: %1.</translation>
+        </message>
+        <message>
+            <source>This server has no report_glabels 19.0.2 or newer (the report has no CSV column file).</source>
+            <translation>На този сървър няма report_glabels 19.0.2 или по-нов (отчетът няма CSV файл с колони).</translation>
+        </message>
+        <message>
+            <source>The report no longer exists on the server.</source>
+            <translation>Отчетът вече не съществува на сървъра.</translation>
+        </message>
+        <message>
+            <source>The report has no template file.</source>
+            <translation>Отчетът няма файл с шаблон.</translation>
+        </message>
+        <message>
+            <source>The template file of the report is not a gLabels label.</source>
+            <translation>Файлът с шаблона на отчета не е етикет на gLabels.</translation>
+        </message>
+        <message>
+            <source>Opened &quot;%1&quot;.</source>
+            <translation>Отворен е „%1“.</translation>
+        </message>
+        <message>
+            <source>Opened &quot;%1&quot; without merge data: %2</source>
+            <translation>„%1“ е отворен без данни за сливане: %2</translation>
+        </message>
+        <message>
+            <source>Save to Odoo</source>
+            <translation>Запис в Odoo</translation>
+        </message>
+        <message>
+            <source>Report &quot;%1&quot; was changed on the server after you opened it. Overwrite it with this label?</source>
+            <translation>Отчетът „%1“ е променен на сървъра, след като го отворихте. Да се презапише ли с този етикет?</translation>
+        </message>
+        <message>
+            <source>gLabels cannot use a field name containing &apos;:&apos; or &apos;}&apos;: %1</source>
+            <translation>gLabels не приема име на поле с „:“ или „}“: %1</translation>
+        </message>
+        <message>
+            <source>Saved to report &quot;%1&quot; (id %2).</source>
+            <translation>Записано в отчета „%1“ (id %2).</translation>
+        </message>
+        <message>
+            <source>No label is open. Open a template from the list to edit it.</source>
+            <translation>Няма отворен етикет. Отворете шаблон от списъка, за да го редактирате.</translation>
+        </message>
+        <message>
+            <source>The current label is report &quot;%1&quot; (id %2) on %3.</source>
+            <translation>Текущият етикет е отчетът „%1“ (id %2) на %3.</translation>
+        </message>
+        <message>
+            <source>The current label is not from Odoo. Use File → Publish to Odoo to create a report from it.</source>
+            <translation>Текущият етикет не е от Odoo. С „Файл → Публикувай в Odoo“ можете да създадете отчет от него.</translation>
         </message>
     </context>
     <context>
@@ -2449,7 +2624,7 @@
             <translation>Запис на продуктовия шаблон</translation>
         </message>
         <message>
-            <source>Click "Save" to save your custom product template!</source>
+            <source>Click &quot;Save&quot; to save your custom product template!</source>
             <translation>Натиснете „Запис“, за да запишете собствения си продуктов шаблон!</translation>
         </message>
         <message>

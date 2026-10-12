@@ -236,20 +236,56 @@ namespace glabels::merge
                 }
 
                 std::unique_ptr<QSettings> settings( keyStore() );
-                settings->beginGroup( "keys" );
                 QString encoded = QString::fromUtf8( QUrl::toPercentEncoding( source.keyLocation() ) );
-                if ( apiKey.isEmpty() )
+
+                // The connection itself, so it can be offered again without the model
+                OdooSource connection;
+                connection.baseUrl  = OdooSource::normalizedBaseUrl( source.baseUrl );
+                connection.database = source.database;
+                connection.login    = source.login;
+                connection.lang     = source.lang;
+
+                for ( const QString& group : { QString( "keys" ), QString( "connections" ) } )
                 {
-                        settings->remove( encoded );
+                        settings->beginGroup( group );
+                        if ( apiKey.isEmpty() )
+                        {
+                                settings->remove( encoded );
+                        }
+                        else
+                        {
+                                settings->setValue( encoded, group == "keys" ? apiKey : connection.toString() );
+                        }
+                        settings->endGroup();
                 }
-                else
-                {
-                        settings->setValue( encoded, apiKey );
-                }
-                settings->endGroup();
                 settings->sync();
 
                 QFile::setPermissions( settings->fileName(), QFile::ReadOwner | QFile::WriteOwner );
+        }
+
+
+        ///
+        /// Remembered servers, sorted by location
+        ///
+        QList<OdooSource> OdooClient::savedConnections()
+        {
+                QList<OdooSource> connections;
+
+                std::unique_ptr<QSettings> settings( keyStore() );
+                settings->beginGroup( "connections" );
+                QStringList locations = settings->childKeys();
+                std::sort( locations.begin(), locations.end() );
+                for ( const auto& location : locations )
+                {
+                        OdooSource connection = OdooSource::fromString( settings->value( location ).toString() );
+                        if ( connection.baseUrl.isValid() && !connection.baseUrl.host().isEmpty() )
+                        {
+                                connections << connection;
+                        }
+                }
+                settings->endGroup();
+
+                return connections;
         }
 
 
@@ -758,6 +794,68 @@ namespace glabels::merge
                         cells << column;
                 }
                 return cells.join( ',' ).toUtf8() + "\n";
+        }
+
+
+        ///
+        /// Columns from the first line of a report CSV (BOM, quotes and CRLF allowed)
+        ///
+        QStringList OdooReport::parseCsvHeader( const QByteArray& csv )
+        {
+                QString text = QString::fromUtf8( csv );
+                if ( text.startsWith( QChar( 0xFEFF ) ) )
+                {
+                        text.remove( 0, 1 );
+                }
+
+                QStringList columns;
+                QString cell;
+                bool quoted = false;
+                bool atEnd = false;
+                for ( int i = 0; i < text.size() && !atEnd; i++ )
+                {
+                        QChar ch = text[i];
+                        if ( quoted )
+                        {
+                                if ( ch == '"' && i + 1 < text.size() && text[i+1] == '"' )
+                                {
+                                        cell += '"';
+                                        i++;
+                                }
+                                else if ( ch == '"' )
+                                {
+                                        quoted = false;
+                                }
+                                else
+                                {
+                                        cell += ch;
+                                }
+                        }
+                        else if ( ch == '"' )
+                        {
+                                quoted = true;
+                        }
+                        else if ( ch == ',' )
+                        {
+                                columns << cell.trimmed();
+                                cell.clear();
+                        }
+                        else if ( ch == '\n' || ch == '\r' )
+                        {
+                                atEnd = true;
+                        }
+                        else
+                        {
+                                cell += ch;
+                        }
+                }
+                if ( !cell.trimmed().isEmpty() || !columns.isEmpty() )
+                {
+                        columns << cell.trimmed();
+                }
+
+                columns.removeAll( QString() );
+                return columns;
         }
 
 

@@ -37,6 +37,7 @@
 
 #if GLABELS_ODOO_MERGE
 #include "OdooPublishDialog.hpp"
+#include "OdooTemplatesView.hpp"
 #include "merge/OdooRpc.hpp"
 #endif
 
@@ -58,6 +59,7 @@ namespace
                 MERGE_PAGE_INDEX      = 3,
                 VARIABLES_PAGE_INDEX  = 4,
                 PRINT_PAGE_INDEX      = 5,
+                ODOO_PAGE_INDEX       = 6,
         };
 }
 
@@ -172,6 +174,22 @@ namespace glabels
                 mPrintAction = mContents->addWidget( mPrintButton );
                 group->addButton( mPrintButton );
 
+#if GLABELS_ODOO_MERGE
+                // Add "Odoo" page: available with or without an open label
+                mOdooView = new OdooTemplatesView();
+                mPages->addWidget( mOdooView );
+                mOdooButton = new QToolButton( this );
+                mOdooButton->setIcon( QIcon::fromTheme( "glabels-odoo" ) );
+                mOdooButton->setText( tr("Odoo") );
+                mOdooButton->setToolTip( tr("gLabels templates in Odoo") );
+                mOdooButton->setToolButtonStyle( Qt::ToolButtonTextUnderIcon );
+                mOdooButton->setCheckable( true );
+                mOdooButton->setSizePolicy( QSizePolicy::MinimumExpanding,
+                                            QSizePolicy::Preferred );
+                mOdooAction = mContents->addWidget( mOdooButton );
+                group->addButton( mOdooButton );
+#endif
+
                 // Set initial page selection
                 mWelcomeButton->setChecked( true );
                 mPages->setCurrentIndex( WELCOME_PAGE_INDEX );
@@ -196,6 +214,12 @@ namespace glabels
                 connect( mMergeButton, SIGNAL(toggled(bool)), this, SLOT(changePage(bool)));
                 connect( mVariablesButton, SIGNAL(toggled(bool)), this, SLOT(changePage(bool)));
                 connect( mPrintButton, SIGNAL(toggled(bool)), this, SLOT(changePage(bool)));
+#if GLABELS_ODOO_MERGE
+                connect( mWelcomeButton, SIGNAL(toggled(bool)), this, SLOT(changePage(bool)));
+                connect( mOdooButton, SIGNAL(toggled(bool)), this, SLOT(changePage(bool)));
+                connect( mOdooView, &OdooTemplatesView::templateOpened, this, &MainWindow::onOdooTemplateOpened );
+                connect( mOdooView, &OdooTemplatesView::currentTemplateChanged, this, &MainWindow::onOdooTemplateChanged );
+#endif
                 connect( mLabelEditor, SIGNAL(zoomChanged()), this, SLOT(onZoomChanged()) );
                 connect( model::Settings::instance(), SIGNAL(changed()), this, SLOT(onSettingsChanged()) );
                 connect( QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(clipboardChanged()) );
@@ -232,6 +256,9 @@ namespace glabels
                 mMergeView->setModel( mModel.get(), mUndoRedoModel.get() );
                 mVariablesView->setModel( mModel.get(), mUndoRedoModel.get() );
                 mPrintView->setModel( mModel.get() );
+#if GLABELS_ODOO_MERGE
+                mOdooView->setModel( mModel.get() );
+#endif
 
                 mEditorButton->setChecked( true );
                 mPages->setCurrentIndex( EDITOR_PAGE_INDEX );
@@ -316,6 +343,10 @@ namespace glabels
                 filePublishOdooAction = new QAction( tr("Publish to &Odoo..."), this );
                 filePublishOdooAction->setStatusTip( tr("Create or update an Odoo report with this label") );
                 connect( filePublishOdooAction, SIGNAL(triggered()), this, SLOT(filePublishOdoo()) );
+
+                fileSaveOdooAction = new QAction( tr("Save to O&doo"), this );
+                fileSaveOdooAction->setStatusTip( tr("Write this label back to the Odoo report it was opened from") );
+                connect( fileSaveOdooAction, SIGNAL(triggered()), this, SLOT(fileSaveOdoo()) );
 
                 fileShowEditorPageAction = new QAction( tr("&Edit") , this );
                 fileShowEditorPageAction->setShortcut( QKeySequence( Qt::CTRL | Qt::Key_1 ) );
@@ -627,6 +658,7 @@ namespace glabels
                 fileMenu->addAction( fileSaveAction );
                 fileMenu->addAction( fileSaveAsAction );
 #if GLABELS_ODOO_MERGE
+                fileMenu->addAction( fileSaveOdooAction );
                 fileMenu->addAction( filePublishOdooAction );
 #endif
                 fileMenu->addSeparator();
@@ -880,6 +912,11 @@ namespace glabels
 
                 // Which page is currently active?
                 bool isWelcomePage    = mWelcomeButton->isChecked();
+#if GLABELS_ODOO_MERGE
+                bool isOdooTemplate   = hasModel && mOdooView->currentTemplate().isValid();
+#else
+                bool isOdooTemplate   = false;
+#endif
                 bool isEditorPage     = mEditorButton->isChecked();
                 bool isPropertiesPage = mPropertiesButton->isChecked();
                 bool isMergePage      = mMergeButton->isChecked();
@@ -891,13 +928,14 @@ namespace glabels
                 bool hasMultiSelection = hasSelection && !mModel->isSelectionAtomic();
                 bool canPaste = hasModel && mModel->canPaste();
 
-                // Toggle visibility of TOC buttons based on welcome mode
-                mWelcomeAction->setVisible( isWelcomePage );
-                mEditorAction->setVisible( !isWelcomePage );
-                mPropertiesAction->setVisible( !isWelcomePage );
-                mMergeAction->setVisible( !isWelcomePage );
-                mVariablesAction->setVisible( !isWelcomePage );
-                mPrintAction->setVisible( !isWelcomePage );
+                // Toggle visibility of TOC buttons: welcome until there is a label
+                // (the Odoo page is reachable from both)
+                mWelcomeAction->setVisible( !hasModel );
+                mEditorAction->setVisible( hasModel );
+                mPropertiesAction->setVisible( hasModel );
+                mMergeAction->setVisible( hasModel );
+                mVariablesAction->setVisible( hasModel );
+                mPrintAction->setVisible( hasModel );
 
                 // Recent file actions
                 QStringList recentFileList = model::Settings::recentFileList();
@@ -920,11 +958,12 @@ namespace glabels
                 fileSaveAction->setEnabled( hasModel && mModel->isModified() );
                 fileSaveAsAction->setEnabled( hasModel );
                 filePublishOdooAction->setEnabled( hasModel );
-                fileShowEditorPageAction->setEnabled( !isWelcomePage && !isEditorPage );
-                fileShowPropertiesPageAction->setEnabled( !isWelcomePage && !isPropertiesPage );
-                fileShowMergePageAction->setEnabled( !isWelcomePage && !isMergePage );
-                fileShowVariablesPageAction->setEnabled( !isWelcomePage && !isVariablesPage );
-                fileShowPrintPageAction->setEnabled( !isWelcomePage && !isPrintPage );
+                fileSaveOdooAction->setEnabled( isOdooTemplate );
+                fileShowEditorPageAction->setEnabled( hasModel && !isEditorPage );
+                fileShowPropertiesPageAction->setEnabled( hasModel && !isPropertiesPage );
+                fileShowMergePageAction->setEnabled( hasModel && !isMergePage );
+                fileShowVariablesPageAction->setEnabled( hasModel && !isVariablesPage );
+                fileShowPrintPageAction->setEnabled( hasModel && !isPrintPage );
                 fileTemplateDesignerAction->setEnabled( true );
                 fileCloseAction->setEnabled( true );
                 fileExitAction->setEnabled( true );
@@ -1035,13 +1074,20 @@ namespace glabels
                 }
                 else
                 {
+                        QString name = mModel->shortName();
+#if GLABELS_ODOO_MERGE
+                        if ( mModel->fileName().isEmpty() && mOdooView->currentTemplate().isValid() )
+                        {
+                                name = mOdooView->currentTemplate().name + " (Odoo)";
+                        }
+#endif
                         if ( mModel->isModified() )
                         {
-                                setWindowTitle( "gLabels - " + mModel->shortName() + " " + tr("(modified)") );
+                                setWindowTitle( "gLabels - " + name + " " + tr("(modified)") );
                         }
                         else
                         {
-                                setWindowTitle( "gLabels - " + mModel->shortName()  );
+                                setWindowTitle( "gLabels - " + name  );
                         }
                 }
         }
@@ -1112,7 +1158,7 @@ namespace glabels
                                 switch (ret) {
                                 case QMessageBox::Save:
                                         // Save was clicked
-                                        ok = File::save( this );
+                                        ok = saveProject();
                                         break;
                                 case QMessageBox::Discard:
                                         // Don't Save was clicked
@@ -1160,6 +1206,14 @@ namespace glabels
                         else if ( mPrintButton->isChecked() )
                         {
                                 mPages->setCurrentIndex( PRINT_PAGE_INDEX );
+                        }
+                        else if ( mOdooButton && mOdooButton->isChecked() )
+                        {
+                                mPages->setCurrentIndex( ODOO_PAGE_INDEX );
+                        }
+                        else if ( mWelcomeButton->isChecked() )
+                        {
+                                mPages->setCurrentIndex( WELCOME_PAGE_INDEX );
                         }
 
                         manageActions();
@@ -1213,7 +1267,29 @@ namespace glabels
         ///
         void MainWindow::fileSave()
         {
-                File::save( this );
+                saveProject();
+        }
+
+
+        ///
+        /// Save where the label came from: its file, or the Odoo report it was
+        /// opened from
+        ///
+        bool MainWindow::saveProject()
+        {
+#if GLABELS_ODOO_MERGE
+                if ( mModel->fileName().isEmpty() && mOdooView->currentTemplate().isValid() )
+                {
+                        bool ok = mOdooView->saveToOdoo();
+                        if ( !ok )
+                        {
+                                // The reason is shown on the Odoo page
+                                mOdooButton->setChecked( true );
+                        }
+                        return ok;
+                }
+#endif
+                return File::save( this );
         }
 
 
@@ -1240,9 +1316,52 @@ namespace glabels
                         return;
                 }
 
-                OdooPublishDialog dialog( mModel.get(), this );
+                OdooPublishDialog dialog( mModel.get(), mOdooView->currentTemplate().reportId, this );
                 dialog.exec();
 #endif
+        }
+
+
+        ///
+        /// File->Save to Odoo Action
+        ///
+        void MainWindow::fileSaveOdoo()
+        {
+#if GLABELS_ODOO_MERGE
+                if ( !mOdooView->saveToOdoo() )
+                {
+                        mOdooButton->setChecked( true );
+                }
+#endif
+        }
+
+
+        ///
+        /// A template was downloaded on the Odoo page: edit it here, or in a new
+        /// window when this one already has a label
+        ///
+        void MainWindow::onOdooTemplateOpened( model::Model* model )
+        {
+#if GLABELS_ODOO_MERGE
+                MainWindow* window = this;
+                if ( !isEmpty() )
+                {
+                        window = new MainWindow();
+                }
+
+                window->setModel( model );
+                window->mOdooView->setCurrentTemplate( mOdooView->openedTemplate() );
+                window->show();
+#else
+                Q_UNUSED( model );
+#endif
+        }
+
+
+        void MainWindow::onOdooTemplateChanged()
+        {
+                manageActions();
+                setTitle();
         }
 
 

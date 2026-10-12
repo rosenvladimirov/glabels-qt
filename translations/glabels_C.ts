@@ -1422,6 +1422,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Odoo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>gLabels templates in Odoo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;New...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1459,6 +1467,14 @@
     </message>
     <message>
         <source>Create or update an Odoo report with this label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save to O&amp;doo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Write this label back to the Odoo report it was opened from</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2337,6 +2353,165 @@
     </message>
     <message>
         <source>Report &quot;%1&quot; updated (id %2).</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>glabels::OdooTemplatesView</name>
+    <message>
+        <source>gLabels templates in Odoo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optional on Odoo 19+ with one database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only needed for Odoo 18 and older</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Odoo user API key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember the key on this computer (never stored in the label file)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saved servers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server URL:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Database:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Login:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>API key:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Technical name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open for editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the label to Odoo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server URL and API key are required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No gLabels reports on this server (is report_glabels installed?).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 gLabels reports.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This server has no report_glabels 19.0.2 or newer (the report has no CSV column file).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The report no longer exists on the server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The report has no template file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The template file of the report is not a gLabels label.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opened &quot;%1&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opened &quot;%1&quot; without merge data: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save to Odoo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Report &quot;%1&quot; was changed on the server after you opened it. Overwrite it with this label?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>gLabels cannot use a field name containing &apos;:&apos; or &apos;}&apos;: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saved to report &quot;%1&quot; (id %2).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No label is open. Open a template from the list to edit it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The current label is report &quot;%1&quot; (id %2) on %3.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The current label is not from Odoo. Use File → Publish to Odoo to create a report from it.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

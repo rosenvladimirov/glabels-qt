@@ -53,7 +53,7 @@ namespace glabels
         ///
         /// Constructor
         ///
-        OdooPublishDialog::OdooPublishDialog( model::Model* model, QWidget* parent )
+        OdooPublishDialog::OdooPublishDialog( model::Model* model, int reportId, QWidget* parent )
                 : QDialog(parent), mModel(model)
         {
                 setWindowTitle( tr("Publish to Odoo") );
@@ -101,6 +101,13 @@ namespace glabels
                 resize( 560, sizeHint().height() );
 
                 loadReports();
+
+                // The report the label was opened from, when it is on this server and model
+                int index = mTargetCombo->findData( reportId );
+                if ( reportId != 0 && index > 0 )
+                {
+                        mTargetCombo->setCurrentIndex( index );
+                }
         }
 
 

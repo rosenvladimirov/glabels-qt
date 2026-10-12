@@ -56,7 +56,7 @@ namespace glabels
                 // Life Cycle
                 /////////////////////////////////
         public:
-                OdooPublishDialog( model::Model* model, QWidget* parent = nullptr );
+                OdooPublishDialog( model::Model* model, int reportId = 0, QWidget* parent = nullptr );
                 ~OdooPublishDialog() override = default;
 
 

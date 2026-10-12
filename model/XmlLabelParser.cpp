@@ -126,7 +126,14 @@ namespace glabels::model
                 int          errorLine;
                 int          errorColumn;
 
-                if ( !doc.setContent( buffer, false, &errorString, &errorLine, &errorColumn ) )
+                // Labels saved compressed (gzip), e.g. by gLabels 3, come back the same way
+                QByteArray data = buffer;
+                if ( buffer.startsWith( "\x1f\x8b" ) )
+                {
+                        gunzip( buffer, data );
+                }
+
+                if ( !doc.setContent( data, false, &errorString, &errorLine, &errorColumn ) )
                 {
                         qWarning() << "Error: Parse error at line " << errorLine
                                    << "column " << errorColumn

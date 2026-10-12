@@ -48,6 +48,7 @@ namespace glabels
         class LabelEditor;
         class MergeView;
         class ObjectEditor;
+        class OdooTemplatesView;
         class PrintView;
         class PropertiesView;
         class StartupView;
@@ -100,6 +101,9 @@ namespace glabels
                 void fileSave();
                 void fileSaveAs();
                 void filePublishOdoo();
+                void fileSaveOdoo();
+                void onOdooTemplateOpened( model::Model* model );
+                void onOdooTemplateChanged();
                 void fileShowEditorPage();
                 void fileShowPropertiesPage();
                 void fileShowMergePage();
@@ -195,6 +199,7 @@ namespace glabels
                 void writeSettings();
 
                 bool isOkToClose();
+                bool saveProject();
 
 
                 /////////////////////////////////////
@@ -240,6 +245,7 @@ namespace glabels
                 QToolButton*         mMergeButton;
                 QToolButton*         mVariablesButton;
                 QToolButton*         mPrintButton;
+                QToolButton*         mOdooButton{ nullptr };
 
                 QAction*             mWelcomeAction;
                 QAction*             mEditorAction;
@@ -247,6 +253,7 @@ namespace glabels
                 QAction*             mMergeAction;
                 QAction*             mVariablesAction;
                 QAction*             mPrintAction;
+                QAction*             mOdooAction{ nullptr };
 
                 QStackedWidget*      mPages;
                 StartupView*         mWelcomeView;
@@ -257,6 +264,7 @@ namespace glabels
                 MergeView*           mMergeView;
                 VariablesView*       mVariablesView;
                 PrintView*           mPrintView;
+                OdooTemplatesView*   mOdooView{ nullptr };
 
                 QLabel*   zoomInfoLabel;
                 QLabel*   cursorInfoLabel;
@@ -266,6 +274,7 @@ namespace glabels
                 QAction*  fileSaveAction;
                 QAction*  fileSaveAsAction;
                 QAction*  filePublishOdooAction;
+                QAction*  fileSaveOdooAction;
                 QAction*  fileShowEditorPageAction;
                 QAction*  fileShowPropertiesPageAction;
                 QAction*  fileShowMergePageAction;

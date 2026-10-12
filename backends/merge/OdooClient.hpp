@@ -86,6 +86,7 @@ namespace glabels::merge
                 static QStringList parseColumns( const QString& text );
                 static QStringList invalidColumns( const QStringList& columns );
                 static QByteArray csvHeader( const QStringList& columns );
+                static QStringList parseCsvHeader( const QByteArray& csv );
                 static QString reportNameStem( const QString& model, const QString& name );
         };
 
@@ -118,6 +119,9 @@ namespace glabels::merge
                 // API key storage (outside of the label file)
                 static QString apiKey( const OdooSource& source );
                 static void saveApiKey( const OdooSource& source, const QString& apiKey, bool persist = true );
+
+                // Servers with a remembered key (URL, database, login and language)
+                static QList<OdooSource> savedConnections();
 
                 // Parse a JSON reply, scalars included
                 static QJsonValue parseReply( const QByteArray& reply, bool& ok );
