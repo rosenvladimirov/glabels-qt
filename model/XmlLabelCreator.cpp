@@ -483,6 +483,11 @@ namespace glabels::model
                 }
                 break;
 
+                case merge::Factory::REMOTE:
+                        // URL without credentials (see merge::OdooSource)
+                        XmlUtil::setStringAttr( node, "src", src );
+                        break;
+
                 default:
                         qWarning() << "XmlLabelCreator::createMergeNode(): Should not be reached!";
                         break;

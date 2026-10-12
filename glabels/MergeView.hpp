@@ -77,6 +77,9 @@ namespace glabels
                 /////////////////////////////////
         private:
                 static QString printableTextForView( QString text );
+                static QString remoteSourceText( const QString& source );
+                void configureRemoteSource();
+                void showMergeError();
 
 
                 /////////////////////////////////

@@ -46,7 +46,7 @@ namespace glabels::merge
                 // Source Type
                 /////////////////////////////////
         public:
-                enum SourceType { NONE, FIXED, FILE };
+                enum SourceType { NONE, FIXED, FILE, REMOTE };
 
 
                 /////////////////////////////////

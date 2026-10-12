@@ -762,6 +762,10 @@ namespace glabels::model
                 }
                 break;
 
+                case merge::Factory::REMOTE:
+                        merge->setSource( src );
+                        break;
+
                 default:
                         qWarning() << "XmlLabelParser::parseMergeNode(): Should not be reached!";
                         break;

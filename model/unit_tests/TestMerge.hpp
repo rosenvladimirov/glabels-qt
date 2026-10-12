@@ -35,4 +35,7 @@ private slots:
         void text();
         void none();
         void record();
+        void odooSource();
+        void odooDomain();
+        void odooValue();
 };

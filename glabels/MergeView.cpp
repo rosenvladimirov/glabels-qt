@@ -27,9 +27,16 @@
 
 #include "model/FileUtil.hpp"
 
+#if GLABELS_ODOO_MERGE
+#include "OdooMergeDialog.hpp"
+#include "merge/OdooClient.hpp"
+#endif
+
+#include <QApplication>
 #include <QDebug>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QMessageBox>
 
 
 namespace glabels
@@ -92,6 +99,14 @@ namespace glabels
                         locationLabel->setEnabled( true );
                         fn = model::FileUtil::makeRelativeIfInDir( mModel->dir(), mModel->merge()->source() );
                         locationLineEdit->setText( fn );
+                        locationBrowseButton->setText( tr("Browse...") );
+                        locationBrowseButton->setVisible( true );
+                        break;
+
+                case merge::Factory::REMOTE:
+                        locationLabel->setEnabled( true );
+                        locationLineEdit->setText( remoteSourceText( mModel->merge()->source() ) );
+                        locationBrowseButton->setText( tr("Configure...") );
                         locationBrowseButton->setVisible( true );
                         break;
 
@@ -113,8 +128,15 @@ namespace glabels
         ///
         void MergeView::onMergeSourceChanged()
         {
-                QString fn = model::FileUtil::makeRelativeIfInDir( mModel->dir(), mModel->merge()->source() );
-                locationLineEdit->setText( fn );
+                if ( merge::Factory::idToType( mModel->merge()->id() ) == merge::Factory::REMOTE )
+                {
+                        locationLineEdit->setText( remoteSourceText( mModel->merge()->source() ) );
+                }
+                else
+                {
+                        QString fn = model::FileUtil::makeRelativeIfInDir( mModel->dir(), mModel->merge()->source() );
+                        locationLineEdit->setText( fn );
+                }
 
                 recordsTableView->setModel( new MergeTableModel( mModel->merge() ) );
                 recordsTableView->resizeColumnsToContents();
@@ -133,6 +155,12 @@ namespace glabels
 
                         QString id = merge::Factory::indexToId(index);
                         mModel->setMerge( merge::Factory::createMerge( id ) );
+
+                        if ( merge::Factory::idToType( id ) == merge::Factory::REMOTE )
+                        {
+                                // A remote source is useless until configured
+                                onLocationBrowseButtonClicked();
+                        }
                 }
         }
 
@@ -142,6 +170,12 @@ namespace glabels
         ///
         void MergeView::onLocationBrowseButtonClicked()
         {
+                if ( merge::Factory::idToType( mModel->merge()->id() ) == merge::Factory::REMOTE )
+                {
+                        configureRemoteSource();
+                        return;
+                }
+
                 QString fileName =
                         QFileDialog::getOpenFileName( this,
                                                       tr("Select merge file"),
@@ -178,7 +212,62 @@ namespace glabels
         ///
         void MergeView::onReloadButtonClicked()
         {
+                QApplication::setOverrideCursor( Qt::WaitCursor );
                 mModel->merge()->reloadSource();
+                QApplication::restoreOverrideCursor();
+                showMergeError();
+        }
+
+
+        ///
+        /// Configure a remote (Odoo) merge source
+        ///
+        void MergeView::configureRemoteSource()
+        {
+#if GLABELS_ODOO_MERGE
+                OdooMergeDialog dialog( mModel->merge()->source(), this );
+                if ( dialog.exec() == QDialog::Accepted )
+                {
+                        QApplication::setOverrideCursor( Qt::WaitCursor );
+                        mModel->merge()->setSource( dialog.source() );
+                        QApplication::restoreOverrideCursor();
+                        showMergeError();
+                }
+#endif
+        }
+
+
+        ///
+        /// Report a merge backend error, if any
+        ///
+        void MergeView::showMergeError()
+        {
+                QString error = mModel->merge()->errorString();
+                if ( !error.isEmpty() )
+                {
+                        QMessageBox::warning( this, tr("Merge source error"), error );
+                }
+        }
+
+
+        ///
+        /// Short text for a remote source (no query string)
+        ///
+        QString MergeView::remoteSourceText( const QString& source )
+        {
+#if GLABELS_ODOO_MERGE
+                merge::OdooSource src = merge::OdooSource::fromString( source );
+                if ( src.isValid() )
+                {
+                        QString text = src.baseUrl.toString();
+                        if ( !src.database.isEmpty() )
+                        {
+                                text += " [" + src.database + "]";
+                        }
+                        return text + " — " + src.model;
+                }
+#endif
+                return source;
         }
 
 

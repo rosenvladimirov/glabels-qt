@@ -31,6 +31,10 @@
 #include "TextSemicolon.hpp"
 #include "TextSemicolonKeys.hpp"
 
+#if GLABELS_ODOO_MERGE
+#include "OdooRpc.hpp"
+#endif
+
 
 namespace glabels::merge
 {
@@ -92,6 +96,13 @@ namespace glabels::merge
                                  tr("Text: Semicolon Separated Values, keys on line 1"),
                                  FILE,
                                  &TextSemicolonKeys::create );
+
+#if GLABELS_ODOO_MERGE
+                registerBackend( OdooRpc::id(),
+                                 tr("Odoo: records via RPC (API key)"),
+                                 REMOTE,
+                                 &OdooRpc::create );
+#endif
         }
 
 

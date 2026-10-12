@@ -44,3 +44,19 @@ target_include_directories (Merge
 target_link_libraries (Merge
   Qt6::Core
 )
+
+#=====================================
+# Optional Odoo RPC backend (needs Qt6::Network)
+#=====================================
+if (TARGET Qt6::Network)
+  target_sources (Merge PRIVATE
+    OdooClient.cpp
+    OdooRpc.cpp
+  )
+  target_link_libraries (Merge
+    Qt6::Network
+  )
+  target_compile_definitions (Merge
+    PUBLIC GLABELS_ODOO_MERGE=1
+  )
+endif ()

@@ -91,6 +91,7 @@ namespace glabels::merge
         public:
                 virtual QStringList keys() const = 0;
                 virtual QString primaryKey() const = 0;
+                virtual QString errorString() const { return QString(); }
         protected:
                 virtual void open() = 0;
                 virtual void close() = 0;

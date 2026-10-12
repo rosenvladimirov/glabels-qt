@@ -16,7 +16,8 @@ void bind_merge(py::module_& m)
     py::enum_<Factory::SourceType>(m, "MergeSourceType")
         .value("NONE", Factory::NONE)
         .value("FIXED", Factory::FIXED)
-        .value("FILE", Factory::FILE);
+        .value("FILE", Factory::FILE)
+        .value("REMOTE", Factory::REMOTE);
 
     // ---- Record (dict-like) ----
     py::class_<Record>(m, "Record")

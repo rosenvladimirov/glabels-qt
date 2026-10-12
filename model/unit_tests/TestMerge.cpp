@@ -34,6 +34,11 @@
 
 #include "merge/Record.hpp"
 
+#if GLABELS_ODOO_MERGE
+#include "merge/OdooClient.hpp"
+#include "merge/OdooRpc.hpp"
+#endif
+
 #include <QDebug>
 
 
@@ -67,6 +72,9 @@ void TestMerge::factory_data()
         QTest::newRow( "TextColonKeys" ) << TextColonKeys::id() << "Text: Colon Separated Values, keys on line 1" << Factory::FILE << index++;
         QTest::newRow( "TextSemicolon" ) << TextSemicolon::id() << "Text: Semicolon Separated Values" << Factory::FILE << index++;
         QTest::newRow( "TextSemicolonKeys" ) << TextSemicolonKeys::id() << "Text: Semicolon Separated Values, keys on line 1" << Factory::FILE << index++;
+#if GLABELS_ODOO_MERGE
+        QTest::newRow( "OdooRpc" ) << OdooRpc::id() << "Odoo: records via RPC (API key)" << Factory::REMOTE << index++;
+#endif
 }
 
 
@@ -342,4 +350,105 @@ void TestMerge::record()
         QCOMPARE( record2.isSelected(), false );
         QVERIFY( record2.contains( "key" ) );
         QCOMPARE( record2["key"], QString( "val" ) );
+}
+
+
+void TestMerge::odooSource()
+{
+#if GLABELS_ODOO_MERGE
+        OdooSource src;
+        src.baseUrl  = QUrl( "https://erp.example.com:8069" );
+        src.database = "prod";
+        src.login    = "admin";
+        src.model    = "stock.lot";
+        src.fields   = QStringList{ "name", "product_id" };
+        src.domain   = R"([["name","=","A&B=C+D"],["product_id.default_code","ilike","PR 6030"]])";
+        src.order    = "name desc, id";
+        src.lang     = "bg_BG";
+        src.limit    = 25;
+
+        QString text = src.toString();
+        QVERIFY( !text.contains( "admin@" ) );
+
+        OdooSource back = OdooSource::fromString( text );
+        QCOMPARE( back.baseUrl.toString(), QString( "https://erp.example.com:8069" ) );
+        QCOMPARE( back.database, src.database );
+        QCOMPARE( back.login, src.login );
+        QCOMPARE( back.model, src.model );
+        QCOMPARE( back.fields, src.fields );
+        QCOMPARE( back.domain, src.domain );
+        QCOMPARE( back.order, src.order );
+        QCOMPARE( back.lang, src.lang );
+        QCOMPARE( back.limit, src.limit );
+        QVERIFY( back.isValid() );
+        QCOMPARE( back.keyLocation(), QString( "https://erp.example.com:8069#prod" ) );
+
+        // Defaults
+        OdooSource minimal = OdooSource::fromString( "https://erp.example.com/?model=res.partner" );
+        QVERIFY( minimal.isValid() );
+        QCOMPARE( minimal.domain, QString( "[]" ) );
+        QCOMPARE( minimal.limit, 80 );
+        QVERIFY( minimal.fields.isEmpty() );
+
+        QVERIFY( !OdooSource::fromString( "https://erp.example.com/" ).isValid() );
+
+        // Same server with or without trailing slash -> same stored key
+        OdooSource a = OdooSource::fromString( "https://erp.example.com/?model=res.partner" );
+        OdooSource b;
+        b.baseUrl = OdooSource::normalizedBaseUrl( QUrl( "https://erp.example.com" ) );
+        QCOMPARE( a.keyLocation(), b.keyLocation() );
+
+        // Sub-path installs keep their path
+        OdooSource sub = OdooSource::fromString( "https://host/odoo/?model=res.partner" );
+        QCOMPARE( sub.baseUrl.toString(), QString( "https://host/odoo" ) );
+#else
+        QSKIP( "Built without Qt6::Network" );
+#endif
+}
+
+
+void TestMerge::odooDomain()
+{
+#if GLABELS_ODOO_MERGE
+        QJsonArray domain;
+        QVERIFY( OdooRpc::parseDomain( "[]", domain ) );
+        QCOMPARE( domain.size(), 0 );
+
+        QVERIFY( OdooRpc::parseDomain( R"([["active","=",true]])", domain ) );
+        QCOMPARE( domain[0].toArray()[2].toBool(), true );
+
+        // Python literal as copied from Odoo
+        QVERIFY( OdooRpc::parseDomain( "[('active', '=', True), ('qty', '>', 0)]", domain ) );
+        QCOMPARE( domain.size(), 2 );
+        QCOMPARE( domain[0].toArray()[0].toString(), QString( "active" ) );
+        QCOMPARE( domain[0].toArray()[2].toBool(), true );
+
+        QVERIFY( !OdooRpc::parseDomain( "{\"a\": 1}", domain ) );
+        QVERIFY( !OdooRpc::parseDomain( "[[", domain ) );
+#else
+        QSKIP( "Built without Qt6::Network" );
+#endif
+}
+
+
+void TestMerge::odooValue()
+{
+#if GLABELS_ODOO_MERGE
+        // many2one -> display name
+        QCOMPARE( OdooClient::valueToString( QJsonArray{ 7, "MEC Product" }, "many2one" ), QString( "MEC Product" ) );
+        // empty many2one / char -> empty text
+        QCOMPARE( OdooClient::valueToString( false, "many2one" ), QString() );
+        QCOMPARE( OdooClient::valueToString( false, "char" ), QString() );
+        // boolean keeps False
+        QCOMPARE( OdooClient::valueToString( false, "boolean" ), QString( "False" ) );
+        QCOMPARE( OdooClient::valueToString( true, "boolean" ), QString( "True" ) );
+        // numbers
+        QCOMPARE( OdooClient::valueToString( 42, "integer" ), QString( "42" ) );
+        QCOMPARE( OdooClient::valueToString( 12.5, "float" ), QString( "12.5" ) );
+        // x2many ids
+        QCOMPARE( OdooClient::valueToString( QJsonArray{ 1, 2, 3 }, "many2many" ), QString( "1,2,3" ) );
+        QCOMPARE( OdooClient::valueToString( "Кирилица", "char" ), QString( "Кирилица" ) );
+#else
+        QSKIP( "Built without Qt6::Network" );
+#endif
 }

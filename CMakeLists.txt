@@ -155,6 +155,7 @@ if (BUILD_PYTHON_BINDINGS)
   endif ()
 else ()
   find_package (Qt6 6.2 REQUIRED COMPONENTS Concurrent Core Gui Widgets PrintSupport Xml Svg LinguistTools Test)
+  find_package (Qt6 6.2 QUIET COMPONENTS Network)
 endif ()
 
 if (WIN32)
