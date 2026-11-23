@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: macos-15
+          - os: macos-latest
             arch: arm64
           - os: macos-15-intel
             arch: x86_64
@@ -41,16 +41,17 @@ jobs:
         # minimum version of the bundle; build these two against our target.
         set -e
         mkdir -p deps && cd deps
-        curl -sL -o qrencode.tar.gz https://fukuchi.org/works/qrencode/qrencode-4.1.1.tar.gz
+        curl -fsSL -o qrencode.tar.gz \
+          https://github.com/fukuchi/libqrencode/archive/refs/tags/v4.1.1.tar.gz
         tar xzf qrencode.tar.gz
-        cmake -S qrencode-4.1.1 -B build-qrencode \
+        cmake -S libqrencode-4.1.1 -B build-qrencode \
           -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET \
           -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }} \
           -DWITH_TOOLS=NO -DWITH_TESTS=NO -DBUILD_SHARED_LIBS=ON
         cmake --build build-qrencode -j3
         sudo cmake --install build-qrencode
-        curl -sL -o zint.tar.gz https://downloads.sourceforge.net/project/zint/zint/2.15.0/zint-2.15.0-src.tar.gz
+        curl -fsSL -o zint.tar.gz https://downloads.sourceforge.net/project/zint/zint/2.15.0/zint-2.15.0-src.tar.gz
         tar xzf zint.tar.gz
         # Keep the default frontend: FindLibZint.cmake reads the version
         # from the installed zint command, zint.h no longer carries it.
@@ -60,6 +61,10 @@ jobs:
           -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }}
         cmake --build build-zint -j3
         sudo cmake --install build-zint
+        # Fail here rather than silently building an app without barcodes
+        test -f /usr/local/lib/libqrencode.dylib
+        test -f /usr/local/lib/libzint.dylib
+        command -v zint
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
@@ -69,13 +74,19 @@ jobs:
         archives: 'qtbase qtsvg qttools qttranslations qtdeclarative'
 
     - name: Configure CMake
-      run: >
-        cmake -B build
-        -DCMAKE_BUILD_TYPE=Release
-        -DCMAKE_OSX_DEPLOYMENT_TARGET=${{ env.MACOSX_DEPLOYMENT_TARGET }}
-        -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }}
-        -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/staging
-        -S ${{ github.workspace }}
+      shell: bash
+      run: |
+        set -o pipefail
+        cmake -B build \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET \
+          -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }} \
+          -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/staging \
+          -S ${{ github.workspace }} 2>&1 | tee cmake-config.log
+        # The barcode backends are optional, so a missing library is only a
+        # line in the configure output; the app would ship without them.
+        grep -E '^-- (qrencode|libzint) \(optional\)' cmake-config.log
+        ! grep -E '^-- (qrencode|libzint) \(optional\)\.+ No\.' cmake-config.log
 
     - name: Build
       run: cmake --build build --config Release -j3
