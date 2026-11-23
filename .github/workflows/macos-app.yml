@@ -44,7 +44,9 @@ jobs:
         curl -fsSL -o qrencode.tar.gz \
           https://github.com/fukuchi/libqrencode/archive/refs/tags/v4.1.1.tar.gz
         tar xzf qrencode.tar.gz
+        # qrencode asks for CMake 3.1; CMake 4 refuses anything below 3.5
         cmake -S libqrencode-4.1.1 -B build-qrencode \
+          -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
           -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET \
           -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }} \
