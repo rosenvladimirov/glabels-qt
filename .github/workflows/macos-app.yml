@@ -7,20 +7,16 @@ on:
 
 jobs:
   build-app:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: macos-latest
-            arch: arm64
-          - os: macos-15-intel
-            arch: x86_64
-
-    runs-on: ${{ matrix.os }}
+    # The arm64 runners are never handed to this repository: the job waits
+    # fifteen minutes and is cancelled. The Intel runner starts at once and
+    # Qt for macOS is universal, so one universal bundle is built there and
+    # runs natively on both processors.
+    runs-on: macos-15-intel
 
     env:
       # Oldest macOS the bundle is expected to run on (Qt 6.8 supports 12+)
       MACOSX_DEPLOYMENT_TARGET: '12.0'
+      OSX_ARCHS: 'x86_64;arm64'
       # qrencode and zint are built from source and land under /usr/local
       PKG_CONFIG_PATH: '/usr/local/lib/pkgconfig'
 
@@ -34,11 +30,12 @@ jobs:
       shell: bash
       run: brew install pkgconf librsvg
 
-    - name: Build optional barcode libraries from source
+    - name: Build the barcode libraries from source, universal and static
       shell: bash
       run: |
-        # Homebrew bottles target the runner's macOS, which would raise the
-        # minimum version of the bundle; build these two against our target.
+        # Homebrew bottles are single-architecture and target the runner's
+        # macOS; from source they can be built for both processors and for
+        # our minimum version. Static, so the bundle has nothing to deploy.
         set -e
         mkdir -p deps && cd deps
         curl -fsSL -o qrencode.tar.gz \
@@ -49,24 +46,29 @@ jobs:
           -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
           -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET \
-          -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }} \
-          -DWITH_TOOLS=NO -DWITH_TESTS=NO -DBUILD_SHARED_LIBS=ON
+          -DCMAKE_OSX_ARCHITECTURES="$OSX_ARCHS" \
+          -DWITH_TOOLS=NO -DWITH_TESTS=NO -DBUILD_SHARED_LIBS=OFF
         cmake --build build-qrencode -j3
         sudo cmake --install build-qrencode
         curl -fsSL -o zint.tar.gz https://downloads.sourceforge.net/project/zint/zint/2.15.0/zint-2.15.0-src.tar.gz
         tar xzf zint.tar.gz
-        # Keep the default frontend: FindLibZint.cmake reads the version
-        # from the installed zint command, zint.h no longer carries it.
+        # The frontend stays on: FindLibZint.cmake reads the version from the
+        # installed zint command, zint.h no longer carries it. PNG and Qt are
+        # off, so the static library pulls in nothing of its own.
         cmake -S zint-2.15.0-src -B build-zint \
           -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET \
-          -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }}
+          -DCMAKE_OSX_ARCHITECTURES="$OSX_ARCHS" \
+          -DZINT_SHARED=OFF -DZINT_STATIC=ON \
+          -DZINT_USE_PNG=OFF -DZINT_USE_QT=OFF
         cmake --build build-zint -j3
         sudo cmake --install build-zint
         # Fail here rather than silently building an app without barcodes
-        test -f /usr/local/lib/libqrencode.dylib
-        test -f /usr/local/lib/libzint.dylib
+        test -f /usr/local/lib/libqrencode.a
+        test -f /usr/local/lib/libzint.a
         command -v zint
+        lipo -archs /usr/local/lib/libzint.a
+        lipo -archs /usr/local/lib/libqrencode.a
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
@@ -75,6 +77,16 @@ jobs:
         install-deps: 'true'
         archives: 'qtbase qtsvg qttools qttranslations qtdeclarative'
 
+    - name: Check that Qt carries both architectures
+      shell: bash
+      run: |
+        set -e
+        archs=$(lipo -archs "$QT_ROOT_DIR/lib/QtCore.framework/QtCore")
+        echo "Qt: $archs"
+        # A single-architecture Qt would quietly reduce the bundle to one
+        echo "$archs" | grep -q x86_64
+        echo "$archs" | grep -q arm64
+
     - name: Configure CMake
       shell: bash
       run: |
@@ -82,7 +94,7 @@ jobs:
         cmake -B build \
           -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET \
-          -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }} \
+          -DCMAKE_OSX_ARCHITECTURES="$OSX_ARCHS" \
           -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/staging \
           -S ${{ github.workspace }} 2>&1 | tee cmake-config.log
         # The barcode backends are optional, so a missing library is only a
@@ -123,7 +135,7 @@ jobs:
         mkdir -p "$APP/Contents/Resources/share"
         cp -R staging/share/glabels-qt "$APP/Contents/Resources/share/"
         cp glabels.icns "$APP/Contents/Resources/"
-        VERSION=$(head -1 build/VERSION.txt | tr -d ' ')
+        VERSION=$(head -1 build/VERSION.txt | tr -d ' ' | tr '/' '-')
         echo "VERSION=$VERSION" >> $GITHUB_ENV
         cat > "$APP/Contents/Info.plist" <<PLIST
         <?xml version="1.0" encoding="UTF-8"?>
@@ -163,13 +175,19 @@ jobs:
           -executable=gLabels.app/Contents/MacOS/glabels-batch-qt \
           -always-overwrite -verbose=1
         # No Developer ID available: ad-hoc signature, required for arm64 to run at all
-        codesign --force --deep --sign - --timestamp=none gLabels.app
+        codesign --force --deep --sign - gLabels.app
         codesign --verify --deep --strict --verbose=2 gLabels.app
 
-    - name: Verify the bundle carries its own libraries
+    - name: Verify the bundle
       shell: bash
       run: |
         set -e
+        for exe in glabels-qt glabels-batch-qt; do
+          archs=$(lipo -archs "gLabels.app/Contents/MacOS/$exe")
+          echo "$exe: $archs"
+          echo "$archs" | grep -q x86_64
+          echo "$archs" | grep -q arm64
+        done
         leaked=0
         while read -r f; do
           if file "$f" | grep -q "Mach-O"; then
@@ -189,7 +207,8 @@ jobs:
         set -e
         ./gLabels.app/Contents/MacOS/glabels-qt --Version
         # Rendering a label proves the templates and translations are found
-        # inside Contents/Resources (FileUtil would qFatal otherwise).
+        # inside Contents/Resources (FileUtil would qFatal otherwise) and
+        # that every library the executables load is really in the bundle.
         ./gLabels.app/Contents/MacOS/glabels-batch-qt -o smoke.pdf test-data/simple-shapes.glabels
         ls -l smoke.pdf
         [ -s smoke.pdf ]
@@ -201,7 +220,7 @@ jobs:
         mkdir -p dmgroot
         cp -R gLabels.app dmgroot/
         ln -s /Applications dmgroot/Applications
-        DMG=glabels-qt-${VERSION}-macos-${{ matrix.arch }}.dmg
+        DMG=glabels-qt-${VERSION}-macos-universal.dmg
         hdiutil create -volname "gLabels ${VERSION}" -srcfolder dmgroot \
           -fs HFS+ -format UDZO -ov "$DMG"
         hdiutil verify "$DMG"
@@ -210,5 +229,5 @@ jobs:
     - name: Upload DMG
       uses: actions/upload-artifact@v4
       with:
-        name: glabels-macos-${{ matrix.arch }}
+        name: glabels-macos-universal
         path: glabels-qt-*.dmg
