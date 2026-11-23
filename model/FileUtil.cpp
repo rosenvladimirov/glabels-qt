@@ -54,6 +54,22 @@ namespace glabels::model
                         return dir;
                 }
 
+                // In a macOS application bundle the executable lives in Contents/MacOS
+                // and the data in Contents/Resources, so the "bin/../share" layout below
+                // does not apply.
+#ifdef Q_OS_MACOS
+                {
+                        QDir bundleDir( QApplication::applicationDirPath() );
+                        if ( (bundleDir.dirName() == "MacOS") &&
+                             bundleDir.cdUp() && bundleDir.cd( "Resources" ) &&
+                             bundleDir.cd( "share" ) && bundleDir.cd( "glabels-qt" ) &&
+                             bundleDir.cd( "templates" ) )
+                        {
+                                return bundleDir;
+                        }
+                }
+#endif
+
                 // Next, try finding templates directory relative to application path
                 dir.cd( QApplication::applicationDirPath() );
                 if ( (dir.dirName() == "bin") &&
@@ -97,6 +113,22 @@ namespace glabels::model
         QDir FileUtil::translationsDir()
         {
                 QDir dir;
+
+                // In a macOS application bundle the executable lives in Contents/MacOS
+                // and the data in Contents/Resources, so the "bin/../share" layout below
+                // does not apply.
+#ifdef Q_OS_MACOS
+                {
+                        QDir bundleDir( QApplication::applicationDirPath() );
+                        if ( (bundleDir.dirName() == "MacOS") &&
+                             bundleDir.cdUp() && bundleDir.cd( "Resources" ) &&
+                             bundleDir.cd( "share" ) && bundleDir.cd( "glabels-qt" ) &&
+                             bundleDir.cd( "translations" ) )
+                        {
+                                return bundleDir;
+                        }
+                }
+#endif
 
                 // First, try finding translations directory relative to application path
                 dir.cd( QApplication::applicationDirPath() );
